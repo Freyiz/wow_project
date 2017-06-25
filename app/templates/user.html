@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% import "_macros.html" as macros %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block page_content %}
+    <div class="jumbotron">
+        <img class="user-faction" {% if user.wow_faction == '联盟' %}src="../static/wow/logo/alliance.png"{% elif user.wow_faction == '部落' %}src="../static/wow/logo/horde.png"{% endif %}>
+        {% if user.avatar %}
+            <img id="avatar" src="{{ user.avatar }}" width="100" height="100" class="img-rounded profile-thumbnail">
+        {% else %}
+            <img src="{{ user.wow_avatar }}" width="100" height="100" class="img-rounded profile-thumbnail">
+        {% endif %}
+        <div class="profile-header sixty">{% if user.name %}{{ user.name }}{% endif %}&nbsp;{{ user.username }}{% if user.is_following(current_user) and current_user != user %}&nbsp;<span class="twenty">, 你的追随者</span>{% endif %}</div>
+        <p>
+            {{ user.wow_faction }}&ensp;{{ user.wow_race }}&ensp;{{ user.wow_class }}&nbsp;
+            {% if user.location %}
+                <a class="{{ user.wow_faction_en() }}" href="http://baike.baidu.com/item/{{ user.location }}" target="_blank">{{ user.location }}</a>
+            {% endif %}
+        </p>
+        {% if user.about_me %}<p class="user-about-me">{{ user.about_me }}</p>{% endif %}
+        <p>
+            {% if current_user.can(Permission.FOLLOW) and current_user != user %}
+                <a class="btn bg-primary" onclick="follow_toggle()">
+                    <span id="follow_icon"{% if current_user.is_following(user) %} hidden{% endif %}><i class="fa fa-heart"></i></span>
+                    <span id="is_following">{% if current_user.is_following(user) %}取消追随{% else %}追随{% endif %}</span>
+                </a>
+            {% endif %} 追随了
+            <a class="{{ user.wow_faction_en() }}"{% if user.followed.count() > 1 %} href="{{ url_for('.followed_by', username=user.username) }}"{% endif %}>
+                {{ user.followed.count() - 1 }}
+            </a> 人 | 追随者
+            <a id="followers" class="{{ user.wow_faction_en() }}"{% if user.followers.count() > 1 %} href="{{ url_for('.followers', username=user.username) }}"{% endif %}>
+                {{ user.followers.count() - 1 }}
+            </a> 人
+        </p>
+            {% if current_user.is_administrator() and user.email %}
+            <p><a class="{{ user.wow_faction_en() }}" href="{{ email_address }}" target="_blank">{{ user.email }}</a></p>
+        {% endif %}
+        <p>出生于 {{ moment(user.member_since).format('L') }} | 上次在线 {{ moment(user.last_seen).fromNow() }}</p>
+        <p>
+            {% if user == current_user %}
+                <a class="btn btn-info" href="{{ url_for('.edit_profile') }}">变更信息</a>
+                <a class="btn btn-warning" href="{{ url_for('.promote', id=user.id) }}">{% if user.role.name == '民众' %}晋升之路{% else %}忏悔之路{% endif %}</a>
+            {% endif %}
+            {% if current_user.is_administrator() %}
+                <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">变更信息-官员</a>
+            {% endif %}
+        </p>
+    </div>
+    {% if posts %}
+        <h1 class="str-inline">{{ user.username }}&nbsp;的公告</h1>{% if user == current_user %}&ensp;&ensp;<a href="{{ url_for('main.made_post') }}" class="fa fa-plus fa-2x {{ user.wow_faction_en() }}"></a>{% endif %}
+        {% include '_posts.html' %}
+        {% if pagination.pages > 1 %}
+            <div class="my-pagination">
+                {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
+                <form method="post" class="form" role="form">
+                    {{ form_jump.hidden_tag() }}
+                    <div class="form-group">{{ form_jump.page_num(class="page-num " + current_user.wow_faction_en()) }}{{ form_jump.submit(class="jump " + current_user.wow_faction_en(), disabled='disabled') }}</div>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='text_toggle.js') }}"></script>
+    <script type=text/javascript>
+        function follow_toggle() {
+            $.getJSON($SCRIPT_ROOT + '/follow-toggle', {
+                id: {{ user.id }}
+            }, function(data) {
+                $("#followers").text(data.result).attr('href', data.href);
+                $("#is_following").text(data.text);
+                if (data.text === '追随') {
+                    $("#follow_icon").show();
+                    document.getElementById('avatar').show();
+                } else {
+                    $("#follow_icon").hide();
+                }
+            });
+        }
+    </script>
+    <script id="jump" src="{{ url_for('static', filename='jump.js') }}" onload="jump({{ pages }})" arg="{{ current_user.wow_faction_color() }}"></script>
+{% endblock %}

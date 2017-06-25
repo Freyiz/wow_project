@@ -1,0 +1,1491 @@
+body {
+    background-image: url("wow/bg/FS9EDR75BL0H1473302337244.jpg");
+    color: #ffffff;
+}
+.my-body {
+    min-height: 600px;
+}
+a {
+    cursor: pointer;
+    color: #c4c4c4;
+}
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline: none;
+    color: #ffffff;
+}
+a.fa-heart.default {
+    cursor: default;
+}
+a.btn {
+    border: none;
+    color: #ffffff;
+}
+a.btn-info {
+    background-color: rgba(42, 171, 210, 0.7);
+}
+a.btn-warning {
+    background-color: rgba(235, 147, 22, 0.7);
+}
+a.btn:hover,
+a.btn:focus {
+    color: #ffffff;
+    outline: none;
+}
+a.text-toggle {
+    color: #ffffff;
+}
+a.text-toggle:hover {
+    color: #c4c4c4;
+}
+a.to-top {
+    position:fixed;
+    bottom: 40px;
+    right: 50px;
+    color: rgba(196, 196, 196, 0.5);
+}
+a.to-top:hover {
+    color: rgb(196, 196, 196);
+}
+a.alliance,
+span.alliance,
+.right-top.alliance a,
+.register.alliance a,
+.alliance a.active {
+    color: #0078FF;
+    border-color: #0078FF;
+}
+a.alliance:hover,
+a.alliance:focus,
+.right-top.alliance a:hover,
+.right-top.alliance a:focus,
+div.alliance a:hover,
+div.alliance a:focus {
+    color: rgba(0, 120, 255, 0.5);
+}
+a.horde,
+span.horde,
+.right-top.horde a,
+.register.horde a,
+.horde a.active {
+    color: #B30000;
+}
+a.horde:hover,
+a.horde:focus,
+.right-top.horde a:hover,
+.right-top.horde a:focus,
+div.horde a:hover,
+div.horde a:focus {
+    color: rgba(179, 0, 0, 0.5);
+}
+a.neutral,
+span.neutral,
+.right-top.neutral a,
+.login.neutral a,
+.register.neutral a,
+.neutral a.active {
+    color: #74ff41;
+}
+a.neutral:hover,
+a.neutral:focus,
+.right-top.neutral a:hover,
+.right-top.neutral a:focus,
+div.neutral a:hover,
+div.neutral a:focus {
+    color: rgba(116, 255, 65, 0.5);
+}
+#warrior span,
+a.warrior {
+    color: #C79C6E;
+}
+#paladin span,
+a.paladin {
+    color: #F58CBA;
+}
+#death-knight span,
+a.death-knight {
+    color: #C41F3B;
+}
+#shaman span,
+a.shaman {
+    color: #0070DE;
+}
+#hunter span,
+a.hunter {
+    color: #ABD473;
+}
+#rogue span,
+a.rogue {
+    color: #FFF569;
+}
+#druid span,
+a.druid {
+    color: #FF7D0A;
+}
+#monk span,
+a.monk {
+    color: #00FF96;
+}
+#demon-hunter span,
+a.demon-hunter {
+    color: #A330C9;
+}
+#mage span,
+a.mage {
+    color: #69CCF0;
+}
+#warlock span,
+a.warlock {
+    color: #9482C9;
+}
+#priest span,
+a.priest {
+    color: #FFFFFF;
+}
+a.warrior:hover,
+a.warrior:focus,
+#warrior a span:hover {
+    color: rgba(199, 156, 110, 0.6);
+}
+a.paladin:hover,
+a.paladin:focus,
+#paladin a span:hover {
+    color: rgba(245, 140, 186, 0.6);
+}
+a.death-knight:hover,
+a.death-knight:focus,
+#death-knight a span:hover {
+    color: rgba(196, 31, 59, 0.6);
+}
+a.shaman:hover,
+a.shaman:focus,
+#shaman a span:hover {
+    color: rgba(0, 112, 222, 0.6);
+}
+a.hunter:hover,
+a.hunter:focus,
+#hunter a span:hover {
+    color: rgba(171, 212, 115, 0.6);
+}
+a.rogue:hover,
+a.rogue:focus,
+#rogue a span:hover {
+    color: rgba(255, 245, 105, 0.6);
+}
+a.druid:hover,
+a.druid:focus,
+#druid a span:hover {
+    color: rgba(255, 125, 10, 0.6);
+}
+a.monk:hover,
+a.monk:focus,
+#monk a span:hover {
+    color: rgba(0, 255, 150, 0.6);
+}
+a.demon-hunter:hover,
+a.demon-hunter:focus,
+#demon-hunter a span:hover {
+    color: rgba(163, 48, 201, 0.6);
+}
+a.mage:hover,
+a.mage:focus,
+#mage a span:hover {
+    color: rgba(105, 204, 240, 0.6);
+}
+a.warlock:hover,
+a.warlock:focus,
+#warlock a span:hover {
+    color: rgba(148, 130, 201, 0.6);
+}
+a.priest:hover,
+a.priest:focus,
+#priest a span:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+li.warrior.active span {
+    background-color: rgba(199, 156, 110, 0.5);
+    box-shadow: 0 0 10px 5px rgba(199, 156, 110, 0.5);
+}
+li.paladin.active span {
+    background-color: rgba(245, 140, 186, 0.5);
+    box-shadow: 0 0 10px 5px rgba(245, 140, 186, 0.5);
+}
+li.death-knight.active span {
+    background-color: rgba(196, 31, 59, 0.5);
+    box-shadow: 0 0 10px 5px rgba(196, 31, 59, 0.5);
+}
+li.shaman.active span {
+    background-color: rgba(0, 112, 222, 0.5);
+    box-shadow: 0 0 10px 5px rgba(0, 112, 222, 0.5);
+}
+li.hunter.active span {
+    background-color: rgba(171, 212, 115, 0.5);
+    box-shadow: 0 0 10px 5px rgba(171, 212, 115, 0.5);
+}
+li.rogue.active span {
+    background-color: rgba(255, 245, 105, 0.5);
+    box-shadow: 0 0 10px 5px rgba(255, 245, 105, 0.5);
+}
+li.druid.active span {
+    background-color: rgba(255, 125, 10, 0.5);
+    box-shadow: 0 0 10px 5px rgba(255, 125, 10, 0.5);
+}
+li.monk.active span {
+    background-color: rgba(0, 255, 150, 0.5);
+    box-shadow: 0 0 10px 5px rgba(0, 255, 150, 0.5);
+}
+li.demon-hunter.active span {
+    background-color: rgba(163, 48, 201, 0.5);
+    box-shadow: 0 0 10px 5px rgba(163, 48, 201, 0.5);
+}
+li.mage.active span {
+    background-color: rgba(105, 204, 240, 0.5);
+    box-shadow: 0 0 10px 5px rgba(105, 204, 240, 0.5);
+}
+li.warlock.active span {
+    background-color: rgba(148, 130, 201, 0.5);
+    box-shadow: 0 0 10px 5px rgba(148, 130, 201, 0.5);
+}
+li.priest.active span {
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+}
+#warrior {
+    box-shadow: 0 0 10px 5px rgba(199, 156, 110, 0.5);
+    background-image: url("wow/class/warrior_KG94GCECLZOC1472067152655.jpg");
+}
+#paladin {
+    box-shadow: 0 0 10px 5px rgba(245, 140, 186, 0.5);
+    background-image: url("wow/class/paladin_GCV0WDT6NSY31472067094199.jpg");
+}
+#death-knight {
+    box-shadow: 0 0 10px 5px rgba(196, 31, 59, 0.5);
+    background-image: url("wow/class/death-knight_JEPSHRYWFN511472067009474.jpg");
+}
+#shaman {
+    box-shadow: 0 0 10px 5px rgba(0, 112, 222, 0.5);
+    background-image: url("wow/class/shaman_FX4QBWSL0WD91472067127513.jpg");
+}
+#hunter {
+    box-shadow: 0 0 10px 5px rgba(171, 212, 115, 0.5);
+    background-image: url("wow/class/hunter_ZLKEGYUFC1KA1472067042402.jpg");
+}
+#rogue {
+    box-shadow: 0 0 10px 5px rgba(255, 245, 105, 0.5);
+    background-image: url("wow/class/rogue_BODUXAZVLS0Z1472067116019.jpg");
+}
+#druid {
+    box-shadow: 0 0 10px 5px rgba(255, 125, 10, 0.5);
+    background-image: url("wow/class/druid_RQM7BM05E25J1472067032562.jpg");
+}
+#monk {
+    box-shadow: 0 0 10px 5px rgba(0, 255, 150, 0.5);
+    background-image: url("wow/class/monk_H3TKRNNF25HP1472067083466.jpg");
+}
+#demon-hunter {
+    box-shadow: 0 0 10px 5px rgba(163, 48, 201, 0.5);
+    background-image: url("wow/class/demon-hunter_O38LI3APUQ9Z1472067020823.jpg");
+}
+#mage {
+    box-shadow: 0 0 10px 5px rgba(105, 204, 240, 0.5);
+    background-image: url("wow/class/mage_MN0CI55XOJVQ1472067069230.jpg");
+}
+#warlock {
+    box-shadow: 0 0 10px 5px rgba(148, 130, 201, 0.5);
+    background-image: url("wow/class/warlock_T1AQ4ZXXH7ZR1472067141517.jpg");
+}
+#priest {
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+    background-image: url("wow/class/priest_YHSWPUPMDWY21472067106229.jpg");
+}
+
+#carousel-example-generic.carousel {
+    left: -10%;
+    width: 120%;
+}
+
+@media screen and (max-width: 1300px) {
+    .carousel-inner {
+        overflow: visible;
+    }
+}
+.carousel-inner.item > img {
+    width: 100%;
+}
+.carousel-control span:first-child {
+    position: absolute;
+    width: 200px;
+    top: 72%;
+}
+.carousel-control .glyphicon-chevron-left,
+.carousel-control .glyphicon-chevron-right {
+    top: 73%;
+}
+.carousel-control .text-left {
+    left: 65%;
+}
+.carousel-control .text-right {
+    right: 65%;
+}
+
+.carousel-caption {
+    right: 5%;
+    top: 5%;
+    left: 5%;
+    color: #ffffff;
+    padding: 5px;
+}
+.carousel-caption p {
+    font-size: 110%;
+}
+.carousel-caption-left,
+.carousel-caption-right {
+    float: left;
+    width: 50%;
+    margin-top: -30px;
+}
+.carousel-caption-left img {
+    margin-right: 20%;
+    margin-bottom: -5%;
+    height: 150px;
+    float: right;
+}
+.carousel-caption-right img {
+    margin-left: 20%;
+    margin-bottom: -5%;
+    height: 150px;
+    float: left;
+}
+.carousel-caption-left h1 {
+    text-align: left;
+    margin-top: 110px;
+    padding: 0 20% 0 47%;
+}
+.carousel-caption-right h1 {
+    text-align: left;
+    margin-top: 110px;
+    padding: 0 47% 0 20%;
+}
+.carousel-caption-left span,
+.carousel-caption-right span {
+    font-size: 50%;
+}
+.carousel-caption > div > h2 {
+    margin-top: -4%;
+    padding: 0;
+}
+.carousel-caption-item {
+    float: left;
+    width: 32%;
+}
+.carousel-caption-item .fa-volume-up:hover {
+    cursor: pointer;
+}
+.carousel-caption-item .fa-check {
+    color: #008000;
+}
+.carousel-caption-item.orc,
+.carousel-caption-item.undead,
+.carousel-caption-item.human,
+.carousel-caption-item.dwarf {
+    margin-top: 8%;
+}
+.carousel-caption-item img {
+    float: left;
+    width: 60%;
+    margin: -10% 0 0 0;
+
+}
+.carousel-caption-item div {
+    padding: 0 10px 0 170px;
+    text-align: left;
+}
+.carousel-caption-item div h3 {
+    color: #FFD700;
+}
+.carousel-caption-item.orc,
+.carousel-caption-item.pandaren-male,
+.carousel-caption-item.pandaren-female,
+.carousel-caption-item.human {
+    margin-left: 17%;
+}
+.carousel-caption-item.tauren,
+.carousel-caption-item.night-elf {
+    margin-left: 2%;
+    clear: both;
+}
+.carousel-caption-item.goblin,
+.carousel-caption-item.undead,
+.carousel-caption-item.worgen,
+.carousel-caption-item.dwarf {
+    width: 39%;
+}
+.carousel-caption-item.orc img,
+.carousel-caption-item.pandaren-male img,
+.carousel-caption-item.pandaren-female img,
+.carousel-caption-item.goblin img,
+.carousel-caption-item.blood-elf img,
+.carousel-caption-item.dwarf img,
+.carousel-caption-item.worgen img,
+.carousel-caption-item.undead img,
+.carousel-caption-item.human img {
+    width: 50%;
+}
+.carousel-caption-item.orc img {
+    margin-top: -20%;
+}
+.carousel-caption-item.pandaren-male img,
+.carousel-caption-item.pandaren-female img {
+    margin: -10% 0 0 -8%;
+}
+.carousel-caption-item.goblin img {
+    margin-top: 0;
+}
+.carousel-caption-item.blood-elf img {
+    margin-top: -13%;
+    margin-bottom: -6%;
+}
+.carousel-caption-item.troll img {
+    margin-top: -5%;
+}
+.carousel-caption-item.gnome img,
+.carousel-caption-item.draenei img {
+    width: 45%;
+    margin-top: -5%;
+}
+.carousel-caption-item.human img {
+    margin-top: -15%;
+}
+.carousel-caption-item.dwarf img {
+    margin-top: 0;
+}
+
+.carousel-caption .current-class {
+    font-size: 30px;
+    margin: -20px 0;
+}
+.carousel-caption .nav-pills {
+    margin: 0 0 20px 5px;
+    width: 100%;
+}
+.carousel-caption .nav-pills li {
+    margin: 20px;
+    width: 5%;
+}
+.carousel-caption .nav-pills li.active a,
+.carousel-caption .tab-pane:first-child img:hover,
+.carousel-caption .nav-pills a:hover,
+.carousel-caption .nav-pills a:focus {
+    background-color: transparent;
+    -webkit-transform:scale(1.5,1.5);
+    -moz-transform:scale(1.5,1.5);
+    transform:scale(1.5,1.5);
+}
+.carousel-caption .nav-pills img {
+    height: 100px;
+    margin-left: -95%;
+}
+.carousel-caption .nav-pills span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: -17%;
+    border-radius: 2px;
+    padding: 0 1px;
+    color: #ffffff;
+}
+.carousel-caption .tab-pane {
+    height: 750px;
+    margin-top: 28px;
+    background-size: cover;
+    border-radius: 10px;
+    position: relative;
+}
+.carousel-caption .tab-pane > img {
+    position: absolute;
+    width: 40%;
+    right: 5%;
+    top: 10%;
+}
+.carousel-caption .tab-pane:first-child img {
+    width: 10%;
+    margin: -1%;
+}
+.to-class,
+.carousel-caption .tab-pane .choose {
+    top: 0;
+    position: absolute;
+    font-size: 30px;
+    width: 100%;
+    left: 0;
+}
+.tab-pane .fa-ban {
+    margin: 5px 0 0 -45px;
+}
+.carousel-caption .tab-pane .choose.zeroth {
+    z-index: 1000;
+    color: grey;
+}
+.class-desc {
+    float: left;
+    width: 60%;
+    text-align: left;
+    padding: 50px;
+}
+.carousel-caption .tab-pane:first-child .class-desc {
+    font-size: 120%;
+}
+.class-desc h3 {
+    color: #FFD700;
+}
+.class-desc span {
+    font-weight: bold;
+    padding-right: 10px;
+    color: #FFD700;
+}
+
+.carousel-caption p.form-group {
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.carousel-caption .form-group {
+    left: 37%;
+    width: 26%;
+    position: relative;
+}
+.carousel-caption .form-control {
+    border-radius: 2px;
+    border: solid 1px #c4c4c4;
+    background-color: rgba(0, 0, 0, 0);
+    color: #ffffff;
+}
+.carousel-caption .form-control:hover {
+    border-color: #ffffff;
+}
+.alliance .form-group img:hover,
+.alliance .form-control:focus {
+    border-color: #0078FF;
+    box-shadow: 0 0 10px 0 rgba(0, 120, 255, 0.5);
+}
+.horde .form-group img:hover,
+.horde .form-control:focus {
+    border-color: #B30000;
+    box-shadow: 0 0 10px 0 rgba(179, 0, 0, 0.5);
+}
+.neutral .form-group img:hover,
+.neutral .form-control:focus {
+    border-color: #74ff41;
+    box-shadow: 0 0 10px 0 rgba(116, 255, 65, 0.5);
+}
+.carousel-caption .help-block {
+    text-align: left;
+    color: #FF2117;
+    left: 37%;
+    width: 25%;
+    position: relative;
+    margin: -10px 0 10px 0;
+}
+.carousel-caption .clause {
+    position: absolute; left: 0;
+}
+.carousel-caption .clause-text {
+    margin: -10px 0 0 -10px;
+}
+.carousel-caption .control-label {
+    position: absolute;
+    left: 5%;
+}
+.carousel-caption .form-group img {
+    float: left;
+    border-radius: 2px;
+    border: solid 1px #c4c4c4;
+}
+.carousel-caption .form-group .btn {
+    font-size: 18px;
+    position: relative;
+    background-image: url("wow/bg/alliance_horde.jpg");
+    background-size: cover;
+}
+.wow-clause {
+    width: 40%;
+    left: 30%;
+    top: 15%;
+    position: absolute;
+    font-size: 20px;
+}
+.wow-clause h1 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.wow-clause p {
+    text-indent: 42px;
+    line-height: 50px;
+}
+
+.promote {
+    position: relative;
+    width: 1150px;
+    height: 625px;
+    left: 100px;
+}
+.promote > div {
+    width: 1150px;
+    height: 625px;
+    background-size: cover;
+    position: absolute;
+}
+.black-screen {
+    background-color: #000000;
+}
+.goblin-single {
+      background-image: url("wow/bg/IOP5IDAB9BKE1478774800730.jpg");
+}
+.repatriate {
+    background-image: url("wow/race/goblin_EUJII7FLTTXO1472070147418.jpg");
+}
+.housekeeper {
+    background-image: url("wow/bg/housekeeper.jpg");
+}
+.discuss {
+    background-image: url("wow/bg/93HFDC1R6DNF1485411349169.jpg");
+}
+.envoy {
+    background-image: url("wow/bg/7X1IOV4M65731472071198148.jpg");
+}
+.baine {
+    background-image: url("wow/race/tauren_VS2D3WA2WH5N1472070242923.jpg");
+}
+.lich-king {
+    background-image: url("wow/hero/阿尔萨斯.jpg");
+}
+.promote .btn:hover {
+    color: #ffffff;
+}
+.promote .choose {
+    color: #FFD700;
+}
+.promote .choose:hover {
+    color: rgba(255, 215, 0, 0.5);
+}
+.promote .choose.right {
+    float: right;
+}
+.promote > div > div {
+    border-radius: 10px;
+    width: 380px;
+    padding: 10px 15px;
+    font-size: 20px;
+    position: absolute;
+    text-align: left;
+    background-color: rgba(66, 66, 66, 0.71);
+}
+.promote > div > div:before {
+    content:"";
+    border-width:10px 15px;
+    position:absolute;
+    top: 20%;
+    left: -30px;
+    border-style:solid;
+}
+.promote > div > .bottom:before {
+    border-width:15px 10px;
+    bottom: -30px;
+    top: auto;
+    right: 20%;
+    left: auto;
+    border-color: rgba(66, 66, 66, 0.71) transparent transparent;
+}
+.promote > div > .right:before {
+    left: auto;
+    right: -30px;
+    border-color: transparent  transparent transparent rgba(66, 66, 66, 0.71);
+}
+.promote > div > .left:before {
+    border-color: transparent rgba(66, 66, 66, 0.71) transparent transparent;
+}
+.promote > div > .outside {
+    margin: 2% 0 0 5%;
+    width: 300px;
+}
+.promote > div > .outside-right {
+    margin: 2% 0 0 69%;
+    width: 300px;
+}
+.promote-start {
+    font-size: 20px;
+}
+.promote-start h1 {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+}
+.promote-start p {
+    text-indent: 42px;
+    width: 50%;
+    margin: 3% 0 0 25%;
+    line-height: 50px;
+}
+.promote-start .btn {
+    background-color: rgba(72, 69, 71, 0.5);
+    border-radius: 4px;
+    height: 55px;
+    font-size: 30px;
+    color: #c4c4c4;
+    letter-spacing: 5px;
+    margin: 5% 0 0 45%;
+    padding-left: 20px;
+}
+.goblin-single div {
+    margin: 12% 0 0 8%;
+}
+.repatriate .zeroth {
+    margin: 20% 0 0 10%;
+    width: 330px;
+}
+.repatriate .first {
+    margin: 20% 0 0 68%;
+    width: 200px;
+}
+.repatriate .second {
+    margin: 15% 0 0 40%;
+    width: 60px;
+}
+.repatriate .third {
+    margin: 23% 0 0 69%;
+    width: 60px;
+}
+.repatriate .fourth {
+    margin: 23% 0 0 38%;
+    width: 60px;
+}
+.repatriate .fifth {
+    margin: 15% 0 0 67%;
+    width: 60px;
+}
+.repatriate .sixth {
+    margin: 10% 0 0 46%;
+    width: 60px;
+}
+.repatriate .seventh {
+    margin: 10% 0 0 58%;
+    width: 90px;
+}
+.housekeeper div {
+    margin: 10% 0 0 58%;
+}
+.discuss .first {
+    margin: 15% 0 0 3%;
+    width: 250px;
+}
+.discuss .second {
+    margin: 16% 0 0 38%;
+}
+.discuss .third {
+    margin: 17% 0 0 7%;
+    width: 200px;
+}
+.discuss .fourth {
+    margin: 15% 0 0 57%;
+}
+.discuss .fifth {
+    margin: 23% 0 0 56%;
+    width: 130px;
+}
+.envoy .first {
+    margin: 12% 0 0 25%;
+    width: 120px;
+}
+.envoy .third {
+    margin: 12% 0 0 7%;
+    width: 340px;
+}
+.envoy .fifth {
+    margin: 12% 0 0 20%;
+    width: 190px;
+}
+.baine div {
+    margin: 20% 0 0 4%;
+}
+.baine .fifth {
+    margin: 20% 0 0 32%;
+    width: 60px;
+}
+.lich-king div {
+    margin: 15% 0 0 5%;
+}
+.promote-finish h1 {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10%;
+}
+.promote-finish form {
+    width: 30%;
+    margin: 3% 0 0 37%;
+}
+.promote-finish .btn,
+.demotion .btn {
+    background-color: rgba(72, 69, 71, 0.5);
+    border-radius: 4px;
+    height: 77px;
+    font-size: 30px;
+    color: #c4c4c4;
+    position: absolute;
+    letter-spacing: 5px;
+    margin-left: -11%;
+    padding-left: 20px;
+}
+.promote-finish .give-up {
+    margin-left: 28%;
+    padding-top: 16px;
+}
+.promote-finish .btn:hover,
+.demotion .btn:hover,
+.promote-start .btn:hover {
+    background-color: rgba(159, 154, 157, 0.5);
+}
+.promote-finish .recaptcha {
+    background-color: rgba(72, 69, 71, 0.5);
+    position: relative;
+    width: 300px;
+    height: 77px;
+}
+.promote-finish .recaptcha span {
+    position: absolute;
+    font-size: 30px;
+    color: #FF2117;
+    left: 10%;
+    top: 25%;
+    z-index: -1;
+}
+.promote-finish h4 {
+    width: 50%;
+    margin: 0 0 0 26%;
+}
+.demotion .btn {
+    margin: 35% 0 0 40%;
+}
+
+.home a {
+    float: right;
+    margin-top: 30px;
+}
+.yellow a,
+.yellow div.active {
+    color: #FFD700;
+}
+.wow-tab a:hover,
+.wow-tab a:focus,
+.yellow a:hover,
+.yellow a:focus,
+.yellow div:hover,
+.yellow div:focus {
+    color: rgba(255, 215, 0, 0.5);
+}
+.wow-tab {
+    margin: 50px 0 20px 0;
+}
+.wow-tab a {
+    font-size: 20px;
+    margin: 0 10px;
+    font-style: italic;
+}
+.wow-tab a.active {
+    font-size: 40px;
+    color: #FFD700 !important;
+}
+#wow-movie {
+    position: relative;
+}
+#wow-video {
+    float: right;
+    width: 950px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 5px rgba(255, 125, 10, 0.5);
+}
+.wow-control {
+    position: absolute;
+    width: 950px;
+    height: 390px;
+    right: 0;
+    text-align: center;
+}
+.wow-control img {
+    width: 35%;
+    margin: 20px 0 -150px 0;
+}
+.wow-control a {
+    width: 100%;
+    right: 0;
+    margin-top: 19%;
+}
+.youku embed {
+    position: absolute;
+    right: 0;
+    width: 950px;
+    height: 540px;
+    box-shadow: 0 0 10px 5px rgba(255, 125, 10, 0.5);
+}
+.movie-tab {
+    height: 560px;
+}
+.movie-tab div {
+    color: #c4c4c4;
+    width: 170px;
+    font-style: italic;
+    font-size: 15px;
+    margin-bottom: 11px;
+    text-align: center;
+}
+.movie-tab div.active,
+.movie-tab div:hover,
+.movie-tab div:focus {
+    cursor: pointer;
+    font-size: 20px;
+}
+.youku-toggle {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 30px;
+}
+#wow-music div {
+    font-size: 20px;
+    margin: 0 70px;
+}
+#wow-music iframe {
+    width: 1000px;
+    height: 550px;
+    margin: 30px 0 0 70px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 5px rgba(255, 125, 10, 0.5);
+}
+.wow-footer {
+    clear: both;
+    height: 30px;
+}
+.tavern {
+    position: relative;
+    margin-top: 70px;
+    height: 800px;
+}
+.tavern h1 {
+    margin-bottom: 30px;
+}
+.tavern span img {
+    position: absolute;
+    width: 1140px;
+    left: 0;
+    border-radius: 4px;
+}
+.tavern div {
+    font-size: 20px;
+    text-align: center;
+    margin: 0 29px 20px 30px;
+    width: 320px;
+    float: left;
+}
+.tavern div img {
+    margin-bottom: 5px;
+    width: 320px;
+    height: 180px;
+    border-radius: 4px;
+}
+.tavern .alliance img {
+    box-shadow: 0 0 5px 2px rgba(0, 120, 255, 0.5);
+}
+.tavern div.alliance img:hover {
+    box-shadow: 0 0 10px 3px #0078FF;
+}
+.tavern .horde img {
+    box-shadow: 0 0 5px 2px rgba(179, 0, 0, 0.5);
+}
+.tavern div.horde img:hover {
+    box-shadow: 0 0 10px 3px #B30000;
+}
+.tavern .neutral img {
+    box-shadow: 0 0 5px 2px rgba(116, 255, 65, 0.5);
+}
+.tavern div.neutral img:hover {
+    box-shadow: 0 0 10px 3px #74ff41;
+}
+.right-top {
+    margin: 20px 0 0 10px;
+    float: right;
+}
+.right-top.new-post {
+    margin-right: -50px;
+}
+.login {
+    position: static;
+    margin-top: 80px;
+}
+.login .form-group {
+    text-align: left;
+}
+.login h1 {
+    margin: 0 0 20px;
+}
+.login-clause {
+    position: absolute;
+    margin-left: 10px;
+}
+.login .right {
+    float: right;
+}
+.made-post {
+    margin-top: 50px;
+}
+.made-post h1 {
+    width: 45%;
+    left: 5%;
+    color: #ededed;
+    margin-bottom: 30px;
+}
+.made-post .form-group {
+    width: 45%;
+    left: 0;
+    text-align: left;
+}
+.made-post .form-control {
+    border-radius: 4px;
+    height: 300px;
+    border-color: #c4c4c4;
+}
+.made-post .choose {
+    background-color: transparent;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    height: 60px;
+    width: 70px;
+    position: absolute;
+}
+.made-post .fa-check {
+    color: #808080;
+}
+.made-post .alliance .active  {
+    color: #0087FF;
+}
+.made-post .alliance .active:hover,
+.made-post .alliance .right:hover {
+    border-color: rgba(0, 135, 255, 0.5);
+    box-shadow: 0 0 10px 0 rgba(0, 135, 255, 0.5);
+}
+.made-post .horde .active {
+    color: #B30000;
+}
+.made-post .horde .active:hover,
+.made-post .horde .right:hover {
+    border-color: rgba(179, 0, 0, 0.5);
+    box-shadow: 0 0 10px 0 rgba(179, 0, 0, 0.5);
+}
+.made-post .neutral .active {
+    color: #74ff41;
+}
+.made-post .neutral .active:hover,
+.made-post .neutral .right:hover {
+    border-color: rgba(116, 255, 65, 0.5);
+    box-shadow: 0 0 10px 0 rgba(116, 255, 65, 0.5);
+}
+.made-post .right {
+    right: 0;
+}
+.made-post .fa {
+    z-index: -1;
+    position: absolute;
+    left: 22px;
+    top: 15px;
+}
+.dropdown-menu {
+    min-width: 72px;
+    background-color: #222;
+}
+.dropdown-menu > li > a {
+    padding: 10px 20px;
+    color: #9d9d9d;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: #ffffff;
+    background-color: transparent;
+}
+.holder {
+    height: 50px;
+}
+.jumbotron {
+    background-color: transparent;
+}
+.str-inline {
+    display: inline;
+}
+.twenty {
+    font-size: 20px;
+}
+.forty {
+    font-size: 40px;
+}
+.sixty {
+    font-size: 60px;
+}
+.eighty {
+    font-size: 80px;
+}
+.user-about-me {
+    width: 65%;
+}
+.profile-thumbnail {
+    position: absolute;
+}
+.profile-header {
+    margin: 30px 0 10px 120px;
+}
+.user-faction {
+    z-index: -1;
+    position: absolute;
+    top: 30%;
+    right: 15%;
+    width: 18%;
+}
+div.post-tabs {
+    margin-top: 16px;
+}
+ul.posts {
+    list-style-type: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+}
+div.post-tabs ul.posts {
+    margin: 0;
+    border-top: none;
+}
+ul.posts li.post {
+    position: relative;
+    padding: 8px;
+}
+ul.posts li.post:before {
+    top: 60px;
+    left: 13px;
+    position: absolute;
+    content:"";
+    width: 30px;
+    border-bottom: 5px dotted;
+}
+ul.posts li.post.alliance:before {
+    border-color: #0078FF;
+}
+ul.posts li.post.horde:before {
+    border-color: #B30000;
+}
+ul.posts li.post.neutral:before {
+    border-color: #74ff41;
+}
+ul.posts li.post:hover {
+    background-color: rgba(77, 83, 82, 0.26);
+}
+
+div.post-date {
+    float: right;
+}
+div.post-author {
+    font-weight: bold;
+}
+div.post-thumbnail {
+    position: absolute;
+}
+div.post-content {
+    margin-left: 48px;
+    min-height: 48px;
+}
+div.post-footer {
+    text-align: right;
+}
+ul.comments {
+    list-style-type: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+}
+ul.comments li.comment {
+    position: relative;
+    margin-left: 32px;
+    padding: 8px;
+}
+ul.comments li.comment:before {
+    top: 60px;
+    left: 13px;
+    position: absolute;
+    content:"";
+    width: 30px;
+    border-bottom: 5px dotted;
+}
+ul.comments li.comment.alliance:before {
+    border-color: #0078FF;
+}
+ul.comments li.comment.horde:before {
+    border-color: #B30000;
+}
+ul.comments li.comment.neutral:before {
+    border-color: #74ff41;
+}
+ul.comments li.comment:hover {
+    background-color:  rgba(77, 83, 82, 0.26);
+}
+div.comment-date {
+    float: right;
+}
+div.comment-author {
+    font-weight: bold;
+}
+div.comment-thumbnail {
+    position: absolute;
+}
+div.comment-content {
+    margin-left: 48px;
+    min-height: 48px;
+}
+div.comment-form {
+    margin: 16px 0 16px 32px;
+}
+div.pagination {
+    width: 100%;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+}
+div.flask-pagedown-preview {
+    margin: 10px 0 10px 0;
+    padding: 4px;
+    width: auto;
+}
+div.flask-pagedown-preview h1 {
+    font-size: 140%;
+}
+div.flask-pagedown-preview h2 {
+    font-size: 130%;
+}
+div.flask-pagedown-preview h3 {
+    font-size: 120%;
+}
+.post-body h1 {
+    font-size: 140%;
+}
+.post-body h2 {
+    font-size: 130%;
+}
+.post-body h3 {
+    font-size: 120%;
+}
+.table tr {
+    position: relative;
+    border: hidden;
+    margin-top: 50px;
+}
+.table tr.alliance:after,
+.table tr.horde:after,
+.table tr.neutral:after {
+    top: 8px;
+    left: -8px;
+    position: absolute;
+    height: 22px;
+    content:"";
+    border-left: 4px dotted;
+}
+.table tr.followed-follower:after {
+    top: 12px;
+    left: -10px;
+}
+.table tr.alliance:after {
+    border-color: #0078FF;
+}
+.table tr.horde:after {
+    border-color: #B30000;
+}
+.table tr.neutral:after {
+    border-color: #74ff41;
+}
+.table tr:hover {
+    background-color:  rgba(77, 83, 82, 0.26);
+}
+.table thead tr:hover {
+    background-color: transparent;
+}
+.table thead a.active {
+    font-size: 20px;
+}
+.users-profile td {
+    width: 100px;
+}
+td.row1 {
+    width: 50px;
+}
+td.row2 {
+    width: 180px;
+}
+td.row4,
+td.row5,
+td.row6,
+td.row11,
+td.row12 {
+    width: 120px;
+}
+.my-pagination {
+    margin: 20px 0 0 10px;
+}
+.pagination > li > a {
+    color: #c4c4c4;
+    border: hidden;
+    border-top: #c4c4c4 solid 1px;
+    border-bottom: #c4c4c4 solid 1px;
+    padding: 5px 13px;
+    background-color: transparent;
+}
+.pagination > li > a:hover,
+.pagination > li > a:focus {
+    color: #ffffff;
+    background-color: rgba(196, 196, 196, 0.15);
+}
+.pagination > .active > a {
+    background-color: rgba(140, 140, 140, 0.5);
+    border-color: #c4c4c4;
+}
+.pagination > .active > a:hover {
+    background-color: rgba(196, 196, 196, 0.5);
+    border-color: #c4c4c4;
+}
+.page-num,
+.keywords {
+    width: 35px;
+    height: 32px;
+    margin: 0 5px 0 15px;
+    padding-left: 14px;
+    border: hidden;
+    border-top: #c4c4c4 solid 1px;
+    border-bottom: #c4c4c4 solid 1px;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #c4c4c4;
+}
+.page-num:focus,
+.jump:focus,
+.search:focus,
+.keywords:focus {
+    outline: none;
+}
+.page-num.alliance:focus,
+.jump.alliance:focus,
+.search.alliance:focus,
+.keywords.alliance:focus {
+    border-color: #0078FF;
+}
+.page-num.horde:focus,
+.jump.horde:focus,
+.search.horde:focus,
+.keywords.horde:focus {
+    border-color: #B30000;
+}
+.page-num.neutral:focus,
+.jump.neutral:focus,
+.search.neutral:focus,
+.keywords.neutral:focus {
+    border-color: #74ff41;
+}
+.jump,
+.search {
+    background-color: transparent;
+    border: hidden;
+    color: grey;
+}
+.jump.alliance.active:hover,
+.jump.alliance.active:focus,
+.search.alliance.active:hover,
+.search.alliance.active:focus {
+    color: rgba(0, 109, 208, 0.5) !important;
+}
+.jump.horde.active:hover,
+.jump.horde.active:focus,
+.search.horde.active:hover,
+.search.horde.active:focus {
+    color: rgba(179, 0, 0, 0.5) !important;
+}
+.jump.neutral.active:hover,
+.jump.neutral.active:focus,
+.search.neutral.active:hover,
+.search.neutral.active:focus {
+    color: rgba(116, 255, 65, 0.5) !important;
+}
+.form.form-search {
+    float: right;
+    font-size: 20px;
+    margin: 10px 0 -10px 0;
+}
+.keywords {
+    font-size: 15px;
+    border-radius: 20px;
+    padding: 0 15px;
+    width: 220px;
+    margin-left: 0;
+}
+
+.accord-tab a {
+    font-size: 15px;
+    padding: 6px 15px 7px;
+    border: 1px solid;
+}
+.alliance .accord-tab a.active,
+.keywords.alliance:focus {
+    box-shadow: 0 0 10px 0 rgba(0, 109, 208, 0.5);
+}
+.horde .accord-tab a.active,
+.keywords.horde:focus {
+    box-shadow: 0 0 10px 0 rgba(179, 0, 0, 0.5);
+}
+.neutral .accord-tab a.active,
+.keywords.neutral:focus {
+    box-shadow: 0 0 10px 0 rgba(0, 128, 0, 0.5);
+}
+.accord-tab a.left {
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    border-right: hidden;
+}
+.accord-tab a.left.active {
+    border-right: 1px solid;
+}
+.accord-tab a.right {
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    border-left: hidden;
+}
+.accord-tab a.right.active {
+    border-left: 1px solid;
+}
+.footer {
+    margin-top: 30px;
+    padding: 40px;
+    border-top: 2px solid #808080;
+    background: url("../static/wow/bg/night_repeat.png");
+}
+.footer div {
+    margin-bottom: 10px;
+    text-align: center;
+}
+.footer div,
+.footer div a {
+    font-size: 12px;
+    color: #808080;
+}
+.footer div a:hover,
+.footer div a:focus {
+    color: #ffffff;
+}
+.footer div.my-logo {
+    margin-bottom: 30px;
+}
+.abs-footer {
+    height: 100px;
+}
+

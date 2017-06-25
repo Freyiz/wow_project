@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}登陆{% endblock %}
+
+{% block page_content %}
+    <div class="right-top neutral"><a href="{{ url_for('auth.qq_login') }}" class="fa fa-qq fa-2x"></a></div>
+    <div class="right-top neutral"><a href="{{ url_for('auth.ren2_login') }}" class="fa fa-renren fa-2x"></a></div>
+    <div class="right-top neutral"><a href="{{ url_for('auth.sina_login') }}" class="fa fa-weibo fa-2x"></a></div>
+    <div class="carousel-caption login neutral">
+        <h1>登录</h1>
+        <form method="post" class="form" role="form">
+            {{ form.hidden_tag() }}
+            <div class="form-group">{{ form.email(class="form-control", placeholder='邮箱', required=True) }}</div>
+            <div class="form-group">{{ form.password(class="form-control", placeholder='密码', required=True) }}</div>
+            <div class="form-group">
+                {{ form.remember_me() }}
+                {{ form.remember_me.label(class='login-clause') | safe }}
+            </div>
+            <div class="form-group">{{ form.submit(class="form-control btn") }}</div>
+        </form>
+        <h4 class="form-group">
+            <span>忘记密码?<a href="{{ url_for('auth.password_reset_request') }}">重置</a></span>
+            <span class="right">没有角色?<a href="{{ url_for('auth.register') }}">创建</a></span>
+        </h4>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript">
+        $(function () {
+            $('body').css({'background':'url("../../static/wow/race/undead_EC8E4F5TSUBR1472070274743.jpg")', 'background-size':'cover'});
+        })
+    </script>
+{% endblock %}
