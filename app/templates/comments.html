@@ -10,18 +10,18 @@
             <a class="twenty {% if sort == 're_timestamp' or sort == 'timestamp' %}active{% endif %}" href="{% if sort == 're_timestamp' %}{{ url_for('.comments', sort='timestamp', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='re_timestamp', accord=accord, keywords=keywords) }}{% endif %}">时间线</a>
             <a class="twenty {% if sort == 're_likes' or sort == 'likes' %}active{% endif %}" href="{% if sort == 're_likes' %}{{ url_for('.comments', sort='likes', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='re_likes', accord=accord, keywords=keywords) }}{% endif %}">点赞数</a>
             <a class="twenty {% if sort == 're_username' or sort == 'username' %}active{% endif %}" href="{% if sort == 'username' %}{{ url_for('.comments', sort='re_username', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='username', accord=accord, keywords=keywords) }}{% endif %}">角色名</a>
-                <form method="post" class="form form-search" role="form">
-                    {{ form_search.hidden_tag() }}
-                    <div class="form-group">
-                        {% if accord == '内容' %}
-                            <span class="accord-tab"><a class="left active" name="内容">按内容</a><a class="right" name="角色名">按角色</a></span>
-                        {% else %}
-                            <span class="accord-tab"><a class="left" name="内容">按内容</a><a class="right active" name="角色名">按角色</a></span>
-                        {% endif %}
-                        {{ form_search.keywords(class="keywords " + current_user.wow_faction_en() , placeholder='内容') }}
-                        {{ form_search.submit(class="search " + current_user.wow_faction_en(), disabled='disabled') }}
-                    </div>
-                </form>
+            <form method="post" class="form form-search" role="form">
+                {{ form_search.hidden_tag() }}
+                <div class="form-group">
+                    {% if accord == '内容' %}
+                        <span class="accord-tab"><a class="left active" name="内容">按内容</a><a class="right" name="角色名">按角色</a></span>
+                    {% else %}
+                        <span class="accord-tab"><a class="left" name="内容">按内容</a><a class="right active" name="角色名">按角色</a></span>
+                    {% endif %}
+                    {{ form_search.keywords(class="keywords " + current_user.wow_faction_en() , placeholder='内容') }}
+                    {{ form_search.submit(class="search " + current_user.wow_faction_en(), disabled='disabled') }}
+                </div>
+            </form>
         </h1>
     </div>
     {% if comments %}{% include '_comments.html' %}{% endif %}

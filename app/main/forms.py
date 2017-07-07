@@ -9,18 +9,17 @@ from flask import current_app
 
 class PostForm(FlaskForm):
     body = PageDownField('公告牌', validators=[DataRequired()])
-    submit = SubmitField('提交')
+    submit = SubmitField('发布')
 
 
 class CommentForm(FlaskForm):
-    body = PageDownField('评论', validators=[DataRequired()])
-    submit = SubmitField('发表')
+    body = PageDownField('议论', validators=[DataRequired()])
+    submit = SubmitField('发布')
 
 
 class EditProfileForm(FlaskForm):
     avatar = FileField('更改头像')
-    name = StringField('头衔')
-    location = StringField('地址')
+    location = StringField('服务器')
     about_me = TextAreaField('简介')
     submit = SubmitField('提交')
 
@@ -36,8 +35,7 @@ class EditProfileAdminForm(FlaskForm):
     email = StringField('邮箱', validators=[DataRequired(), Length(1, 64), Email()])
     username = StringField('角色名', validators=[DataRequired(),
                 Regexp(r'^[\u4E00-\u9FA5]{2,6}$|^[A-Za-z]{2,12}$', 0, '角色名为2~12位字母或2~6位汉字。')])
-    name = StringField('头衔')
-    location = StringField('地址')
+    location = StringField('服务器')
     about_me = TextAreaField('简介')
     submit = SubmitField('确定')
 

@@ -152,6 +152,8 @@
 * JS 中数组的拷贝有深浅之分，浅拷贝使用 = 即可，实际为一个对象，深拷贝使用 arrayObj.slice(start, [end]) 或 arrayObject.concat(arrayX,arrayX,......,arrayX)，实际为两个对象。
 * 阻止二次点击事件： var t = 0; if (t === 1) { return false; } else { t = 1 }。
 
+2017_07_07
+* 重做首页。
 
 学习编程的个人经验
 * google 是个好工具。

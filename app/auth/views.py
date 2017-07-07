@@ -13,6 +13,7 @@ import os
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    text = request.args.get('text', 0, type=int)
     form = RegistrationForm()
     if form.validate_on_submit():
         if 'code_text' in session and form.verification_code.data.lower() \
@@ -35,7 +36,7 @@ def register():
     form.wow_faction.data = player[0]
     form.wow_race.data = player[1]
     form.wow_class.data = player[2]
-    return render_template('auth/register.html', form=form)
+    return render_template('auth/register.html', form=form, text=text)
 
 
 @auth.before_app_request
@@ -234,14 +235,6 @@ def clause():
 def player():
     player = WowConfig().random_player()
     return jsonify(wow_faction=player[0], wow_race=player[1], wow_class=player[2])
-
-
-@auth.route('/delete')
-@login_required
-def delete():
-    db.session.delete(current_user)
-    db.session.commit()
-    return redirect(url_for('main.index'))
 
 
 QQ_APP_ID = os.getenv('QQ_APP_ID')

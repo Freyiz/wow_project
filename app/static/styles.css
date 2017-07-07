@@ -36,7 +36,8 @@ a.btn:focus {
 a.text-toggle {
     color: #ffffff;
 }
-a.text-toggle:hover {
+a.text-toggle:hover,
+a.text-toggle:focus {
     color: #c4c4c4;
 }
 a.to-top {
@@ -304,14 +305,10 @@ li.priest.active span {
     left: -10%;
     width: 120%;
 }
-
 @media screen and (max-width: 1300px) {
     .carousel-inner {
         overflow: visible;
     }
-}
-.carousel-inner.item > img {
-    width: 100%;
 }
 .carousel-control span:first-child {
     position: absolute;
@@ -844,7 +841,6 @@ li.priest.active span {
     padding-top: 16px;
 }
 .promote-finish .btn:hover,
-.demotion .btn:hover,
 .promote-start .btn:hover {
     background-color: rgba(159, 154, 157, 0.5);
 }
@@ -867,7 +863,12 @@ li.priest.active span {
     margin: 0 0 0 26%;
 }
 .demotion .btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
     margin: 35% 0 0 40%;
+}
+.demotion .btn:hover {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .home a {
@@ -1065,42 +1066,63 @@ li.priest.active span {
     width: 70px;
     position: absolute;
 }
-.made-post .fa-check {
-    color: #808080;
-}
-.made-post .alliance .active  {
-    color: #0087FF;
-}
-.made-post .alliance .active:hover,
-.made-post .alliance .right:hover {
-    border-color: rgba(0, 135, 255, 0.5);
-    box-shadow: 0 0 10px 0 rgba(0, 135, 255, 0.5);
-}
-.made-post .horde .active {
-    color: #B30000;
-}
-.made-post .horde .active:hover,
-.made-post .horde .right:hover {
-    border-color: rgba(179, 0, 0, 0.5);
-    box-shadow: 0 0 10px 0 rgba(179, 0, 0, 0.5);
-}
-.made-post .neutral .active {
-    color: #74ff41;
-}
-.made-post .neutral .active:hover,
-.made-post .neutral .right:hover {
-    border-color: rgba(116, 255, 65, 0.5);
-    box-shadow: 0 0 10px 0 rgba(116, 255, 65, 0.5);
-}
 .made-post .right {
     right: 0;
 }
 .made-post .fa {
     z-index: -1;
     position: absolute;
-    left: 22px;
+    right: 22px;
     top: 15px;
 }
+.made-post .fa-check {
+    color: #808080;
+}
+.made-cp .alliance .active  {
+    color: #0087FF;
+}
+.made-cp .alliance .active:hover,
+.made-cp .alliance .active:focus,
+.made-post .alliance .left:hover {
+    border-color: rgba(0, 135, 255, 0.5);
+    box-shadow: 0 0 10px 0 rgba(0, 135, 255, 0.5);
+}
+.made-cp .horde .active {
+    color: #B30000;
+}
+.made-cp .horde .active:hover,
+.made-cp .horde .active:focus,
+.made-post .horde .left:hover {
+    border-color: rgba(179, 0, 0, 0.5);
+    box-shadow: 0 0 10px 0 rgba(179, 0, 0, 0.5);
+}
+.made-cp .neutral .active {
+    color: #74ff41;
+}
+.made-cp .neutral .active:hover,
+.made-cp .neutral .active:focus,
+.made-post .neutral .left:hover {
+    border-color: rgba(116, 255, 65, 0.5);
+    box-shadow: 0 0 10px 0 rgba(116, 255, 65, 0.5);
+}
+
+.made-comment {
+    margin: 30px 0 30px 35px;
+}
+.made-comment .form-control {
+    background-color: transparent;
+    color: #ffffff;
+    border-color: #808080;
+}
+.made-comment .choose {
+    background-color: transparent;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: #808080;
+    margin-top: -10px;
+}
+
 .dropdown-menu {
     min-width: 72px;
     background-color: #222;
@@ -1117,6 +1139,154 @@ li.priest.active span {
 .holder {
     height: 50px;
 }
+#carousel-index {
+    box-shadow: 0 0 2px 1px rgba(116, 255, 65, 0.5);
+}
+#carousel-index .carousel-caption {
+    top: 30%;
+    line-height: 75px;
+}
+#carousel-index .carousel-caption h1 {
+    word-spacing: 10px;
+}
+#carousel-index .carousel-caption p {
+    font-weight: 400;
+    font-size: 18px;
+    word-spacing: -4px;
+}
+#carousel-index .glyphicon {
+    top: 48%;
+    width: auto;
+}
+#carousel-index .glyphicon-chevron-left {
+    left: 30%;
+}
+#carousel-index .glyphicon-chevron-right {
+    right: 30%;
+}
+.top10-index {
+    width: 30.6%;
+    float: left;
+    margin: 100px 0 40px;
+}
+.top10-index.posts{
+    margin-right: 4.1%;
+}
+.top10-index.comments {
+    margin-left: 4.1%;
+}
+.top10-index .head {
+    margin: 0 1%;
+    height: 100px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 100px;
+    position: relative;
+}
+.top10-index .head a {
+    border: 1px solid rgba(102, 102, 102, 0.5);
+    border-radius: 4px;
+    background-color: rgba(102, 102, 102, 0.05);
+    color: #ededed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    position: absolute;
+}
+.top10-index .head a:hover,
+.top10-index .head a:focus {
+    background-color: rgba(102, 102, 102, 0.5);
+}
+.top10-index .top10-outside,
+.top10-index .top10-inside {
+    border-left: 1px solid rgba(102, 102, 102, 0.5);
+    border-right: 1px solid rgba(102, 102, 102, 0.5);
+}
+.top10-index .top10-outside {
+    width: 30%;
+    margin-left: 35%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    color: #c4c4c4;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 0 2px;
+}
+.top10-index .top10-inside {
+    height: 100%;
+}
+.top10-index .nav-pills li {
+    width: 48.5%;
+    padding: 0;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid rgba(102, 102, 102, 0.5);
+    border-radius: 4px;
+    background-color: rgba(102, 102, 102, 0.05);
+}
+.top10-index .nav-pills li.left {
+    margin: 0 0.5% 1% 1% ;
+}
+.top10-index .nav-pills li.right {
+    margin: 0 1% 1% 0.5% ;
+}
+.top10-index .nav-pills li.active.left a,
+.top10-index .nav-pills li.left a:focus {
+    background-color: rgba(0, 120, 255, 0.5);
+}
+.top10-index .nav-pills li.active.right a,
+.top10-index .nav-pills li.right a:focus {
+    background-color: rgba(179, 0, 0, 0.5);
+}
+.top10-index .nav-pills li.left a:hover {
+    background-color: rgba(0, 120, 255, 0.8);
+}
+.top10-index .nav-pills li.right a:hover {
+    background-color: rgba(179, 0, 0, 0.8);
+}
+ul.top10 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul.top10 li {
+    position: relative;
+    padding: 0 8px 0 5px;
+    line-height: 42px;
+    border-radius: 4px;
+    margin: 0 1% 1%;
+}
+ul.top10 li.alliance {
+    background-color: rgba(0, 120, 255, 0.5);
+}
+ul.top10 li.horde {
+    background-color: rgba(179, 0, 0, 0.5);
+}
+ul.top10 li.neutral {
+    background-color: rgba(116, 255, 65, 0.5);
+}
+ul.top10 li.alliance:hover {
+    background-color: rgba(0, 120, 255, 0.8);
+}
+ul.top10 li.horde:hover {
+    background-color: rgba(179, 0, 0, 0.8);
+}
+ul.top10 li.neutral:hover {
+    background-color: rgba(116, 255, 65, 0.8);
+}
+ul.top10 .top10-username {
+    margin-left: 5px;
+}
+ul.top10 .top10-text {
+    left: 45%;
+    position: absolute;
+}
+ul.top10 span {
+    float: right;
+}
+
 .jumbotron {
     background-color: transparent;
 }
@@ -1151,6 +1321,7 @@ li.priest.active span {
     right: 15%;
     width: 18%;
 }
+
 div.post-tabs {
     margin-top: 16px;
 }
@@ -1328,8 +1499,9 @@ td.row2 {
 td.row4,
 td.row5,
 td.row6,
-td.row11,
-td.row12 {
+td.row7,
+td.row12,
+td.row13 {
     width: 120px;
 }
 .my-pagination {

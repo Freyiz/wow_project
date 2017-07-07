@@ -11,7 +11,7 @@
                 </a>
             </div>
             <div class="comment-content">
-                <div class="comment-date">{{ moment(comment.timestamp).fromNow() }}</div>
+                <div class="comment-date">{{ moment(comment.timestamp).fromNow() }} 丨 {% if title %}<a class="fa fa-link" href="{{ url_for('.post', id=comment.post.id) }}"></a>{% else %}#{{ comment.ranking }}{% endif %}</div>
                 <div class="comment-author 角色名">
                     <a class="{{ comment.author.wow_class_en() }}" href="{{ url_for('.user', username=comment.author.username) }}">
                         {{ comment.author.username }}
@@ -23,16 +23,13 @@
                         {% if not comment.disabled or current_user.can(Permission.MODERATE_COMMENTS) %}
                             <span class="内容">{% if comment.body_html %}{{ comment.body_html | safe }}{% else %}{{ comment.body }}{% endif %}<br></span>
                             <span id="comment{{ comment.id }}">{{ comment.likes }}</span>
-                            <a id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"></a>
+                            <a href="javascript:;" id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"></a>
                         {% endif %}
                     </div>
                 </div>
                 <div class="post-footer">
-                    {% if current_user == comment.author %}
-                        <a class="btn btn-warning btn-xs" href="{{ url_for('.delete_comment', id=comment.id, page=page) }}#{{ comment.id }}">删除</a>
-                    {% endif %}
                     {% if current_user.can(Permission.MODERATE_COMMENTS) %}
-                        <a id="comment_display_toggle{{ comment.id }}"{% if not comment.disabled %} class="btn btn-success btn-xs"{% else %} class="btn btn-danger btn-xs"{% endif %} onclick="display_toggle('{{ comment.id }}', '#comment_display_toggle{{ comment.id }}', '#display_warning{{ comment.id }}', '#comment_color{{ comment.id }}')">
+                        <a id="comment_display_toggle{{ comment.id }}"{% if not comment.disabled %} href="javascript:;" class="btn btn-success btn-xs"{% else %} class="btn btn-danger btn-xs"{% endif %} onclick="display_toggle('{{ comment.id }}', '#comment_display_toggle{{ comment.id }}', '#display_warning{{ comment.id }}', '#comment_color{{ comment.id }}')">
                             {% if not comment.disabled %}屏蔽{% else %}显示{% endif %}
                         </a>
                     {% endif %}

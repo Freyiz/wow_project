@@ -5,28 +5,230 @@
 {% block title %}艾泽拉斯{% endblock %}
 
 {% block page_content %}
-    <div class="jumbotron">
-        <h1>欢迎来到艾泽拉斯!</h1>
-        <p>{% if current_user.is_authenticated %}{{ current_user.username }}{% else %}旅行者{% endif %}，在狮王之傲旅店放松放松吧！</p>
-    </div>
-    {% if current_user.can(Permission.WRITE_ARTICLES) and current_user.confirmed%}
-        {{ wtf.quick_form(form) }}
-    {% endif %}
-    {% include '_posts.html' %}
-    {% if pagination.pages > 1 %}
-        <div class="my-pagination">
-            {{ macros.pagination_widget(pagination, '.index') }}
-            <form method="post" class="form" role="form">
-                {{ form_jump.hidden_tag() }}
-                <div class="form-group">{{ form_jump.page_num(class="page-num " + current_user.wow_faction_en()) }}{{ form_jump.submit(class="jump " + current_user.wow_faction_en(), disabled='disabled') }}</div>
-            </form>
+    <div id="carousel-index" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-index" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-index" data-slide-to="1"></li>
+            <li data-target="#carousel-index" data-slide-to="2"></li>
+            <li data-target="#carousel-index" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <a href="{{ url_for('auth.register', text=1) }}">
+                    <img src="../static/wow/bg/人类与兽人2.jpg">
+                    <div class="carousel-caption jumbotron">
+                        <h1>新 的 篇 章</h1><p>从 零 开 始&emsp;&nbsp;体 验 成 长 的 乐 趣</p>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url_for('main.promote', id=current_user.id) }}">
+                    <img src="../static/wow/bg/promote_confession2.jpg">
+                    <div class="carousel-caption jumbotron">
+                        <h1>命 运 阶 梯</h1><p>晋 升 或 是 忏 悔&emsp;&nbsp;追 随 内 心 的 选 择</p>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url_for('main.wow_memory') }}">
+                    <img src="../static/wow/bg/gate_of_memory.jpg">
+                    <div class="carousel-caption jumbotron">
+                        <h1>时 空 之 门</h1><p>穿 越 时 空 之 门&emsp;&nbsp;重 温 旧 时 光 景</p>
+                    </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url_for('main.tavern') }}">
+                    <img src="../static/wow/bg/tavern.jpg">
+                    <div class="carousel-caption jumbotron">
+                        <h1>艾 泽 拉 斯 酒 馆</h1><p>旅 行 者&emsp;&nbsp;选 择 一 间 酒 馆 歇 歇 脚 吧</p>
+                    </div>
+                </a>
+            </div>
         </div>
-    {% endif %}
+        <a class="left carousel-control" href="#carousel-index" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-index" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="top10-index posts">
+        <div class="head"><a href="{{ url_for('main.posts') }}">公告牌</a></div>
+        <div class="top10-outside"><div class="top10-inside">TOP 10</div></div>
+        <ul class="nav nav-pills">
+            <li class="left {% if top10_posts == 'new_posts' %}active{% endif %}"><a href="#new-posts" data-toggle="tab">最新</a></li>
+            <li class="right {% if top10_posts == 'hot_posts' %}active{% endif %}"><a href="#hot-posts" data-toggle="tab">议论量</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane {% if top10_posts == 'new_posts' %}active{% endif %}" id="new-posts">
+                <ul class="top10">
+                    {% for post in posts1 %}
+                        <li class="{{ post.author.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=post.author.username) }}">
+                                {% if post.author.avatar %}
+                                    <img src="{{ post.author.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ post.author.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ post.author.wow_class_en() }}" href="{{ url_for('.user', username=post.author.username) }}">{{ post.author.username }}</a>
+                            <a class="top10-text" href="{{ url_for('.post', id=post.id) }}">查看公告</a>
+                            <span>{{ moment(post.timestamp).fromNow() }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane {% if top10_posts == 'hot_posts' %}active{% endif %}" id="hot-posts">
+                <ul class="top10">
+                    {% for post in posts2 %}
+                        <li class="{{ post.author.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=post.author.username) }}">
+                                {% if post.author.avatar %}
+                                    <img src="{{ post.author.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ post.author.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ post.author.wow_class_en() }}" href="{{ url_for('.user', username=post.author.username) }}">{{ post.author.username }}</a>
+                            <a class="top10-text" href="{{ url_for('.post', id=post.id) }}">查看公告</a>
+                            <span>{{ post.comments_count }} <a class="fa fa-comments" href="{{ url_for('.post', id=post.id) }}"></a></span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="top10-index users">
+        <div class="head"><a href="{{ url_for('main.users') }}">英雄榜</a></div>
+        <div class="top10-outside"><div class="top10-inside">TOP 10</div></div>
+        <ul class="nav nav-pills">
+            <li class="left {% if top10_users == 'new_users' %}active{% endif %}"><a href="#new-users" data-toggle="tab">最新</a></li>
+            <li class="right {% if top10_users == 'hot_users' %}active{% endif %}"><a href="#hot-users" data-toggle="tab">追随者</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane {% if top10_users == 'new_users' %}active{% endif %}" id="new-users">
+                <ul class="top10">
+                    {% for user in users1 %}
+                        <li class="{{ user.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=user.username) }}">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ user.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ user.wow_class_en() }}" href="{{ url_for('.user', username=user.username) }}">{{ user.username }}</a>
+                            <span>{{ moment(user.member_since).fromNow() }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane {% if top10_users == 'hot_users' %}active{% endif %}" id="hot-users">
+                <ul class="top10">
+                    {% for user in users2 %}
+                        <li class="{{ user.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=user.username) }}">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ user.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ user.wow_class_en() }}" href="{{ url_for('.user', username=user.username) }}">{{ user.username }}</a>
+                            <span><a {% if user.followers.count() > 1 %} href="{{ url_for('.followers', username=user.username) }}"{% endif %}>{{ user.followers.count() - 1 }}</a> 人</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="top10-index comments">
+        <div class="head"><a href="{{ url_for('main.comments') }}">议政厅</a></div>
+        <div class="top10-outside"><div class="top10-inside">TOP 10</div></div>
+        <ul class="nav nav-pills">
+            <li class="left {% if top10_comments == 'new_comments' %}active{% endif %}"><a href="#new-comments" data-toggle="tab">最新</a></li>
+            <li class="right {% if top10_comments == 'hot_comments' %}active{% endif %}"><a href="#hot-comments" data-toggle="tab">点赞数</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane {% if top10_comments == 'new_comments' %}active{% endif %}" id="new-comments">
+                <ul class="top10">
+                    {% for comment in comments1 %}
+                        <li class="{{ comment.author.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=comment.author.username) }}">
+                                {% if comment.author.avatar %}
+                                    <img src="{{ comment.author.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ comment.author.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ comment.author.wow_class_en() }}" href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a>
+                            <a class="top10-text" href="{{ url_for('.post', id=comment.post.id) }}">查看议论</a>
+                            <span>{{ moment(comment.timestamp).fromNow() }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane {% if top10_comments == 'hot_comments' %}active{% endif %}" id="hot-comments">
+                <ul class="top10">
+                    {% for comment in comments2 %}
+                        <li class="{{ comment.author.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=comment.author.username) }}">
+                                {% if comment.author.avatar %}
+                                    <img src="{{ comment.author.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ comment.author.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ comment.author.wow_class_en() }}" href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a>
+                            <a class="top10-text" href="{{ url_for('.post', id=comment.post.id) }}">查看议论</a>
+                            <span>
+                                {% if current_user.is_authenticated %}
+                                    &nbsp;<a href="javascript:;" id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"></a>
+                                {% else %}
+                                    &nbsp;<i class="fa fa-thumbs-up"></i>
+                                {% endif %}
+                            </span>
+                            <span id="comment{{ comment.id }}">{{ comment.likes }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>    
+    </div>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-    {{ pagedown.include_pagedown() }}
-    <script src="{{ url_for('static', filename='text_toggle.js') }}"></script>
-    <script id="jump" src="{{ url_for('static', filename='jump.js') }}" onload="jump({{ pages }})" arg="{{ current_user.wow_faction_color() }}"></script>
+    <script type="text/javascript">
+        function like_toggle(comment_id, span_id, a_id) {
+            $.getJSON($SCRIPT_ROOT + '/like-toggle', {
+                id: comment_id
+            }, function(data) {
+                $(span_id).text(data.result);
+                $(a_id).attr('class', data.text);
+            });
+        }
+        $(function () {
+            $('body').css({'background':'url("../static/wow/bg/SV95F8FY63NY1474338219386.jpg")', 'background-size':'cover'});
+            $('.posts li.left').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/top10-posts', {text:'new_posts'});
+            });
+            $('.posts li.right').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/top10-posts', {text:'hot_posts'});
+            });
+            $('.users li.left').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/top10-users', {text:'new_users'});
+            });
+            $('.users li.right').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/top10-users', {text:'hot_users'});
+            });
+            $('.comments li.left').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/top10-comments', {text:'new_comments'});
+            });
+            $('.comments li.right').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/top10-comments', {text:'hot_comments'});
+            });
+        })
+    </script>
 {% endblock %}

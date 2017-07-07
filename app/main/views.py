@@ -1,5 +1,5 @@
 from flask import render_template, request, jsonify, redirect, \
-    url_for, flash, current_app, abort, make_response, session
+    url_for, flash, current_app, abort, make_response, session, Response
 from .forms import PostForm, CommentForm, EditProfileForm, \
     EditProfileAdminForm, RecaptchaForm, DemotionForm, JumpForm, SearchForm
 from ..decorators import admin_required, permission_required
@@ -23,24 +23,61 @@ def after_request(response):
     return response
 
 
+def new_hot(query):
+    i = 1
+    l = []
+    for q in query:
+        if i <= 10:
+            i += 1
+            l.append(q)
+    return l
+
+
+@main.route('/top10-posts')
+def top10_posts():
+    text = request.args.get('text', type=str)
+    resp = Response()
+    resp.set_cookie('top10_posts', text, max_age=30*24*60*60)
+    return resp
+
+
+@main.route('/top10-users')
+def top10_users():
+    text = request.args.get('text', type=str)
+    resp = Response()
+    resp.set_cookie('top10_users', text, max_age=30*24*60*60)
+    return resp
+
+
+@main.route('/top10-comments')
+def top10_comments():
+    text = request.args.get('text', type=str)
+    resp = Response()
+    resp.set_cookie('top10_comments', text, max_age=30*24*60*60)
+    return resp
+
+
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = PostForm()
-    if current_user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
-        post = Post(body=form.body.data, author=current_user._get_current_object())
-        db.session.add(post)
-        flash('新公告已发布！')
-        return redirect(url_for('.index'))
-    page = request.args.get('page', 1, type=int)
-    form_jump = JumpForm()
-    if form_jump.validate_on_submit():
-        page = form_jump.page_num.data
-        return redirect(url_for('.index', page=page))
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
-        page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'], error_out=False)
-    posts = pagination.items
-    return render_template('index.html', form=form, form_jump=form_jump,
-                           posts=posts, pages=pagination.pages, pagination=pagination)
+    top10_posts = request.cookies.get('top10_posts', 'new_posts', type=str)
+    top10_users = request.cookies.get('top10_users', 'new_users', type=str)
+    top10_comments = request.cookies.get('top10_comments', 'new_comments', type=str)
+    new_posts = Post.query.order_by(Post.timestamp.desc())
+    hot_posts = Post.query.order_by(Post.comments_count.desc())
+    new_users = User.query.order_by(User.member_since.desc())
+    hot_users = User.query.order_by(User.followers_count.desc())
+    new_comments = Comment.query.order_by(Comment.timestamp.desc())
+    hot_comments = Comment.query.order_by(Comment.likes.desc())
+    posts1 = new_hot(new_posts)
+    posts2 = new_hot(hot_posts)
+    users1 = new_hot(new_users)
+    users2 = new_hot(hot_users)
+    comments1 = new_hot(new_comments)
+    comments2 = new_hot(hot_comments)
+    return render_template('index.html', posts1=posts1, posts2=posts2, users1=users1,
+                           users2=users2, comments1=comments1, comments2=comments2,
+                           top10_posts=top10_posts, top10_users=top10_users,
+                           top10_comments=top10_comments)
 
 
 @main.route('/user/<username>', methods=['GET', 'POST'])
@@ -75,13 +112,11 @@ def edit_profile():
         # filename = '%d.%s' % (current_user.id, f.filename.rsplit('.')[1])
         current_user.avatar = os.path.join('../static/uploads', filename)
         f.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-        current_user.name = form.name.data
         current_user.location = form.location.data
         current_user.about_me = form.about_me.data
         db.session.add(current_user)
         flash('信息修改成功！')
         return redirect(url_for('.user', username=current_user.username))
-    form.name.data = current_user.name
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form)
@@ -98,7 +133,6 @@ def edit_profile_admin(id):
         user.role = Role.query.get(form.role.data)
         user.email = form.email.data
         user.username = form.username.data
-        user.name = form.name.data
         user.location = form.location.data
         user.about_me = form.about_me.data
         db.session.add(user)
@@ -108,16 +142,16 @@ def edit_profile_admin(id):
     form.role.data = user.role_id
     form.email.data = user.email
     form.username.data = user.username
-    form.name.data = user.name
     form.location.data = user.location
     form.about_me.data = user.about_me
     return render_template('edit_profile.html', form=form, user=user)
 
 
-@main.route('/promote/<id>', methods=['GET', 'POST'])
+@main.route('/promote', methods=['GET', 'POST'])
 @login_required
-def promote(id):
-    user = User.query.get_or_404(id)
+def promote():
+    id = request.args.get('id', type=int)
+    user = User.query.get(id)
     if current_user != user:
         abort(404)
     if user.can(Permission.MODERATE_COMMENTS):
@@ -150,6 +184,7 @@ def post(id):
         post.comments_count += 1
         db.session.add(comment)
         db.session.add(post)
+        flash('议论已发布！')
         return redirect(url_for('.post', id=id, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
@@ -158,7 +193,7 @@ def post(id):
     if form_jump.validate_on_submit():
         page = form_jump.page_num.data
         return redirect(url_for('.post', page=page, id=id))
-    pagination = post.comments.order_by(Comment.likes.desc(), Comment.timestamp.asc()).paginate(
+    pagination = post.comments.order_by(Comment.timestamp.asc(), Comment.timestamp.asc()).paginate(
         page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'], error_out=False)
     comments = pagination.items
     return render_template('post.html', form=form, form_jump=form_jump, posts=[post],
@@ -198,23 +233,10 @@ def made_post():
             post = Post(body=form.body.data, author=current_user._get_current_object())
             db.session.add(post)
             flash('新公告已发布！')
-            return redirect(url_for('.index'))
+            resp = make_response(redirect(url_for('.index')))
+            resp.set_cookie('top10_posts', 'new_posts', max_age=30 * 24 * 60 * 60)
+            return resp
     return render_template('made_post.html', form=form, title=title, user=user)
-
-
-@main.route('/edit-comment/<int:id>')
-@login_required
-def delete_comment(id):
-    page = request.args.get('page', 1, type=int)
-    comment = Comment.query.get_or_404(id)
-    post = Post.query.get_or_404(comment.post_id)
-    if current_user != comment.author:
-        abort(403)
-    post.comments_count -= 1
-    db.session.add(post)
-    db.session.delete(comment)
-    flash('删除成功！')
-    return redirect(url_for('.post', id=comment.post_id, page=page))
 
 
 @main.route('/users', methods=['GET', 'POST'])
@@ -234,8 +256,10 @@ def users():
             query = User.query.filter(and_(User.wow_faction.contains(keyword) for keyword in keywords_list))
         elif accord == '种族':
             query = User.query.filter(and_(User.wow_race.contains(keyword) for keyword in keywords_list))
-        else:
+        elif accord == '职业':
             query = User.query.filter(and_(User.wow_class.contains(keyword) for keyword in keywords_list))
+        else:
+            query = User.query.filter(and_(User.wow_title.contains(keyword) for keyword in keywords_list))
         title = '英雄榜：' + str(query.count()) + ' 个结果'
 
     # 获得 sort
@@ -258,6 +282,10 @@ def users():
         order = User.wow_class.asc()
     elif sort == 're_wow_class':
         order = User.wow_class.desc()
+    elif sort == 'wow_title':
+        order = User.wow_title.asc()
+    elif sort == 're_wow_title':
+        order = User.wow_title.desc()
     elif sort == 'location':
         order = User.location.asc()
     elif sort == 're_location':
@@ -422,26 +450,10 @@ def followed_by(username):
                            endpoint='.followed_by', form_jump=form_jump)
 
 
-@main.route('/all')
-def show_all():
+@main.route('/show-which/<text>')
+def show_which(text):
     resp = make_response(redirect(url_for('.posts')))
-    resp.set_cookie('show_which', 'all', max_age=30*24*60*60)
-    return resp
-
-
-@main.route('/followed')
-@login_required
-def show_followed():
-    resp = make_response(redirect(url_for('.posts')))
-    resp.set_cookie('show_which', 'followed', max_age=30*24*60*60)
-    return resp
-
-
-@main.route('/collected')
-@login_required
-def show_collected():
-    resp = make_response(redirect(url_for('.posts')))
-    resp.set_cookie('show_which', 'collected', max_age=30*24*60*60)
+    resp.set_cookie('show_which', text, max_age=30*24*60*60)
     return resp
 
 
@@ -457,7 +469,7 @@ def show_accord():
 @login_required
 def posts():
     # 获得 title 和 query
-    title = '所有公告'
+    title = '所有'
     query = Post.query
     accord = request.args.get('accord', '内容', type=str)
     keywords = request.args.get('keywords', '', type=str)
@@ -472,7 +484,7 @@ def posts():
                 query = Post.query.filter(or_(Post.author_id.contains(user.id) for user in users))
             else:
                 query = Post.query.filter_by(id=-1)
-        title = '公告：' + str(query.count()) + ' 个结果'
+        title = str(query.count()) + ' 个结果'
     else:
         if show_which == 'followed':
             title = '我的追随'

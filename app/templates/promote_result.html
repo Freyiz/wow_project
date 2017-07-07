@@ -5,9 +5,9 @@
 {% block content %}
     <div class="wow-clause promote-result">
         {% if result == 'promote' %}
-            <div>
+            <div class="yellow">
                 <h1>晋升之路：完成</h1>
-                <p>祝贺，{{ user.username }} ！你已经完成了初级晋升。现在，你可以管理其他人的议论了，<a href="{{ url_for('.moderate') }}">试一试。</a></p>
+                <p>祝贺，{{ user.username }} ！你已经完成了初级晋升。现在，你可以管理其他人的议论了。<a href="{{ url_for('.comments') }}">试一试。</a></p>
             </div>
             <audio class="sound1" src="../static/wow/sound/iQuestComplete.ogg" autoplay></audio>
         {% elif result == 'demotion' %}
@@ -27,7 +27,11 @@
     {{ super() }}
     <script type="text/javascript">
         $(function () {
-            $('body').css({'background':'url("../../static/wow/race/undead_N2A4290RGT5X1472070277045.jpg")', 'background-size':'cover'});
+            if ('{{ result }}'==='promote') {
+                $('body').css({'background':'url("../../static/wow/race/undead_N2A4290RGT5X1472070277045.jpg")', 'background-size':'cover'});
+            } else {
+                $('body').css({'background':'url("../../static/wow/tavern/tavern_undead/undead10.jpg")', 'background-size':'cover'});
+            }
         })
     </script>
 {% endblock %}

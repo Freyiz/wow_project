@@ -3,7 +3,7 @@
  */
 ;$(function () {
     var accord = document.getElementById('search').getAttribute('arg');
-    $.getJSON($SCRIPT_ROOT + '/accord', {accord:accord} , function (data) {});
+    $.getJSON($SCRIPT_ROOT + '/accord', {accord:accord});
     var keywords = document.getElementById('search').getAttribute('arg2').split(' '), select = '.' + accord;
     var color = document.getElementById('search').getAttribute('arg3');
     for (var i=0; i<keywords.length; i++) {
@@ -20,7 +20,7 @@
         $('.accord-tab a').removeClass('active');
         $(this).addClass('active');
         $('.keywords').attr('placeholder', accord).val('');
-        $.getJSON($SCRIPT_ROOT + '/accord', {accord:accord} , function (data) {});
+        $.getJSON($SCRIPT_ROOT + '/accord', {accord:accord});
         $('.search').attr('disabled', 'disabled').css('color', 'gray').removeClass('active');
     });
     $('.keywords').bind('input propertychange', function() {
