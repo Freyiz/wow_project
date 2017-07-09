@@ -1,9 +1,9 @@
 /**
  * Created by freyiz on 17-7-3.
  */
-;var t = 0,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17;
+;var t=0,t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11,t12,t13,t14,t15,t16,t17;
 function fadeout_in(x) {
-    $('.tavern > span img').fadeOut(2000);
+    $('#tavern-img img').fadeOut(2000);
     $(x).fadeIn(4000);
 }
 function sound_loop(total, sounds) {
@@ -41,7 +41,7 @@ function img_loop() {
 }
 $(function () {
     $('body').css({'background':'url("../static/wow/bg/night_repeat.png")', 'background-size':'cover'});
-    $('.tavern h1 a').click(function () {
+    $('h1 a').click(function () {
         t = 0;
         clearTimeout(t1);
         clearTimeout(t2);
@@ -62,17 +62,23 @@ $(function () {
         clearTimeout(t17);
         $('h1 span').fadeOut();
         $('.sound').attr('src', '');
-        $('.tavern > span img').stop().fadeOut();
+        $('#tavern-img img').stop().fadeOut();
         $('.tavern div').fadeIn();
     });
-    $('.tavern div a').click(function () {
-        img_loop();
-        $('.tavern div').fadeOut();
-        setTimeout("fadeout_in('.img1')", 500);
+    $('div.alliance').click(function () {
+        $('h1 a').attr('class', 'alliance');
+        $('#tavern-img').attr('class', 'alliance');
+    });
+    $('div.horde').click(function () {
+        $('h1 a').attr('class', 'horde');
+        $('#tavern-img').attr('class', 'horde');
+    });
+    $('div.neutral').click(function () {
+        $('h1 a').attr('class', 'neutral');
+        $('#tavern-img').attr('class', 'neutral');
     });
     $('.alliance.human a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title1').fadeIn(1000);
+        $('.tavern-title').text('： 人类');
         sound_loop(6, [
             '../static/wow/sound/tavern/TavernHuman/RA_HumanTavern1A.mp3',
             '../static/wow/sound/tavern/TavernHuman/RA_HumanTavern2A.mp3',
@@ -99,8 +105,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_human/human16.jpg');
     });
     $('.alliance.dwarf a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title2').fadeIn(1000);
+        $('.tavern-title').text('： 矮人');
         sound_loop(5, [
             '../static/wow/sound/tavern/TavernDwarf/RA_DwarfTavern1A.mp3',
             '../static/wow/sound/tavern/TavernDwarf/RA_DwarfTavern1B.mp3',
@@ -126,8 +131,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_dwarf/dwarf16.jpg');
     });
     $('.alliance.night-elf a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title3').fadeIn(1000);
+        $('.tavern-title').text('： 暗夜精灵');
         sound_loop(2, [
             '../static/wow/sound/tavern/TavernNightElf/RA_TempleOfTheMoonA.mp3',
             '../static/wow/sound/tavern/TavernNightElf/RA_TempleOfTheMoonB.mp3'
@@ -150,8 +154,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_night-elf/night-elf16.jpg');
     });
     $('.alliance.origin a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title4').fadeIn(1000);
+        $('.tavern-title').text('： 联盟');
         sound_loop(2, [
             '../static/wow/sound/tavern/TavernAlliance/TavernAlliance01.mp3',
             '../static/wow/sound/tavern/TavernAlliance/TavernAlliance02.mp3'
@@ -174,8 +177,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_alliance/alliance16.jpg');
     });
     $('.pirate a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title5').fadeIn(1000);
+        $('.tavern-title').text('： 海盗');
         sound_loop(6, [
             '../static/wow/sound/tavern/TavernPirate/RA_PirateTavern1A.mp3',
             '../static/wow/sound/tavern/TavernPirate/RA_PirateTavern1B.mp3',
@@ -202,8 +204,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_pirate/pirate16.jpg');
     });
     $('.horde.origin a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title6').fadeIn(1000);
+        $('.tavern-title').text('： 部落');
         sound_loop(4, [
             '../static/wow/sound/tavern/TavernHorde/TavernHorde01.mp3',
             '../static/wow/sound/tavern/TavernHorde/TavernHorde02.mp3',
@@ -228,8 +229,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_horde/horde16.jpg');
     });
     $('.horde.orc a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title7').fadeIn(1000);
+        $('.tavern-title').text('： 兽人');
         sound_loop(6, [
             '../static/wow/sound/tavern/TavernOrc/RA_OrcRestArea1A.mp3',
             '../static/wow/sound/tavern/TavernOrc/RA_OrcRestArea1B.mp3',
@@ -256,8 +256,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_orc/orc16.jpg');
     });
     $('.horde.undead a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title8').fadeIn(1000);
+        $('.tavern-title').text('： 亡灵');
         sound_loop(5, [
             '../static/wow/sound/tavern/TavernUndead/RA_UndeadTavern1A.mp3',
             '../static/wow/sound/tavern/TavernUndead/RA_UndeadTavern1B.mp3',
@@ -283,8 +282,7 @@ $(function () {
         $('.img16').attr('src', '../static/wow/tavern/tavern_undead/undead16.jpg');
     });
     $('.horde.tauren a').click(function () {
-        if (t === 1) { return false; } else { t = 1 }
-        $('.title9').fadeIn(1000);
+        $('.tavern-title').text('： 牛头人');
         sound_loop(6, [
             '../static/wow/sound/tavern/TavernTauren/RA_TaurenRestArea1A.mp3',
             '../static/wow/sound/tavern/TavernTauren/RA_TaurenRestArea1B.mp3',
@@ -309,6 +307,13 @@ $(function () {
         $('.img14').attr('src', '../static/wow/tavern/tavern_tauren/tauren14.jpg');
         $('.img15').attr('src', '../static/wow/tavern/tavern_tauren/tauren15.jpg');
         $('.img16').attr('src', '../static/wow/tavern/tavern_tauren/tauren16.jpg');
+    });
+    $('.tavern div a').click(function () {
+        if (t === 1) { return false; } else { t = 1 }
+        img_loop();
+        $('.tavern div').fadeOut();
+        $('h1 span').fadeIn(1000);
+        setTimeout("fadeout_in('.img1')", 500);
     });
 });
 

@@ -376,7 +376,7 @@ li.priest.active span {
     float: left;
     width: 32%;
 }
-.carousel-caption-item .fa-volume-up:hover {
+.carousel-caption-item .fa:first-child:hover {
     cursor: pointer;
 }
 .carousel-caption-item .fa-check {
@@ -458,7 +458,7 @@ li.priest.active span {
     margin-top: 0;
 }
 
-.carousel-caption .current-class {
+.carousel-caption .current-race {
     font-size: 30px;
     margin: -20px 0;
 }
@@ -1147,7 +1147,7 @@ li.priest.active span {
     line-height: 75px;
 }
 #carousel-index .carousel-caption h1 {
-    word-spacing: 10px;
+    word-spacing: 15px;
 }
 #carousel-index .carousel-caption p {
     font-weight: 400;

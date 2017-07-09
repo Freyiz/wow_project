@@ -43,10 +43,6 @@ def register():
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
-        if not current_user.confirmed \
-                and request.endpoint != 'main.index' \
-                and request.endpoint[:5] != 'auth.':
-            return redirect(url_for('auth.unconfirmed'))
 
 
 @auth.route('/unconfirmed')
@@ -65,7 +61,7 @@ def resend_confirmation():
         token = current_user.generate_confirmation_token()
         send_email(current_user.email, '验证邮箱', 'auth/email/confirm',
                    user=current_user, token=token)
-        flash('一封确认邮件已经发往你的邮箱，请注意查收哦！')
+        flash('一封确认邮件已经发往你的邮箱，请注意查收！')
     return redirect(url_for('main.index'))
 
 
@@ -166,7 +162,7 @@ def password_reset_request():
         token = user.generate_confirmation_token()
         send_email(user.email, '重置密码', 'auth/email/reset_password',
                    user=user, token=token)
-        flash('一封确认邮件已经发往你的邮箱，请注意查收哦！')
+        flash('一封确认邮件已经发往你的邮箱，请注意查收！')
         return redirect(url_for('main.index'))
     return render_template('auth/reset_password.html', form=form)
 
@@ -196,7 +192,7 @@ def change_email_request():
             token = current_user.generate_email_change_token(new_email)
             send_email(new_email, '验证新邮箱', 'auth/email/change_email',
                        user=current_user, token=token)
-            flash('一封确认邮件已经发往你的新邮箱，请注意查收哦！')
+            flash('一封确认邮件已经发往你的新邮箱，请注意查收！')
             return redirect(url_for('main.index'))
         flash('密码不正确！')
     return render_template('auth/change_email.html', form=form)

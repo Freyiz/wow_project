@@ -2,7 +2,7 @@ from flask import render_template, request, jsonify, redirect, \
     url_for, flash, current_app, abort, make_response, session, Response
 from .forms import PostForm, CommentForm, EditProfileForm, \
     EditProfileAdminForm, RecaptchaForm, DemotionForm, JumpForm, SearchForm
-from ..decorators import admin_required, permission_required
+from ..decorators import admin_required, permission_required, confirmed_required
 from ..models import Post, Comment, User, Role, Permission, Follow
 from flask_login import login_required, current_user
 from flask_sqlalchemy import get_debug_queries
@@ -57,7 +57,7 @@ def top10_comments():
     return resp
 
 
-@main.route('/', methods=['GET', 'POST'])
+@main.route('/')
 def index():
     top10_posts = request.cookies.get('top10_posts', 'new_posts', type=str)
     top10_users = request.cookies.get('top10_users', 'new_users', type=str)
@@ -78,6 +78,12 @@ def index():
                            users2=users2, comments1=comments1, comments2=comments2,
                            top10_posts=top10_posts, top10_users=top10_users,
                            top10_comments=top10_comments)
+
+
+@main.route('/index_need_login')
+@login_required
+def index_need_login():
+    return redirect(url_for('.index'))
 
 
 @main.route('/user/<username>', methods=['GET', 'POST'])
@@ -149,6 +155,7 @@ def edit_profile_admin(id):
 
 @main.route('/promote', methods=['GET', 'POST'])
 @login_required
+@confirmed_required()
 def promote():
     id = request.args.get('id', type=int)
     user = User.query.get(id)
@@ -196,8 +203,10 @@ def post(id):
     pagination = post.comments.order_by(Comment.timestamp.asc(), Comment.timestamp.asc()).paginate(
         page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'], error_out=False)
     comments = pagination.items
+    confirmed = '1' if current_user.confirmed else ''
     return render_template('post.html', form=form, form_jump=form_jump, posts=[post],
-                           comments=comments, pagination=pagination, pages=pagination.pages)
+                           comments=comments, pagination=pagination,
+                           pages=pagination.pages, confirmed=confirmed)
 
 
 @main.route('/collect-toggle')
@@ -211,6 +220,7 @@ def collect_toggle():
 
 @main.route('/made-post', methods=['GET', 'POST'])
 @login_required
+@confirmed_required()
 def made_post():
     id = request.args.get('id', 0, type=int)
     user_id = request.args.get('user_id', 0, type=int)
@@ -459,7 +469,7 @@ def show_which(text):
 
 @main.route('/accord')
 @login_required
-def show_accord():
+def accord():
     accord = request.args.get('accord', type=str)
     session['accord'] = accord
     return jsonify()

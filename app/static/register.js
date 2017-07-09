@@ -28,25 +28,6 @@
         $('.tab-pane').removeClass('active');
         $('.tab-pane:first-child').addClass('active');
     });
-    $('.carousel-caption-item a').click(function () {
-        $('.carousel-caption-item h3').css('color', '#FFD700');
-        $('.carousel-caption-item span').fadeOut();
-        $(this).next('div').children('h3').children('span').fadeIn();
-        $(this).next('div').children('h3').css('color', '#008000');
-        $('.to-class').fadeIn();
-        $('.current-class span').text($(this).attr('name'));
-        $('.register .wow_race').val($(this).attr('name'));
-        $('.choose.first').show();
-        $('.choose.second').hide();
-    });
-    $('.race-choose-horde .carousel-caption-item a').click(function () {
-        $('.fa-reply').hide();
-        $('.fa-reply.horde').show();
-    });
-    $('.race-choose-alliance .carousel-caption-item a').click(function () {
-        $('.fa-reply').hide();
-        $('.fa-reply.alliance').show();
-    });
     $('.fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-volume-up') {
             $('.fa-pause').attr('class', 'fa fa-volume-up');
@@ -56,13 +37,42 @@
             $('.sound2').attr('src', '');
         }
     });
-    $('.human a').click(function () {
+    $('.carousel-caption-item a').click(function () {
+        $('.carousel-caption-item h3').css('color', '#FFD700');
+        $('.carousel-caption-item span').fadeOut();
+        $(this).next('div').children('h3').children('span').fadeIn();
+        $(this).next('div').children('h3').css('color', '#008000');
+        $('.to-class').fadeIn();
+        $('.current-race span').text($(this).attr('name'));
+        $('.register .wow_race').val($(this).attr('name'));
         $('.choose.zeroth').hide();
+        $('.choose.first').show();
+        $('.choose.second').hide();
+        $('.fa-reply').hide();
+    });
+    $('.race-choose-horde .carousel-caption-item a').click(function () {
+        $('.fa-reply.horde').show();
+    });
+    $('.race-choose-alliance .carousel-caption-item a').click(function () {
+        $('.fa-reply.alliance').show();
+    });
+    var race, total, total2, sounds, sounds2, num;
+    function sound_loop() {
+        if (total2 === 0 ) {
+            total2 = total;
+            sounds2 = sounds.slice(0);
+        }
+        num = Math.floor(Math.random()*total2);
+        $('.sound1').attr('src', sounds2[num]);
+        total2 -= 1;
+        sounds2.splice($.inArray(sounds2[num],sounds2),1);
+    }
+    $('.human a').click(function () {
         $('#shaman .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*7);
-        var sounds = [
+        total = 7;
+        sounds = [
             '../../static/wow/sound/human/HumanMaleChicken01.ogg',
             '../../static/wow/sound/human/HumanMaleChooChoo01.ogg',
             '../../static/wow/sound/human/HumanMaleLaugh01.ogg',
@@ -71,7 +81,6 @@
             '../../static/wow/sound/human/HumanMaleWarriorNPCFarewell01.ogg',
             '../../static/wow/sound/human/HumanMaleWarriorNPCFarewell05.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.human .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -79,11 +88,11 @@
         }
     });
     $('.dwarf a').click(function () {
-        $('.choose.zeroth').hide();
         $('#druid .choose.zeroth').show();
+        $('#monk .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*9);
-        var sounds = [
+        total = 9;
+        sounds = [
             '../../static/wow/sound/dwarf/DwarfMaleChicken01.ogg',
             '../../static/wow/sound/dwarf/DwarfMaleChooChoo01.ogg',
             '../../static/wow/sound/dwarf/DwarfMaleGrimNPCFarewell02.ogg',
@@ -94,7 +103,6 @@
             '../../static/wow/sound/dwarf/DwarfMaleGuardNPCGreeting02.ogg',
             '../../static/wow/sound/dwarf/DwarfMaleLaugh01.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.dwarf .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -102,12 +110,11 @@
         }
     });
     $('.night-elf a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#shaman .choose.zeroth').show();
         $('#warlock .choose.zeroth').show();
-        var num = Math.floor(Math.random()*6);
-        var sounds = [
+        total = 6;
+        sounds = [
             '../../static/wow/sound/night-elf/NightElfMaleChicken01.ogg',
             '../../static/wow/sound/night-elf/NightElfMaleChooChoo01.ogg',
             '../../static/wow/sound/night-elf/NightElfMaleLaugh01.ogg',
@@ -115,7 +122,6 @@
             '../../static/wow/sound/night-elf/NightElfMaleStandardNPCFarewell06.ogg',
             '../../static/wow/sound/night-elf/NightElfMaleWarriorNPCGreeting03.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.night-elf .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -123,13 +129,12 @@
         }
     });
     $('.gnome a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#shaman .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*8);
-        var sounds = [
+        total = 8;
+        sounds = [
             '../../static/wow/sound/gnome/GnomeFemaleChicken01.ogg',
             '../../static/wow/sound/gnome/GnomeFemaleChooChoo01.ogg',
             '../../static/wow/sound/gnome/GnomeFemaleHappyNPCFarewell04.ogg',
@@ -139,7 +144,6 @@
             '../../static/wow/sound/gnome/GnomeFemaleNerdyNPCGreeting01.ogg',
             '../../static/wow/sound/gnome/GnomeFemaleNerdyNPCGreeting04.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.gnome .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -147,13 +151,12 @@
         }
     });
     $('.draenei a').click(function () {
-        $('.choose.zeroth').hide();
         $('#rogue .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
         $('#warlock .choose.zeroth').show();
-        var num = Math.floor(Math.random()*9);
-        var sounds = [
+        total = 9;
+        sounds = [
             '../../static/wow/sound/draenei/DraeneiFemaleChicken01.ogg',
             '../../static/wow/sound/draenei/DraeneiFemaleLaugh01.ogg',
             '../../static/wow/sound/draenei/DraeneiFemaleTrain01.ogg',
@@ -164,7 +167,6 @@
             '../../static/wow/sound/draenei/NPCDraeneiFemaleNobleGreeting03.ogg',
             '../../static/wow/sound/draenei/NPCDraeneiFemaleNobleGreeting08.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.draenei .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -172,14 +174,13 @@
         }
     });
     $('.pandaren-female a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#death-knight .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
         $('#warlock .choose.zeroth').show();
-        var num = Math.floor(Math.random()*7);
-        var sounds = [
+        total = 7;
+        sounds = [
             '../../static/wow/sound/pandaren-female/VO_Pandaren_Female_Gruff_Greeting_01.ogg',
             '../../static/wow/sound/pandaren-female/VO_Pandaren_Female_Gruff_Greeting_02.ogg',
             '../../static/wow/sound/pandaren-female/VO_Pandaren_Female_Gruff_Greeting_03.ogg',
@@ -188,7 +189,6 @@
             '../../static/wow/sound/pandaren-female/VO_PCPandarenFemale_Laugh01.ogg',
             '../../static/wow/sound/pandaren-female/VO_PCPandarenFemale_Train01.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.pandaren-female .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -196,13 +196,12 @@
         }
     });
     $('.worgen a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#shaman .choose.zeroth').show();
         $('#monk .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*6);
-        var sounds = [
+        total = 6;
+        sounds = [
             '../../static/wow/sound/worgen/VO_PCWorgenMale_Chicken01.ogg',
             '../../static/wow/sound/worgen/VO_PCWorgenMale_Laugh01.ogg',
             '../../static/wow/sound/worgen/VO_PCWorgenMale_Train01.ogg',
@@ -210,7 +209,6 @@
             '../../static/wow/sound/worgen/VO_WorgenGuardM_FarewellAggro02.ogg',
             '../../static/wow/sound/worgen/VO_WorgenGuardM_GreetingAggro03.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.worgen .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -218,13 +216,12 @@
         }
     });
     $('.orc a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
         $('#priest .choose.zeroth').show();
-        var num = Math.floor(Math.random()*7);
-        var sounds = [
+        total = 7;
+        sounds = [
             '../../static/wow/sound/orc/OrcMaleChicken01.ogg',
             '../../static/wow/sound/orc/OrcMaleChooChoo01.ogg',
             '../../static/wow/sound/orc/OrcMaleGuardNPCGreeting01.ogg',
@@ -233,7 +230,6 @@
             '../../static/wow/sound/orc/OrcMaleStandardNPCFarewell04.ogg',
             '../../static/wow/sound/orc/OrcMaleStandardNPCFarewell05.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.orc .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -241,13 +237,12 @@
         }
     });
     $('.undead a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#shaman .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*7);
-        var sounds = [
+        total = 7;
+        sounds = [
             '../../static/wow/sound/undead/UndeadFemaleChicken01.ogg',
             '../../static/wow/sound/undead/UndeadFemaleChooChoo01.ogg',
             '../../static/wow/sound/undead/UndeadFemaleLaugh01.ogg',
@@ -256,7 +251,6 @@
             '../../static/wow/sound/undead/UndeadFemaleWarriorNPCFarewell06.ogg',
             '../../static/wow/sound/undead/UndeadFemaleWarriorNPCFarewell07.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.undead .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -264,13 +258,12 @@
         }
     });
     $('.tauren a').click(function () {
-        $('.choose.zeroth').hide();
         $('#rogue .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
         $('#mage .choose.zeroth').show();
         $('#warlock .choose.zeroth').show();
-        var num = Math.floor(Math.random()*7);
-        var sounds = [
+        total = 7;
+        sounds = [
             '../../static/wow/sound/tauren/TaurenMaleChicken01.ogg',
             '../../static/wow/sound/tauren/TaurenMaleChooChoo01.ogg',
             '../../static/wow/sound/tauren/TaurenMaleElderNPCFarewell02.ogg',
@@ -279,7 +272,6 @@
             '../../static/wow/sound/tauren/TaurenMaleLaugh01.ogg',
             '../../static/wow/sound/tauren/TaurenMaleWarriorNPCFarewell02.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.tauren .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -287,11 +279,10 @@
         }
     });
     $('.troll a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*6);
-        var sounds = [
+        total = 6;
+        sounds = [
             '../../static/wow/sound/troll/TrollMaleChicken01.ogg',
             '../../static/wow/sound/troll/TrollMaleChooChoo01.ogg',
             '../../static/wow/sound/troll/TrollMaleDarkNPCGreeting01.ogg',
@@ -299,7 +290,6 @@
             '../../static/wow/sound/troll/TrollMaleDarkNPCGreeting05.ogg',
             '../../static/wow/sound/troll/TrollMaleLaugh01.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.troll .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -307,11 +297,10 @@
         }
     });
     $('.blood-elf a').click(function () {
-        $('.choose.zeroth').hide();
         $('#shaman .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
-        var num = Math.floor(Math.random()*10);
-        var sounds = [
+        total = 10;
+        sounds = [
             '../../static/wow/sound/blood-elf/BloodElfFemaleChicken01.ogg',
             '../../static/wow/sound/blood-elf/BloodElfFemaleLaugh01.ogg',
             '../../static/wow/sound/blood-elf/BloodElfFemaleTrain01.ogg',
@@ -323,7 +312,6 @@
             '../../static/wow/sound/blood-elf/NPCBloodElfFemaleNobleGreeting07.ogg',
             '../../static/wow/sound/blood-elf/NPCBloodElfFemaleNobleGreeting08.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.blood-elf .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -331,14 +319,13 @@
         }
     });
     $('.pandaren-male a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
         $('#death-knight .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
         $('#warlock .choose.zeroth').show();
-        var num = Math.floor(Math.random()*8);
-        var sounds = [
+        total = 8;
+        sounds = [
             '../../static/wow/sound/pandaren-male/VO_Pandaren_Male_Old_Greeting_01.ogg',
             '../../static/wow/sound/pandaren-male/VO_Pandaren_Male_Old_Greeting_02.ogg',
             '../../static/wow/sound/pandaren-male/VO_Pandaren_Male_Standard_Farewell_01.ogg',
@@ -348,7 +335,6 @@
             '../../static/wow/sound/pandaren-male/VO_PCPandarenMale_Laugh01.ogg',
             '../../static/wow/sound/pandaren-male/VO_PCPandarenMale_Train01.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.pandaren-male .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
@@ -356,13 +342,11 @@
         }
     });
     $('.goblin a').click(function () {
-        $('.choose.zeroth').hide();
         $('#paladin .choose.zeroth').show();
-        $('#rogue .choose.zeroth').show();
         $('#druid .choose.zeroth').show();
         $('#demon-hunter .choose.zeroth').show();
-        var num = Math.floor(Math.random()*10);
-        var sounds = [
+        total = 10;
+        sounds = [
             '../../static/wow/sound/goblin/GoblinMaleZanyNPCFarewell03.ogg',
             '../../static/wow/sound/goblin/GoblinMaleZanyNPCFarewell04.ogg',
             '../../static/wow/sound/goblin/GoblinMaleZanyNPCGreeting01.ogg',
@@ -374,12 +358,19 @@
             '../../static/wow/sound/goblin/VO_PCGoblinMale_Laugh01.ogg',
             '../../static/wow/sound/goblin/VO_PCGoblinMale_Train01.ogg'
         ];
-        $('.sound1').attr('src', sounds[num]);
     });
     $('.goblin .fa-volume-up').click(function () {
         if ($(this).attr('class') === 'fa fa-pause') {
             $('.sound2').attr('src', '../../static/wow/sound/narration/GoblinNarration.mp3');
         }
+    });
+    $('.carousel-caption-item a').click(function () {
+        if (race !== $(this).attr('name')) {
+            total2 = total;
+            sounds2 = sounds.slice(0);
+        }
+        race = $(this).attr('name');
+        sound_loop();
     });
     $('.choose.first').click(function () {
         $(this).fadeOut();

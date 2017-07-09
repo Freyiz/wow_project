@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
-{% import "_macros.html" as macros %}
 
 {% block title %}艾泽拉斯{% endblock %}
 
@@ -184,7 +182,7 @@
                             <a class="top10-text" href="{{ url_for('.post', id=comment.post.id) }}">查看议论</a>
                             <span>
                                 {% if current_user.is_authenticated %}
-                                    &nbsp;<a href="javascript:;" id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"></a>
+                                    &nbsp;<a id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}></a>
                                 {% else %}
                                     &nbsp;<i class="fa fa-thumbs-up"></i>
                                 {% endif %}

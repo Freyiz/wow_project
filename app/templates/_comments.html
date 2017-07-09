@@ -23,13 +23,13 @@
                         {% if not comment.disabled or current_user.can(Permission.MODERATE_COMMENTS) %}
                             <span class="内容">{% if comment.body_html %}{{ comment.body_html | safe }}{% else %}{{ comment.body }}{% endif %}<br></span>
                             <span id="comment{{ comment.id }}">{{ comment.likes }}</span>
-                            <a href="javascript:;" id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"></a>
+                            <a id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}></a>
                         {% endif %}
                     </div>
                 </div>
                 <div class="post-footer">
                     {% if current_user.can(Permission.MODERATE_COMMENTS) %}
-                        <a id="comment_display_toggle{{ comment.id }}"{% if not comment.disabled %} href="javascript:;" class="btn btn-success btn-xs"{% else %} class="btn btn-danger btn-xs"{% endif %} onclick="display_toggle('{{ comment.id }}', '#comment_display_toggle{{ comment.id }}', '#display_warning{{ comment.id }}', '#comment_color{{ comment.id }}')">
+                        <a id="comment_display_toggle{{ comment.id }}"{% if not comment.disabled %} class="btn btn-success btn-xs"{% else %} class="btn btn-danger btn-xs"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="display_toggle('{{ comment.id }}', '#comment_display_toggle{{ comment.id }}', '#display_warning{{ comment.id }}', '#comment_color{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}>
                             {% if not comment.disabled %}屏蔽{% else %}显示{% endif %}
                         </a>
                     {% endif %}

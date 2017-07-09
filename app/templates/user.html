@@ -19,11 +19,11 @@
         {% if user.about_me %}<p class="user-about-me">{{ user.about_me }}</p>{% endif %}
         <p>
             {% if current_user.can(Permission.FOLLOW) and current_user != user %}
-                <a class="btn bg-primary" onclick="follow_toggle()">
+                <a class="btn bg-primary" {% if current_user.confirmed %}onclick="follow_toggle()" href="javascript:;"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}>
                     <span id="follow_icon"{% if current_user.is_following(user) %} hidden{% endif %}><i class="fa fa-heart"></i></span>
                     <span id="is_following">{% if current_user.is_following(user) %}取消追随{% else %}追随{% endif %}</span>
-                </a>
-            {% endif %} 追随了
+                </a>&nbsp;
+            {% endif %}追随了
             <a class="{{ user.wow_faction_en() }}"{% if user.followed.count() > 1 %} href="{{ url_for('.followed_by', username=user.username) }}"{% endif %}>
                 {{ user.followed.count() - 1 }}
             </a> 人 | 追随者

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
 {% import "_macros.html" as macros %}
 
 {% block title %}评论{% endblock %}
@@ -34,6 +33,10 @@
     {{ pagedown.include_pagedown() }}
     <script type="text/javascript">
         $(function () {
+            if ('{{ confirmed }}' === '') {
+                $('.form-control').attr('placeholder', '请验证账户之后再发布议论。');
+                $('.form-control').attr('disabled', 'disabled');
+            }
             $('.form-control').bind('input propertychange', function() {
                 var val = $(this).val();
                 if (/^\s*$/.test(val)) {
