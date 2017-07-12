@@ -1,6 +1,7 @@
 <ul class="comments">
     {% for comment in comments %}
-        <li id="{{ comment.id }}" class="comment {{ comment.author.wow_faction_en() }}">
+        {% set faction = comment.author.wow_faction_en() %}
+        <li id="{{ comment.id }}" class="comment {{ faction }}">
             <div class="comment-thumbnail">
                 <a href="{{ url_for('.user', username=comment.author.username) }}">
                     {% if comment.author.avatar %}
@@ -11,28 +12,36 @@
                 </a>
             </div>
             <div class="comment-content">
-                <div class="comment-date">{{ moment(comment.timestamp).fromNow() }} 丨 {% if title %}<a class="fa fa-link" href="{{ url_for('.post', id=comment.post.id) }}"></a>{% else %}#{{ comment.ranking }}{% endif %}</div>
+                {% set num = comment.ranking %}
+                {% set p = num // 10 + 1 if num % 10 else num // 10 %}
+                <div class="comment-date">{{ moment(comment.timestamp).fromNow() }} 丨 {% if title %}<a class="fa fa-link {{ faction }}" href="{{ url_for('.post', id=comment.post.id, page=p, _anchor=comment.id, anchor_id=comment.id, anchor_class=comment.author.wow_faction_en()) }}"></a>{% else %}# {{ comment.ranking }}{% endif %}</div>
                 <div class="comment-author 角色名">
                     <a class="{{ comment.author.wow_class_en() }}" href="{{ url_for('.user', username=comment.author.username) }}">
                         {{ comment.author.username }}
                     </a>
                 </div>
                 <div class="post-body">
-                    <b id="display_warning{{ comment.id }}" {% if not comment.disabled %}hidden{% endif %}>此议论已被屏蔽。</b>
-                    <div id="comment_color{{ comment.id }}" {% if comment.disabled %}style="color: #857a78" {% endif %}>
+                    <b id="display_warning{{ comment.id }}" {% if not comment.disabled %}hidden{% endif %}>此观点已被屏蔽。</b>
+                    <div id="comment_text{{ comment.id }}" {% if comment.disabled %}style="color: #857a78" {% endif %}>
                         {% if not comment.disabled or current_user.can(Permission.MODERATE_COMMENTS) %}
                             <span class="内容">{% if comment.body_html %}{{ comment.body_html | safe }}{% else %}{{ comment.body }}{% endif %}<br></span>
-                            <span id="comment{{ comment.id }}">{{ comment.likes }}</span>
-                            <a id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}></a>
                         {% endif %}
                     </div>
                 </div>
                 <div class="post-footer">
-                    {% if current_user.can(Permission.MODERATE_COMMENTS) %}
-                        <a id="comment_display_toggle{{ comment.id }}"{% if not comment.disabled %} class="btn btn-success btn-xs"{% else %} class="btn btn-danger btn-xs"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="display_toggle('{{ comment.id }}', '#comment_display_toggle{{ comment.id }}', '#display_warning{{ comment.id }}', '#comment_color{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}>
-                            {% if not comment.disabled %}屏蔽{% else %}显示{% endif %}
-                        </a>
-                    {% endif %}
+                    <div id="comment_like{{ comment.id }}" class="left">
+                        {% if not comment.disabled or current_user.can(Permission.MODERATE_COMMENTS) %}
+                            <span id="comment{{ comment.id }}">{{ comment.likes }}</span>
+                            <a id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}></a>
+                        {% endif %}
+                    </div>
+                    <div class="right">
+                        {% if current_user.can(Permission.MODERATE_COMMENTS) %}
+                            <a id="comment_display_toggle{{ comment.id }}"{% if not comment.disabled %} class="btn btn-success btn-xs"{% else %} class="btn btn-danger btn-xs"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="display_toggle('{{ comment.id }}', '#comment_display_toggle{{ comment.id }}', '#display_warning{{ comment.id }}', '#comment_text{{ comment.id }}', '#comment_like{{ comment.id }} *')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}>
+                                {% if not comment.disabled %}屏蔽{% else %}显示{% endif %}
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </li>
@@ -47,7 +56,7 @@
             $(a_id).attr('class', data.text);
         });
     }
-    function display_toggle(comment_id, a_id, b_id, div_id) {
+    function display_toggle(comment_id, a_id, b_id, div_id, like_id) {
         $.getJSON($SCRIPT_ROOT + '/comment-display-toggle', {
             id: comment_id
         }, function(data) {
@@ -55,9 +64,11 @@
             if (data.result === '显示') {
                 $(b_id).show();
                 $(div_id).css('color', '#857a78');
+                $(like_id).css('color', '#857a78');
             } else {
                 $(b_id).hide();
                 $(div_id).css('color', '#ffffff');
+                $(like_id).css('color', '#ffffff');
             }
         });
     }

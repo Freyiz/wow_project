@@ -3,12 +3,24 @@
 {% block title %}验证账户{% endblock %}
 
 {% block page_content %}
-    <div class="page-header">
-        <h1>你好, {{ current_user.username }}!</h1><br>
-        <h4>你的账户尚未验证！前往
-            <a class="{{ current_user.wow_faction_en() }}" href="{{ email_address }}" target="_blank">邮箱</a>
-            或
-            <a class="{{ current_user.wow_faction_en() }}" href="{{ url_for('auth.resend_confirmation') }}">重新发送确认邮件</a>。
-        </h4>
+    {% set faction = current_user.wow_faction_en() %}
+    <div class="no-content long">
+        此步操作需要验证账户！前往<a class="{{ faction }}" href="{{ email_address }}" target="_blank">邮箱验证</a>或<a class="{{ faction }}" href="{{ url_for('auth.resend_confirmation') }}">重新发送验证邮件</a>。
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% set faction = current_user.wow_faction_en() %}
+    <script type="text/javascript">
+        $(function () {
+            if ('{{ faction }}' === 'alliance') {
+                $('body').css({'background':'url("../../static/wow/race/human_HZJQRG4GRHFU1472070161324.jpg")', 'background-size':'cover'});
+            } else if ('{{ faction }}' === 'horde') {
+                $('body').css({'background':'url("../../static/wow/race/orc_9C362D99J92X1472070208880.jpg")', 'background-size':'cover'});
+            } else {
+                $('body').css({'background':'url("../../static/wow/race/worgen_VR4N0BK6T5DR1472070304292.jpg")', 'background-size':'cover'});
+            }
+        })
+    </script>
 {% endblock %}

@@ -4,7 +4,8 @@
 {% block title %}英雄榜{% endblock %}
 
 {% block page_content %}
-    <div class="page-header container {{ current_user.wow_faction_en() }}">
+    {% set faction = current_user.wow_faction_en() %}
+    <div class="page-header container {{ faction }}">
         <h1>
             {{ title }}
             <form method="post" class="form form-search" role="form">
@@ -21,15 +22,15 @@
                     {% else %}
                         <span class="accord-tab"><a class="left" name="角色名">按角色</a><a name="阵营">按阵营</a><a name="种族">按种族</a><a name="职业">按职业</a><a class="right active" name="头衔">按头衔</a></span>
                     {% endif %}
-                    {{ form_search.keywords(class="keywords " + current_user.wow_faction_en() , placeholder='内容') }}
-                    {{ form_search.submit(class="search " + current_user.wow_faction_en(), disabled='disabled') }}
+                    {{ form_search.keywords(class="keywords " + faction , placeholder='内容') }}
+                    {{ form_search.submit(class="search " + faction, disabled='disabled') }}
                 </div>
             </form>
         </h1>
     </div>
     {% if users %}
-        <table class="table {{ current_user.wow_faction_en() }}">
-            <thead><tr><th>
+        <table class="table {{ faction }}">
+            <thead class="change"><tr><th>
                 <a class="{% if sort == 're_id' or sort == 'id' %}active{% endif %}" href="{% if sort == 're_id' %}{{ url_for('.users', sort='id', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.users', sort='re_id', accord=accord, keywords=keywords) }}{% endif %}">ID</a>
             </th><th>
                 <a class="{% if sort == 're_username' or sort == 'username' %}active{% endif %}" href="{% if sort == 'username' %}{{ url_for('.users', sort='re_username', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.users', sort='username', accord=accord, keywords=keywords) }}{% endif %}">角色</a>
@@ -73,9 +74,9 @@
                     <td class="row4 种族">{{ user.wow_race }}<br></td>
                     <td class="row5 职业">{{ user.wow_class }}<br></td>
                     <td class="row6 头衔">{{ user.wow_title }}<br></td>
-                    <td class="row7"><a href="http://baike.baidu.com/item/{{ user.location }}" target="_blank">{{ user.location }}</a></td>
-                    <td class="row8"><a{% if user.followed.count() > 1 %} href="{{ url_for('.followed_by', username=user.username) }}"{% endif %}>{{ user.followed.count() - 1 }}</a></td>
-                    <td class="row9"><a{% if user.followers.count() > 1 %} href="{{ url_for('.followers', username=user.username) }}"{% endif %}>{{ user.followers.count() - 1 }}</a></td>
+                    <td class="row7 change"><a href="http://baike.baidu.com/item/{{ user.location }}" target="_blank">{{ user.location }}</a></td>
+                    <td class="row8 change"><a{% if user.followed.count() > 1 %} href="{{ url_for('.followed_by', username=user.username) }}"{% endif %}>{{ user.followed.count() - 1 }}</a></td>
+                    <td class="row9 change"><a{% if user.followers.count() > 1 %} href="{{ url_for('.followers', username=user.username) }}"{% endif %}>{{ user.followers.count() - 1 }}</a></td>
                     <td class="row10">{{ user.role.name }}</td>
                     <td class="row11"><i class="fa{% if user.confirmed %} fa-check{%else %} fa-close{% endif %}"></i></td>
                     <td class="row12">{{ moment(user.member_since).format('L') }}</td>
@@ -83,20 +84,23 @@
                 </tr>
             {% endfor %}
         </table>
-    {% endif %}
-    {% if pagination.pages > 1 %}
-        <div class="my-pagination">
-            {{ macros.pagination_widget(pagination, '.users', sort=sort, accord=accord, keywords=keywords) }}
-            <form method="post" class="form" role="form">
-                {{ form_jump.hidden_tag() }}
-                <div class="form-group">{{ form_jump.page_num(class="page-num " + current_user.wow_faction_en()) }}{{ form_jump.submit(class="jump " + current_user.wow_faction_en(), disabled='disabled') }}</div>
-            </form>
-        </div>
+        {% if pagination.pages > 1 %}
+            <div class="my-pagination">
+                {{ macros.pagination_widget(pagination, '.users', sort=sort, accord=accord, keywords=keywords) }}
+                <form method="post" class="form" role="form">
+                    {{ form_jump.hidden_tag() }}
+                    <div class="form-group">{{ form_jump.page_num(class="page-num " + faction) }}{{ form_jump.submit(class="jump " + faction, disabled='disabled') }}</div>
+                </form>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="no-content">没有找到相关内容。</div>
     {% endif %}
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-    <script id="search" src="{{ url_for('static', filename='search.js') }}" arg="{{ accord }}" arg2="{{ keywords }}" arg3="{{ current_user.wow_faction_color() }}"></script>
-    <script id="jump" src="{{ url_for('static', filename='jump.js') }}" onload="jump({{ pages }})" arg="{{ current_user.wow_faction_color() }}"></script>
+    {% set color = current_user.wow_faction_color() %}
+    <script id="search" src="{{ url_for('static', filename='search.js') }}" arg="{{ accord }}" arg2="{{ keywords }}" arg3="{{ color }}" arg4="{{ current_user.wow_faction_en() }}" arg5="{{ users }}"></script>
+    <script id="jump" src="{{ url_for('static', filename='jump.js') }}" onload="jump({{ pages }})" arg="{{ color }}"></script>
 {% endblock %}

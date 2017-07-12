@@ -182,6 +182,8 @@ def promote():
 @login_required
 @permission_required(Permission.COMMENT)
 def post(id):
+    anchor_id = request.args.get('anchor_id', '', type=str)
+    anchor_class = request.args.get('anchor_class', '', type=str) + '-light'
     post = Post.query.get(id)
     form = CommentForm()
     if form.validate_on_submit():
@@ -191,11 +193,14 @@ def post(id):
         post.comments_count += 1
         db.session.add(comment)
         db.session.add(post)
-        flash('议论已发布！')
-        return redirect(url_for('.post', id=id, page=-1))
+        db.session.commit()
+
+        num = comment.ranking
+        p = num // 10 + 1 if num % 10 else num // 10
+        anchor_class = comment.author.wow_faction_en()
+        return redirect(url_for('.post', id=id, page=p, _anchor=comment.id,
+                                anchor_id=comment.id, anchor_class=anchor_class))
     page = request.args.get('page', 1, type=int)
-    if page == -1:
-        page = (post.comments_count - 1) // current_app.config['FLASKY_COMMENTS_PER_PAGE'] + 1
     form_jump = JumpForm()
     if form_jump.validate_on_submit():
         page = form_jump.page_num.data
@@ -204,9 +209,11 @@ def post(id):
         page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'], error_out=False)
     comments = pagination.items
     confirmed = '1' if current_user.confirmed else ''
+    user = post.author
     return render_template('post.html', form=form, form_jump=form_jump, posts=[post],
-                           comments=comments, pagination=pagination,
-                           pages=pagination.pages, confirmed=confirmed)
+                           comments=comments, pagination=pagination, user=user,
+                           pages=pagination.pages, confirmed=confirmed,
+                           anchor_id=anchor_id, anchor_class=anchor_class)
 
 
 @main.route('/collect-toggle')
@@ -432,7 +439,8 @@ def followers(username):
     if form_jump.validate_on_submit():
         page = form_jump.page_num.data
         return redirect(url_for('.followers', page=page, username=username))
-    pagination = user.followers.order_by(Follow.timestamp.desc()).paginate(
+    query = user.followers.filter(Follow.follower_id != user.id)
+    pagination = query.order_by(Follow.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_FOLLOWERS_PER_PAGE'],
         error_out=False)
     follows = [{'user': item.follower, 'timestamp': item.timestamp}
@@ -450,7 +458,8 @@ def followed_by(username):
     if form_jump.validate_on_submit():
         page = form_jump.page_num.data
         return redirect(url_for('.followed_by', page=page, username=username))
-    pagination = user.followed.order_by(Follow.timestamp.desc()).paginate(
+    query = user.followed.filter(Follow.followed_id != user.id)
+    pagination = query.order_by(Follow.timestamp.desc()).paginate(
         page, per_page=current_app.config['FLASKY_FOLLOWERS_PER_PAGE'],
         error_out=False)
     follows = [{'user': item.followed, 'timestamp': item.timestamp}

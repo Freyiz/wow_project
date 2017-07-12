@@ -51,52 +51,6 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </a>
     </div>
-    <div class="top10-index posts">
-        <div class="head"><a href="{{ url_for('main.posts') }}">公告牌</a></div>
-        <div class="top10-outside"><div class="top10-inside">TOP 10</div></div>
-        <ul class="nav nav-pills">
-            <li class="left {% if top10_posts == 'new_posts' %}active{% endif %}"><a href="#new-posts" data-toggle="tab">最新</a></li>
-            <li class="right {% if top10_posts == 'hot_posts' %}active{% endif %}"><a href="#hot-posts" data-toggle="tab">议论量</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane {% if top10_posts == 'new_posts' %}active{% endif %}" id="new-posts">
-                <ul class="top10">
-                    {% for post in posts1 %}
-                        <li class="{{ post.author.wow_faction_en() }}">
-                            <a href="{{ url_for('.user', username=post.author.username) }}">
-                                {% if post.author.avatar %}
-                                    <img src="{{ post.author.avatar }}" width="25" height="25" class="img-rounded">
-                                {% else %}
-                                    <img src="{{ post.author.wow_avatar }}" width="25" height="25" class="img-rounded">
-                                {% endif %}
-                            </a>
-                            <a class="top10-username {{ post.author.wow_class_en() }}" href="{{ url_for('.user', username=post.author.username) }}">{{ post.author.username }}</a>
-                            <a class="top10-text" href="{{ url_for('.post', id=post.id) }}">查看公告</a>
-                            <span>{{ moment(post.timestamp).fromNow() }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="tab-pane {% if top10_posts == 'hot_posts' %}active{% endif %}" id="hot-posts">
-                <ul class="top10">
-                    {% for post in posts2 %}
-                        <li class="{{ post.author.wow_faction_en() }}">
-                            <a href="{{ url_for('.user', username=post.author.username) }}">
-                                {% if post.author.avatar %}
-                                    <img src="{{ post.author.avatar }}" width="25" height="25" class="img-rounded">
-                                {% else %}
-                                    <img src="{{ post.author.wow_avatar }}" width="25" height="25" class="img-rounded">
-                                {% endif %}
-                            </a>
-                            <a class="top10-username {{ post.author.wow_class_en() }}" href="{{ url_for('.user', username=post.author.username) }}">{{ post.author.username }}</a>
-                            <a class="top10-text" href="{{ url_for('.post', id=post.id) }}">查看公告</a>
-                            <span>{{ post.comments_count }} <a class="fa fa-comments" href="{{ url_for('.post', id=post.id) }}"></a></span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
     <div class="top10-index users">
         <div class="head"><a href="{{ url_for('main.users') }}">英雄榜</a></div>
         <div class="top10-outside"><div class="top10-inside">TOP 10</div></div>
@@ -161,7 +115,9 @@
                                 {% endif %}
                             </a>
                             <a class="top10-username {{ comment.author.wow_class_en() }}" href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a>
-                            <a class="top10-text" href="{{ url_for('.post', id=comment.post.id) }}">查看议论</a>
+                            {% set num = comment.ranking %}
+                            {% set p = num // 10 + 1 if num % 10 else num // 10 %}
+                            <a class="top10-text" href="{{ url_for('.post', id=comment.post.id, page=p, _anchor=comment.id, anchor_id=comment.id, anchor_class=comment.author.wow_faction_en()) }}">查看观点</a>
                             <span>{{ moment(comment.timestamp).fromNow() }}</span>
                         </li>
                     {% endfor %}
@@ -179,7 +135,9 @@
                                 {% endif %}
                             </a>
                             <a class="top10-username {{ comment.author.wow_class_en() }}" href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a>
-                            <a class="top10-text" href="{{ url_for('.post', id=comment.post.id) }}">查看议论</a>
+                            {% set num = comment.ranking %}
+                            {% set p = num // 10 + 1 if num % 10 else num // 10 %}
+                            <a class="top10-text" href="{{ url_for('.post', id=comment.post.id, page=p, _anchor=comment.id, anchor_id=comment.id, anchor_class=comment.author.wow_faction_en()) }}">查看观点</a>
                             <span>
                                 {% if current_user.is_authenticated %}
                                     &nbsp;<a id="like_icon{{ comment.id }}"{% if comment not in current_user.comments_like.all() %} class="fa fa-thumbs-o-up"{% else %} class="fa fa-thumbs-up"{% endif %} {% if current_user.confirmed %}href="javascript:;" onclick="like_toggle('{{ comment.id }}', '#comment{{ comment.id }}', '#like_icon{{ comment.id }}')"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}></a>
@@ -193,6 +151,52 @@
                 </ul>
             </div>
         </div>    
+    </div>
+    <div class="top10-index posts">
+        <div class="head"><a href="{{ url_for('main.posts') }}">公告牌</a></div>
+        <div class="top10-outside"><div class="top10-inside">TOP 10</div></div>
+        <ul class="nav nav-pills">
+            <li class="left {% if top10_posts == 'new_posts' %}active{% endif %}"><a href="#new-posts" data-toggle="tab">最新</a></li>
+            <li class="right {% if top10_posts == 'hot_posts' %}active{% endif %}"><a href="#hot-posts" data-toggle="tab">观点数</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane {% if top10_posts == 'new_posts' %}active{% endif %}" id="new-posts">
+                <ul class="top10">
+                    {% for post in posts1 %}
+                        <li class="{{ post.author.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=post.author.username) }}">
+                                {% if post.author.avatar %}
+                                    <img src="{{ post.author.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ post.author.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ post.author.wow_class_en() }}" href="{{ url_for('.user', username=post.author.username) }}">{{ post.author.username }}</a>
+                            <a class="top10-text" href="{{ url_for('.post', id=post.id) }}">查看公告</a>
+                            <span>{{ moment(post.timestamp).fromNow() }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="tab-pane {% if top10_posts == 'hot_posts' %}active{% endif %}" id="hot-posts">
+                <ul class="top10">
+                    {% for post in posts2 %}
+                        <li class="{{ post.author.wow_faction_en() }}">
+                            <a href="{{ url_for('.user', username=post.author.username) }}">
+                                {% if post.author.avatar %}
+                                    <img src="{{ post.author.avatar }}" width="25" height="25" class="img-rounded">
+                                {% else %}
+                                    <img src="{{ post.author.wow_avatar }}" width="25" height="25" class="img-rounded">
+                                {% endif %}
+                            </a>
+                            <a class="top10-username {{ post.author.wow_class_en() }}" href="{{ url_for('.user', username=post.author.username) }}">{{ post.author.username }}</a>
+                            <a class="top10-text" href="{{ url_for('.post', id=post.id) }}">查看公告</a>
+                            <span>{{ post.comments_count }} <a class="fa fa-comments" href="{{ url_for('.post', id=post.id) }}"></a></span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

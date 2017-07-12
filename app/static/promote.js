@@ -50,6 +50,7 @@ $(function () {
     $('.housekeeper .zeroth .right').click(function () {
         fadeout_in('.housekeeper .first');
     });
+    var href = document.getElementById('promote').getAttribute('arg');
     $('.to-repatriate').click(function () {
         to_black();
         $('.goblin-single .zeroth').show();
@@ -58,8 +59,8 @@ $(function () {
         $('.goblin-single .zeroth .right').show();
         $('.goblin-single .first span').text('拉兹登克最喜欢和明白人做生意！一共需要3个金币。');
         $('.repatriate .zeroth').text('又是这个倒霉鬼！伙计们，打起精神来！');
-        $('.housekeeper .zeroth span').text('嘿，又是你！如果你还想找拉兹登克，恐怕得自己想办法了。我可以派人送你到暴风城。');
-        $('.housekeeper .zeroth .left').text('好。');
+        $('.housekeeper .zeroth span').text('嘿，又是你！如果你还想找拉兹登克，恐怕得自己想办法了。我可以派人送你回城。');
+        $('.housekeeper .zeroth .left').text('好。').attr('href', href);
         $('.housekeeper .zeroth .right').hide();
         setTimeout("to_light('.goblin-single')", 3000);
     });

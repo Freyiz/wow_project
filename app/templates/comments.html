@@ -4,12 +4,15 @@
 {% block title %}议政厅{% endblock %}
 
 {% block page_content %}
-    <div class="page-header container {{ current_user.wow_faction_en() }}">
+    {% set faction = current_user.wow_faction_en() %}
+    <div class="page-header container {{ faction }}">
         <h1>
-            {{ title }}
-            <a class="twenty {% if sort == 're_timestamp' or sort == 'timestamp' %}active{% endif %}" href="{% if sort == 're_timestamp' %}{{ url_for('.comments', sort='timestamp', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='re_timestamp', accord=accord, keywords=keywords) }}{% endif %}">时间线</a>
-            <a class="twenty {% if sort == 're_likes' or sort == 'likes' %}active{% endif %}" href="{% if sort == 're_likes' %}{{ url_for('.comments', sort='likes', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='re_likes', accord=accord, keywords=keywords) }}{% endif %}">点赞数</a>
-            <a class="twenty {% if sort == 're_username' or sort == 'username' %}active{% endif %}" href="{% if sort == 'username' %}{{ url_for('.comments', sort='re_username', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='username', accord=accord, keywords=keywords) }}{% endif %}">角色名</a>
+            {{ title }}&nbsp;
+            {% if comments %}
+                <a class="twenty {% if sort == 're_timestamp' or sort == 'timestamp' %}active{% endif %}" href="{% if sort == 're_timestamp' %}{{ url_for('.comments', sort='timestamp', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='re_timestamp', accord=accord, keywords=keywords) }}{% endif %}">时间线</a>
+                <a class="twenty {% if sort == 're_likes' or sort == 'likes' %}active{% endif %}" href="{% if sort == 're_likes' %}{{ url_for('.comments', sort='likes', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='re_likes', accord=accord, keywords=keywords) }}{% endif %}">点赞数</a>
+                <a class="twenty {% if sort == 're_username' or sort == 'username' %}active{% endif %}" href="{% if sort == 'username' %}{{ url_for('.comments', sort='re_username', accord=accord, keywords=keywords) }}{% else %}{{ url_for('.comments', sort='username', accord=accord, keywords=keywords) }}{% endif %}">角色名</a>
+            {% endif %}
             <form method="post" class="form form-search" role="form">
                 {{ form_search.hidden_tag() }}
                 <div class="form-group">
@@ -18,26 +21,38 @@
                     {% else %}
                         <span class="accord-tab"><a class="left" name="内容">按内容</a><a class="right active" name="角色名">按角色</a></span>
                     {% endif %}
-                    {{ form_search.keywords(class="keywords " + current_user.wow_faction_en() , placeholder='内容') }}
-                    {{ form_search.submit(class="search " + current_user.wow_faction_en(), disabled='disabled') }}
+                    {{ form_search.keywords(class="keywords " + faction , placeholder='内容') }}
+                    {{ form_search.submit(class="search " + faction, disabled='disabled') }}
                 </div>
             </form>
         </h1>
     </div>
-    {% if comments %}{% include '_comments.html' %}{% endif %}
-    {% if pagination.pages > 1 %}
-        <div class="container my-pagination">
-            {{ macros.pagination_widget(pagination, '.comments', sort=sort, accord=accord, keywords=keywords) }}
-            <form method="post" class="form" role="form">
-                {{ form_jump.hidden_tag() }}
-                <div class="form-group">{{ form_jump.page_num(class="page-num " + current_user.wow_faction_en()) }}{{ form_jump.submit(class="jump " + current_user.wow_faction_en(), disabled='disabled') }}</div>
-            </form>
-        </div>
+    {% if comments %}
+        {% include '_comments.html' %}
+        {% if pagination.pages > 1 %}
+            <div class="container my-pagination">
+                {{ macros.pagination_widget(pagination, '.comments', sort=sort, accord=accord, keywords=keywords) }}
+                <form method="post" class="form" role="form">
+                    {{ form_jump.hidden_tag() }}
+                    <div class="form-group">{{ form_jump.page_num(class="page-num " + faction) }}{{ form_jump.submit(class="jump " + faction, disabled='disabled') }}</div>
+                </form>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="no-content">没有找到相关内容。</div>
     {% endif %}
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-    <script id="search" src="{{ url_for('static', filename='search.js') }}" arg="{{ accord }}" arg2="{{ keywords }}" arg3="{{ current_user.wow_faction_color() }}"></script>
-    <script id="jump" src="{{ url_for('static', filename='jump.js') }}" onload="jump({{ pages }})" arg="{{ current_user.wow_faction_color() }}"></script>
+    {% set color = current_user.wow_faction_color() %}
+    <script type="text/javascript">
+        $(function () {
+            if ('{{ anchor_id }}' !== '') {
+                $('#'+'{{ anchor_id }}').addClass('{{ anchor_class }}');
+            }
+        })
+    </script>
+    <script id="search" src="{{ url_for('static', filename='search.js') }}" arg="{{ accord }}" arg2="{{ keywords }}" arg3="{{ color }}" arg4="{{ current_user.wow_faction_en() }}" arg5="{{ comments }}"></script>
+    <script id="jump" src="{{ url_for('static', filename='jump.js') }}" onload="jump({{ pages }})" arg="{{ color }}"></script>
 {% endblock %}

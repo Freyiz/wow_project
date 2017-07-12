@@ -35,4 +35,24 @@
     }).focusout(function () {
         $('.keywords').attr('placeholder', accord);
     });
+    var faction = document.getElementById('search').getAttribute('arg4');
+    var list = document.getElementById('search').getAttribute('arg5');
+    if (list === '[]') {
+        if (faction === 'alliance') {
+            $('body').css({'background':'url("../../static/wow/race/human_HZJQRG4GRHFU1472070161324.jpg")', 'background-size':'cover'});
+        } else if (faction === 'horde') {
+            $('body').css({'background':'url("../../static/wow/race/orc_9C362D99J92X1472070208880.jpg")', 'background-size':'cover'});
+        } else {
+            $('body').css({'background':'url("../../static/wow/race/worgen_VR4N0BK6T5DR1472070304292.jpg")', 'background-size':'cover'});
+            $('.no-content').css('right', '55%');
+        }
+    } else {
+        if (faction === 'alliance') {
+            $('body').css('background', 'url("../../static/wow/race/dwarf_EUKOPSH61IGO1472070118275.jpg")');
+        } else if (faction === 'horde') {
+            $('body').css('background', 'url("../../static/wow/race/troll_G65BU14819NX1472070245782.jpg")');
+        } else {
+            $('body').css('background', 'url("../../static/wow/race/pandaren_N7WMYKYS8IYY1472070228604.jpg")');
+        }
+    }
 });

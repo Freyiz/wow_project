@@ -12,3 +12,8 @@
         {{ wtf.quick_form(form) }}
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script id="bg" src="{{ url_for('static', filename='bg.js') }}" arg="{{ current_user.wow_faction_en() }}"></script>
+{% endblock %}

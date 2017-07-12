@@ -40,7 +40,7 @@ function img_loop() {
     t17 = setTimeout("img_loop()", 80000);
 }
 $(function () {
-    $('body').css({'background':'url("../static/wow/bg/night_repeat.png")', 'background-size':'cover'});
+    $('body').css({'background':'url("../static/wow/bg/WEA51EMAXNFB1474350114687.jpg")', 'background-size':'cover'});
     $('h1 a').click(function () {
         t = 0;
         clearTimeout(t1);

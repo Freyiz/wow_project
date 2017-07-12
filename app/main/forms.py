@@ -13,8 +13,8 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    body = PageDownField('议论', validators=[DataRequired()])
-    submit = SubmitField('发布')
+    body = PageDownField('观点', validators=[DataRequired()])
+    submit = SubmitField('发表')
 
 
 class EditProfileForm(FlaskForm):

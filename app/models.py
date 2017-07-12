@@ -48,7 +48,7 @@ class WowConfig:
     basic = {
         '联盟': ['#0078FF', 'alliance'],
         '部落': ['#B30000', 'horde'],
-        '中立': ['#00a700', 'neutral'],
+        '中立': ['#74ff41', 'neutral'],
         '死亡骑士': ['#C41F3B', 'death-knight'],
         '恶魔猎手': ['#A330C9', 'demon-hunter'],
         '德鲁伊': ['#FF7D0A', 'druid'],

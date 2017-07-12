@@ -6,8 +6,8 @@
     <div class="promote">
         <div hidden class="black-screen">
             <div hidden class="left outside zeroth">{{ user.username }}，当心！前面发生了一场小型战斗，离远点儿！</div>
-            <div hidden class="left outside first">等一下，前面是谁？</div>
-            <div hidden class="left outside second">看，我们到了！</div>
+            <div hidden class="left outside first short">等一下，前面是谁？</div>
+            <div hidden class="left outside second short">看，我们到了！</div>
         </div>
         <div class="promote-start">
             <h1>晋升之路：开始</h1>
@@ -31,7 +31,7 @@
             <div hidden class="bottom seventh">发射！</div>
         </div>
         <div hidden class="housekeeper">
-            <div hidden class="left zeroth"><span>嘿，你还好吧？我是夜色镇镇长艾尔罗·埃伯洛克。你被守夜人发现时，正躺在暮色森林南边的一棵大树下，昏迷不醒。发生什么事了？我们可以为你做点什么？</span><br><br><a class="choose left" href="{{ url_for('.user', username=user.username) }}">送我离开这里。</a><a class="choose right">你知道拉兹登克吗？</a></div>
+            <div hidden class="left zeroth"><span>嘿，你还好吧？我是夜色镇镇长艾尔罗·埃伯洛克。你被守夜人发现时，正躺在暮色森林南边的一棵大树下，昏迷不醒。发生什么事了？我们可以为你做点什么？</span><br><br><a class="choose left" href="{{ url_for('.index') }}">送我离开这里。</a><a class="choose right">你知道拉兹登克吗？</a></div>
             <div hidden class="left first">锈水港的拉兹登克？我知道这个家伙。听说他利用晋升专员的身份赚了不少黑心钱。如果你要找他，可以让指挥官阿尔泰娅·埃伯洛克带你过去，她正好要去一趟艾萨拉。<br><br><a class="choose next to-repatriate">好的，谢谢。</a></div>
         </div>
         <div hidden class="discuss">
@@ -88,12 +88,5 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('static', filename='promote.js') }}"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('.to-repatriate').click(function () {
-                $('.housekeeper .zeroth .left').attr('href', "{{ url_for('.index') }}");
-            });
-        });
-    </script>
+    <script id="promote" src="{{ url_for('static', filename='promote.js') }}" arg="{{ url_for('.user', username=user.username) }}"></script>
 {% endblock %}
