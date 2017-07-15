@@ -10,7 +10,15 @@
         <form method="post" class="form {{ faction }}" role="form">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.body(class="form-control", placeholder='我的观点...', required=True) }}
+                {% if current_user.role.name == '盲语者' %}
+                    {{ form.body(class="form-control", placeholder='你被禁言了。', disabled='disabled') }}
+                {% else %}
+                    {% if confirmed %}
+                        {{ form.body(class="form-control", placeholder='我的观点...', required=True) }}
+                    {% else %}
+                        {{ form.body(class="form-control", placeholder='请验证账户之后再发表观点。', disabled='disabled') }}
+                    {% endif %}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form.submit(class="choose", disabled='disabled') }}
@@ -23,7 +31,7 @@
             {{ macros.pagination_widget(pagination, '.post', id=posts[0].id) }}
             <form method="post" class="form" role="form">
                 {{ form_jump.hidden_tag() }}
-            <div class="form-group">{{ form_jump.page_num(class="page-num " + faction) }}{{ form_jump.submit(class="jump " + faction, disabled='disabled') }}</div>
+                <div class="form-group">{{ form_jump.page_num(class="page-num " + faction) }}{{ form_jump.submit(class="jump " + faction, disabled='disabled') }}</div>
             </form>
         </div>
     {% endif %}
@@ -44,10 +52,6 @@
                 $('body').css('background', 'url("../../static/wow/race/goblin_NWVFYI2C8E421472070148541.jpg")');
             } else {
                 $('body').css('background', 'url("../../static/wow/race/pandaren_N7WMYKYS8IYY1472070228604.jpg")');
-            }
-            if ('{{ confirmed }}' === '') {
-                $('.form-control').attr('placeholder', '请验证账户之后再发表观点。');
-                $('.form-control').attr('disabled', 'disabled');
             }
             $('.form-control').bind('input propertychange', function() {
                 var val = $(this).val();

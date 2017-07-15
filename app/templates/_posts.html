@@ -34,7 +34,7 @@
                             {% if current_user == post.author %}
                                 <a href="{{ url_for('.made_post', id=post.id, user_id=post.author.id) }}" class="btn btn-info btn-xs">编辑</a>
                             {% elif current_user.is_administrator() %}
-                                <a href="{{ url_for('.made_post', id=post.id, user_id=post.author.id) }}" class="btn btn-primary btn-xs">编辑-官员</a>
+                                <a href="{{ url_for('.made_post', id=post.id, user_id=post.author.id) }}" class="btn btn-primary btn-xs">编辑-高级</a>
                             {% endif %}
                         </div>
                     </div>

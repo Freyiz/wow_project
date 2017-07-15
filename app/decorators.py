@@ -9,7 +9,10 @@ def permission_required(permission):
         @wraps(f)
         def decorator_function(*args, **kwargs):
             if not current_user.can(permission):
-                flash('权限不足！请完成晋升之后再进行尝试。')
+                if current_user.role.name == '官员':
+                    flash('权限不足！。')
+                else:
+                    flash('权限不足！请完成晋升之后再尝试。')
                 return redirect(url_for('.index'))
             return f(*args, **kwargs)
         return decorator_function
@@ -23,9 +26,9 @@ def admin_required(f):
 def confirmed_required():
     def decorator(f):
         @wraps(f)
-        def decorator_function():
+        def decorator_function(*args, **kwargs):
             if not current_user.confirmed:
                 return redirect(url_for('auth.unconfirmed'))
-            return f()
+            return f(*args, **kwargs)
         return decorator_function
     return decorator

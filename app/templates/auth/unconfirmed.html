@@ -5,7 +5,7 @@
 {% block page_content %}
     {% set faction = current_user.wow_faction_en() %}
     <div class="no-content long">
-        此步操作需要验证账户！前往<a class="{{ faction }}" href="{{ email_address }}" target="_blank">邮箱验证</a>或<a class="{{ faction }}" href="{{ url_for('auth.resend_confirmation') }}">重新发送验证邮件</a>。
+        {{ current_user.username }}，我的勇士。此步操作需要验证账户，前往<a class="{{ faction }}" href="{{ email_address }}" target="_blank"> 邮箱 </a>验证之后再来吧。<br><br><a class="left {{ faction }}" href="javascript:;">一会再说。</a><a class="right {{ faction }}" href="{{ url_for('auth.resend_confirmation') }}">重新发送验证邮件。</a>
     </div>
 {% endblock %}
 
@@ -21,6 +21,9 @@
             } else {
                 $('body').css({'background':'url("../../static/wow/race/worgen_VR4N0BK6T5DR1472070304292.jpg")', 'background-size':'cover'});
             }
+            $('.left').click(function () {
+                window.history.back();
+            });
         })
     </script>
 {% endblock %}

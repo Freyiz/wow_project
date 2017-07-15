@@ -100,6 +100,7 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
+            '盲语者': (Permission.FOLLOW, False),
             '民众': (Permission.FOLLOW | Permission.COMMENT | Permission.WRITE_ARTICLES, True),
             '官员': (Permission.FOLLOW | Permission.COMMENT | Permission.WRITE_ARTICLES | Permission.MODERATE_COMMENTS, False),
             '神': (0xff, False)
@@ -192,7 +193,7 @@ class User(db.Model, UserMixin):
             self.wow_title = WowConfig.title[self.wow_faction][0]
         if not self.location:
             self.location = choice(WowConfig.server)
-        self.wow_avatar = '../static/wow/class/' + WowConfig.basic[self.wow_class][1] + '.jpg'
+        self.wow_avatar = '../static/wow/class/' + WowConfig.basic[self.wow_class][1] + '_Q.png'
 
     def __repr__(self):
         return '<User %r>' % self.username

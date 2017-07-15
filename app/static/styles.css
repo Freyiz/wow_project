@@ -1348,17 +1348,21 @@ ul.top10 span {
     text-align: left;
     background-color: rgba(66, 66, 66, 0.71);
     right: 60%;
-    top: 42%;
+    top: 40%;
     position: absolute;
 }
 .no-content.long {
-    width: 265px;
+    top: 30%;
+    width: 400px;
+}
+.no-content .right {
+    float: right;
 }
 .no-content:before {
     content:"";
     border-width:10px 15px;
     position:absolute;
-    top: 20%;
+    bottom: 20%;
     right: -30px;
     border-style:solid;
     border-color: transparent  transparent transparent rgba(66, 66, 66, 0.71);
@@ -1446,12 +1450,21 @@ ul.comments li.comment:before {
     border-bottom: 5px dotted;
 }
 ul.comments li.comment.alliance-light {
-    background-color: rgba(0, 120, 255, 0.1);
+    background-color: rgba(0, 120, 255, 0.2);
 }
 ul.comments li.comment.horde-light {
-    background-color: rgba(179, 0, 0, 0.1);
+    background-color: rgba(179, 0, 0, 0.2);
 }
 ul.comments li.comment.neutral-light {
+    background-color: rgba(116, 255, 65, 0.2);
+}
+ul.comments li.comment.alliance-light:hover {
+    background-color: rgba(0, 120, 255, 0.1);
+}
+ul.comments li.comment.horde-light:hover {
+    background-color: rgba(179, 0, 0, 0.1);
+}
+ul.comments li.comment.neutral-light:hover {
     background-color: rgba(116, 255, 65, 0.1);
 }
 ul.comments li.comment.alliance:before {

@@ -24,9 +24,10 @@ class EditProfileForm(FlaskForm):
     submit = SubmitField('提交')
 
     def validate_avatar(self, field):
-        if '.' not in field.data.filename or field.data.filename.rsplit('.')[1] \
-                not in current_app.config['ALLOWED_EXTENSIONS']:
-            raise ValidationError('确保文件后缀为其中之一：%s' % current_app.config['ALLOWED_EXTENSIONS'])
+        if field.data.filename:
+            if '.' not in field.data.filename or field.data.filename.rsplit('.')[1] \
+                    not in current_app.config['ALLOWED_EXTENSIONS']:
+                raise ValidationError('确保文件后缀为其中之一：%s' % current_app.config['ALLOWED_EXTENSIONS'])
 
 
 class EditProfileAdminForm(FlaskForm):

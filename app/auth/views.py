@@ -134,9 +134,9 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
-            flash('欢迎回来！%s' % user.username)
+            flash('欢迎回来！%s。' % user.username)
             return redirect(request.args.get('next') or url_for('main.index'))
-        flash('用户名/邮箱或密码不正确！')
+        flash('邮箱或密码不正确！')
     return render_template('auth/login.html', form=form)
 
 
@@ -332,7 +332,6 @@ ren2 = oauth.remote_app(
 @auth.route('/ren2-user-info')
 def ren2_user_info():
     if 'ren2_user' in session:
-        print(session['ren2_user'])
         user = User.query.filter_by(username=session['ren2_user']['name']).first()
         if not user:
             user = User(username=session['ren2_user']['name'],

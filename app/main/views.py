@@ -112,12 +112,13 @@ def edit_profile():
     form = EditProfileForm()
     if form.validate_on_submit():
         f = form.avatar.data
-        filename = '%d_%s.%s' % (current_user.id,
-                                 datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S'),
-                                 f.filename.rsplit('.')[1])
-        # filename = '%d.%s' % (current_user.id, f.filename.rsplit('.')[1])
-        current_user.avatar = os.path.join('../static/uploads', filename)
-        f.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+        if f:
+            filename = '%d_%s.%s' % (current_user.id,
+                                     datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S'),
+                                     f.filename.rsplit('.')[1])
+            # filename = '%d.%s' % (current_user.id, f.filename.rsplit('.')[1])
+            current_user.avatar = os.path.join('../static/uploads', filename)
+            f.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
         current_user.location = form.location.data
         current_user.about_me = form.about_me.data
         db.session.add(current_user)
@@ -131,6 +132,7 @@ def edit_profile():
 @main.route('/edit-profile/<id>', methods=['GET', 'POST'])
 @login_required
 @admin_required
+@confirmed_required()
 def edit_profile_admin(id):
     user = User.query.get_or_404(id)
     form = EditProfileAdminForm(user=user)
@@ -158,7 +160,10 @@ def edit_profile_admin(id):
 @confirmed_required()
 def promote():
     id = request.args.get('id', type=int)
-    user = User.query.get(id)
+    user = User.query.filter_by(id=id).first_or_404()
+    if user.role.name == '盲语者':
+        flash('禁言状态无法参加晋升！')
+        return redirect(url_for('.index'))
     if current_user != user:
         abort(404)
     if user.can(Permission.MODERATE_COMMENTS):
@@ -178,13 +183,31 @@ def promote():
     return render_template('promote.html', user=user, form=form)
 
 
+@main.route('/gag-toggle')
+@login_required
+@admin_required
+@confirmed_required()
+def gag_toggle():
+    id = request.args.get('id', type=int)
+    user = User.query.filter_by(id=id).first_or_404()
+    if user.role.name == '盲语者':
+        user.role = Role.query.filter_by(name='民众').first()
+        result = '禁言'
+        text = 'btn btn-success gag-toggle'
+    else:
+        user.role = Role.query.filter_by(name='盲语者').first()
+        result = '解除禁言'
+        text = 'btn btn-danger gag-toggle'
+    db.session.add(user)
+    return jsonify(result=result, text=text)
+
+
 @main.route('/post/<int:id>', methods=['GET', 'POST'])
 @login_required
-@permission_required(Permission.COMMENT)
 def post(id):
     anchor_id = request.args.get('anchor_id', '', type=str)
     anchor_class = request.args.get('anchor_class', '', type=str) + '-light'
-    post = Post.query.get(id)
+    post = Post.query.get_or_404(id)
     form = CommentForm()
     if form.validate_on_submit():
         comment = Comment(body=form.body.data,
@@ -208,7 +231,7 @@ def post(id):
     pagination = post.comments.order_by(Comment.timestamp.asc(), Comment.timestamp.asc()).paginate(
         page, per_page=current_app.config['FLASKY_COMMENTS_PER_PAGE'], error_out=False)
     comments = pagination.items
-    confirmed = '1' if current_user.confirmed else ''
+    confirmed = 1 if current_user.confirmed else 0
     user = post.author
     return render_template('post.html', form=form, form_jump=form_jump, posts=[post],
                            comments=comments, pagination=pagination, user=user,
@@ -220,13 +243,14 @@ def post(id):
 @login_required
 def collect_toggle():
     id = request.args.get('id', type=int)
-    post = Post.query.get_or_404(id)
+    post = Post.query.filter_by(id=id).first_or_404()
     current_user.collect_toggle(post)
     return jsonify(result=post.collects)
 
 
 @main.route('/made-post', methods=['GET', 'POST'])
 @login_required
+@permission_required(Permission.WRITE_ARTICLES)
 @confirmed_required()
 def made_post():
     id = request.args.get('id', 0, type=int)
@@ -250,8 +274,8 @@ def made_post():
             post = Post(body=form.body.data, author=current_user._get_current_object())
             db.session.add(post)
             flash('新公告已发布！')
-            resp = make_response(redirect(url_for('.index')))
-            resp.set_cookie('top10_posts', 'new_posts', max_age=30 * 24 * 60 * 60)
+            resp = make_response(redirect(url_for('.posts')))
+            resp.set_cookie('show_which', 'all', max_age=30 * 24 * 60 * 60)
             return resp
     return render_template('made_post.html', form=form, title=title, user=user)
 
@@ -415,6 +439,7 @@ def comments():
 
 
 @main.route('/follow-toggle')
+@login_required
 @permission_required(Permission.FOLLOW)
 def follow_toggle():
     id = request.args.get('id', type=int)
@@ -432,6 +457,7 @@ def follow_toggle():
 
 
 @main.route('/followers/<username>', methods=['GET', 'POST'])
+@login_required
 def followers(username):
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
@@ -451,6 +477,7 @@ def followers(username):
 
 
 @main.route('/followed-by/<username>', methods=['GET', 'POST'])
+@login_required
 def followed_by(username):
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
@@ -470,6 +497,7 @@ def followed_by(username):
 
 
 @main.route('/show-which/<text>')
+@login_required
 def show_which(text):
     resp = make_response(redirect(url_for('.posts')))
     resp.set_cookie('show_which', text, max_age=30*24*60*60)
@@ -559,7 +587,7 @@ def posts():
 @login_required
 def like_toggle():
     id = request.args.get('id', type=int)
-    comment = Comment.query.get_or_404(id)
+    comment = Comment.query.filter_by(id=id).first_or_404()
     current_user.like_toggle(comment)
     if comment not in current_user.comments_like.all():
         text = 'fa fa-thumbs-o-up'
@@ -569,10 +597,11 @@ def like_toggle():
 
 
 @main.route('/comment-display-toggle')
+@login_required
 @permission_required(Permission.MODERATE_COMMENTS)
 def comment_display_toggle():
     id = request.args.get('id', type=int)
-    comment = Comment.query.get_or_404(id)
+    comment = Comment.query.filter_by(id=id).first_or_404()
     if comment.disabled:
         comment.disabled = False
         result = '屏蔽'

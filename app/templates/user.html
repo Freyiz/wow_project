@@ -40,10 +40,20 @@
         <p>
             {% if user == current_user %}
                 <a class="btn btn-info" href="{{ url_for('.edit_profile') }}">变更信息</a>
-                <a class="btn btn-warning" href="{{ url_for('.promote', id=user.id) }}">{% if user.role.name == '民众' %}晋升之路{% else %}忏悔之路{% endif %}</a>
+                <a class="btn btn-warning" href="{{ url_for('.promote', id=user.id) }}">{% if user.can(Permission.MODERATE_COMMENTS) %}忏悔之路{% else %}晋升之路{% endif %}</a>
+                {% if user.role.name == '盲语者' %}
+                    <a class="btn btn-danger" disabled>禁言中</a>
+                {% endif %}
             {% endif %}
             {% if current_user.is_administrator() %}
-                <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">变更信息-官员</a>
+                {% if user != current_user %}
+                    {% if user.role.name == '盲语者' %}
+                        <a class="btn btn-danger gag-toggle" href="javascript:;">解除禁言</a>
+                    {% else %}
+                        <a class="btn btn-success gag-toggle" href="javascript:;">禁言</a>
+                    {% endif %}
+                {% endif %}
+                <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">变更信息-高级</a>
             {% endif %}
         </p>
     </div>
@@ -88,6 +98,15 @@
                 }
             });
         }
+        $(function () {
+            $('.gag-toggle').click(function () {
+                $.getJSON($SCRIPT_ROOT + '/gag-toggle', {
+                    id: {{ user.id }}
+                }, function(data) {
+                    $('.gag-toggle').text(data.result).attr('class', data.text);
+                });
+            });
+        })
     </script>
     <script src="{{ url_for('static', filename='text_toggle.js') }}"></script>
     <script id="bg" src="{{ url_for('static', filename='bg.js') }}" arg="{{ current_user.wow_faction_en() }}"></script>

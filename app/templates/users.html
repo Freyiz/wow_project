@@ -22,7 +22,7 @@
                     {% else %}
                         <span class="accord-tab"><a class="left" name="角色名">按角色</a><a name="阵营">按阵营</a><a name="种族">按种族</a><a name="职业">按职业</a><a class="right active" name="头衔">按头衔</a></span>
                     {% endif %}
-                    {{ form_search.keywords(class="keywords " + faction , placeholder='内容') }}
+                    {{ form_search.keywords(class="keywords " + faction , placeholder='角色名') }}
                     {{ form_search.submit(class="search " + faction, disabled='disabled') }}
                 </div>
             </form>
