@@ -1,0 +1,260 @@
+a {
+    text-decoration: none;
+    color: #666666;
+}
+
+body, ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+header, section, footer {
+    padding: 0 175px;
+}
+
+header > ul > li,
+footer > ul > li {
+    display: inline;
+}
+
+header {
+    height: 487px;
+    background-color: #e8e8e8;
+}
+
+header > img.logo {
+    margin: 17px 32px 10px;
+}
+
+header > img.tel {
+    margin: 17px 32px 10px;
+    float: right;
+}
+
+header > img.building {
+    width: 100%;
+}
+
+header > ul {
+    clear: left;
+    width: 1349px;
+    margin: 0 0 5px -175px;
+    padding: 0 178px;
+    background-color: #01559a;
+}
+
+header > ul > li {
+    line-height: 36px;
+    padding: 8px 30px;
+}
+
+header > ul > li:hover,
+header > ul > li:focus {
+    cursor: pointer;
+    background-color: #229eda;
+}
+
+header > ul a {
+    color: #ffffff;
+}
+
+section {
+    clear: left;
+    margin-bottom: 900px;
+}
+
+section > div {
+    float: left;
+    width: 306px;
+    height: 273px;
+    margin: 10px 0;
+}
+
+section > div.left {
+    width: 673px;
+    margin-right: 20px;
+}
+
+section div.title {
+    padding: 4px 2px;
+    font-size: 23px;
+    border-bottom: 1px solid #cccccc;
+    color: #039bda;
+}
+
+section > div.left1 > ul,
+section > div.right2 > ul,
+section > div.right3 > ul {
+    padding: 15px 0;
+}
+
+section > div.left1 li,
+section > div.right2 li,
+section > div.right3 li {
+    margin: 9px;
+}
+
+section > div.left1 a:hover,
+section > div.left1 a:focus,
+section > div.right2 a:hover,
+section > div.right2 a:focus,
+section > div.right3 a:hover,
+section > div.right3 a:focus {
+    color: #01559a;
+    text-decoration: underline;
+}
+
+section > div.right1 li,
+section > div.left2 li,
+section > div.left3 li {
+    float: left;
+}
+
+section ul.detail {
+    font-size: 14px;
+}
+
+section time {
+    font-size: 16px;
+    float: right;
+    color: #9999b3;
+}
+
+section > div.right1 > ul {
+    margin: 17px 0 0 1px;
+}
+
+section > div.right1 li {
+    width: 143px;
+    line-height: 110px;
+    background-color: #2b542c;
+    text-align: center;
+    font-size: 22px;
+}
+
+section > div.right1 li:nth-child(odd) {
+    margin-right: 19px;
+}
+
+section > div.right1 a {
+    color: #ffffff;
+}
+
+section > div.right1 li:first-child {
+    margin-bottom: 19px;
+    background-color: #636363;
+}
+
+section > div.right1 li:nth-child(2) {
+    background-color: #00547f;
+}
+
+section > div.right1 li:nth-child(3) {
+    background-color: #1991c9;
+}
+
+section > div.right1 li:last-child {
+    background-color: #78ae02;
+}
+
+section > div.left2 li {
+    margin: 30px 13px;
+    text-align: center;
+}
+
+section > div.left2 img {
+    width: 140px;
+}
+
+section > div.right2 > div.title,
+section > div.right3 > div.title {
+    color: #ffffff;
+    background-color: #48a3d2;
+    text-align: center;
+    font-size: 18px;
+}
+
+section > div.right2 > ul,
+section > div.right3 > ul {
+    background-color: #e8e8e8;
+}
+
+section > div.right2 li,
+section > div.right3 li {
+    margin-left: 20px;
+}
+
+section > div.left3 > ul {
+    padding-top: 15px;
+}
+
+section > div.left3 li {
+    width: 200px;
+    margin: 6px 12px;
+    text-align: center;
+}
+
+section > div.left3 img {
+    width: 100px;
+    float: left;
+    margin-top: -1px;
+}
+
+section > div.left3 span {
+    line-height: 30px;
+}
+
+footer {
+    clear: left;
+}
+
+footer > * {
+    text-align: center;
+}
+
+footer > ul {
+    border-top: 1px solid #cccccc;
+    padding: 20px 0 0 0;
+    font-size: 12px;
+}
+
+footer > ul > li {
+    margin: 0 5px;
+}
+
+footer > ul a {
+    color: #518ebd;
+}
+
+footer > ul a:hover,
+footer > ul a:focus {
+    color: #2256bd;
+}
+
+footer > p {
+    font-size: 12px;
+    color: gray;
+}
+
+.text-demo {
+    text-indent: 2em;
+    padding: 9px 10px;
+    width: 535px;
+    font-size: 12px;
+    position: absolute;
+    top: 10px;
+    left: 400px;
+}
+
+.text-collapse {
+    color: rgba(162, 156, 145, 0.8);
+}
+
+.text-collapse:hover,
+.text-collapse:focus {
+    color: #595557;
+}

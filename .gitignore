@@ -10,3 +10,8 @@ os
 demo_html
 1.py
 .idea/workspace.xml
+/.env
+.env.js
+.idea/typescript-compiler.xml
+d
+Mypy

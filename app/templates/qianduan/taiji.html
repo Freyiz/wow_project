@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../../static/qianduan/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../../static/qianduan/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/qianduan/css/taiji_other.css">
+    <link rel="stylesheet" type="text/css" href="../../static/qianduan/css/taiji.css"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="out">
+        <div class="black"></div>
+        <div class="left">
+            <div class="in-left"></div>
+        </div>
+        <div class="right">
+            <div class="in-right"></div>
+        </div>
+    </div>
+    <div class="two-circle abs">
+        <div class="d1"></div>
+        <div class="d2"></div>
+    </div>
+    <div class="three-square abs">
+        <div class="s1"></div>
+        <div class="s2"></div>
+        <div class="s3"></div>
+    </div>
+    <div class="moon abs"></div>
+    <div class="dialog-box abs"></div>
+    <div class="heart abs"></div>
+    <div class="eight-sided abs">
+        <div class="triangle1"></div>
+        <div class="triangle2"></div>
+        <div class="triangle3"></div>
+        <div class="triangle4"></div>
+    </div>
+    <div class="pentagram abs">
+        <div class="p1"></div>
+        <div class="p2"></div>
+        <div class="p3"></div>
+    </div>
+</div>
+<ruby style="margin-top:2px;font-size:50px;">汉
+        <rt>han</rt>
+    字
+        <rt>zi</rt>
+</ruby>
+<script type="text/javascript">
+    $(function () {
+        $('.abs').mouseenter(function () {
+            $(this).css("transform", "scale(1.5)");
+        }).mouseleave(function () {
+            $(this).css("transform", "scale(1)");
+            $(".eight-sided").css("transform", "rotate(135deg)");
+        });
+    })
+</script>
+</body>
+
+</html>
