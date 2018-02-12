@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="data.sqlite">
-  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.2">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.3">
     <root id="1"/>
     <schema id="2" parent="1" name="main">
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
-    <table id="3" parent="2" name="sqlite_master"/>
+    <table id="3" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
     <column id="4" parent="3" name="type">
       <DataType>text|0</DataType>
     </column>

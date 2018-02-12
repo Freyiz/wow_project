@@ -2,7 +2,8 @@
  * Created by Administrator on 2017/6/4.
  */
 ;window.onload = function () {
-    $('.recaptcha span').show();
+    $('.recaptcha span').text('抱歉，你需要翻墙');
+    $('.sidailagousa').fadeIn(10000);
 };
 function fadeout_in(x) {
     $('.promote > div > div').fadeOut();

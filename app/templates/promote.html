@@ -78,9 +78,19 @@
             <h1>晋升之路：终极考验</h1>
             <form method="post" class="form" role="form">
                 {{ form.hidden_tag() }}
-                <div class="form-group">{{ form.submit(class="btn") }}<a class="btn give-up" href="{{ url_for('.index') }}">放弃</a><div class="recaptcha"><span hidden>抱歉，你需要翻墙</span>{{ form.recaptcha }}</div></div>
+                <div class="form-group">
+                    {{ form.submit(class="btn") }}
+                    <a class="btn give-up" href="{{ url_for('.index') }}">放弃</a>
+                    <div class="recaptcha"><span>加载中<img src="../static/layer/theme/default/loading-1.gif" alt=""></span>{{ form.recaptcha }}</div>
+                </div>
             </form>
             <h4>注意：每次考验只有 1 次点击确定的机会。</h4>
+            {% if user.username == '丝黛拉苟萨' %}
+                <form method="post" class="form sidailagousa" action="promote-in-wall" role="form" hidden>
+                    {{ form2.hidden_tag() }}
+                    <div class="form-group">{{ form2.submit(class="btn") }}</div>
+                </form>
+            {% endif %}
         </div>
     </div>
     <audio class="sound1" autoplay></audio>

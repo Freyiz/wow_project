@@ -8,7 +8,7 @@
         {% set faction0 = user.wow_faction %}
         <img class="user-faction" {% if faction0 == '联盟' %}src="../static/wow/logo/alliance.png"{% elif faction0 == '部落' %}src="../static/wow/logo/horde.png"{% endif %}>
         {% if user.avatar %}
-            <img id="avatar" src="{{ user.avatar }}" width="100" height="100" class="img-rounded profile-thumbnail">
+            <img src="{{ user.avatar }}" height="100" class="img-rounded profile-thumbnail">
         {% else %}
             <img src="{{ user.wow_avatar }}" width="100" height="100" class="img-rounded profile-thumbnail">
         {% endif %}
@@ -19,65 +19,86 @@
             <a class="{{ faction1 }}" href="http://baike.baidu.com/item/{{ user.location }}" target="_blank">{{ user.location }}</a>
         </p>
         {% if user.about_me %}<p class="user-about-me">{{ user.about_me }}</p>{% endif %}
-        <p>
-            {% if current_user.can(Permission.FOLLOW) and current_user != user %}
-                <a class="btn bg-primary" {% if current_user.confirmed %}onclick="follow_toggle()" href="javascript:;"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}>
-                    <span id="follow_icon"{% if current_user.is_following(user) %} hidden{% endif %}><i class="fa fa-heart"></i></span>
-                    <span id="is_following">{% if current_user.is_following(user) %}取消追随{% else %}追随{% endif %}</span>
-                </a>&nbsp;
-            {% endif %}追随了
-            <a class="{{ faction1 }}"{% if user.followed.count() > 1 %} href="{{ url_for('.followed_by', username=user.username) }}"{% endif %}>
-                {{ user.followed.count() - 1 }}
-            </a> 人 | 追随者
-            <a id="followers" class="{{ faction1 }}"{% if user.followers.count() > 1 %} href="{{ url_for('.followers', username=user.username) }}"{% endif %}>
-                {{ user.followers.count() - 1 }}
-            </a> 人
-        </p>
-            {% if current_user.is_administrator() and user.email %}
-            <p><a class="{{ faction1 }}" href="{{ email_address }}" target="_blank">{{ user.email }}</a></p>
-        {% endif %}
-        <p>出生于 {{ moment(user.member_since).format('L') }} | 上次在线 {{ moment(user.last_seen).fromNow() }}</p>
-        <p>
-            {% if user == current_user %}
-                <a class="btn btn-info" href="{{ url_for('.edit_profile') }}">变更信息</a>
-                <a class="btn btn-warning" href="{{ url_for('.promote', id=user.id) }}">{% if user.can(Permission.MODERATE_COMMENTS) %}忏悔之路{% else %}晋升之路{% endif %}</a>
-                {% if user.role.name == '盲语者' %}
-                    <a class="btn btn-danger" disabled>禁言中</a>
-                {% endif %}
+        {% if current_user.is_administrator() or user.username != "凯尔萨斯之魂" %}
+            <p>
+                {% if current_user.can(Permission.FOLLOW) and current_user != user %}
+                    <a class="btn bg-primary" {% if current_user.confirmed %}onclick="follow_toggle()" href="javascript:;"{% else %}href="{{ url_for('auth.unconfirmed') }}"{% endif %}>
+                        <span id="follow_icon"{% if current_user.is_following(user) %} hidden{% endif %}><i class="fa fa-heart"></i></span>
+                        <span id="is_following">{% if current_user.is_following(user) %}取消追随{% else %}追随{% endif %}</span>
+                    </a>&nbsp;
+                {% endif %}追随了
+                <a class="{{ faction1 }}"{% if user.followed.count() > 1 %} href="{{ url_for('.followed_by', username=user.username) }}"{% endif %}>
+                    {{ user.followed.count() - 1 }}
+                </a> 人 | 追随者
+                <a id="followers" class="{{ faction1 }}"{% if user.followers.count() > 1 %} href="{{ url_for('.followers', username=user.username) }}"{% endif %}>
+                    {{ user.followers.count() - 1 }}
+                </a> 人
+            </p>
+                {% if current_user.is_administrator() and user.email %}
+                <p><a class="{{ faction1 }}" href="{{ email_address }}" target="_blank">{{ user.email }}</a></p>
             {% endif %}
-            {% if current_user.is_administrator() %}
-                {% if user != current_user %}
+            <p>出生于 {{ moment(user.member_since).format('L') }} | 上次在线 {{ moment(user.last_seen).fromNow() }}</p>
+            <p>
+                {% if user == current_user %}
+                    <a class="btn btn-info" href="{{ url_for('.edit_profile') }}">变更信息</a>
+                    <a class="btn btn-warning" {% if user.role.name == '盲语者' %}disabled{% else %}href="{{ url_for('.promote', id=user.id) }}"{% endif %}>{% if user.can(Permission.MODERATE_COMMENTS) %}忏悔之路{% else %}晋升之路{% endif %}</a>
                     {% if user.role.name == '盲语者' %}
-                        <a class="btn btn-danger gag-toggle" href="javascript:;">解除禁言</a>
-                    {% else %}
-                        <a class="btn btn-success gag-toggle" href="javascript:;">禁言</a>
+                        <a class="btn btn-danger" disabled>禁言中</a>
+                    {% endif %}
+                    {% if user.username == '丝黛拉苟萨' and user.wow_race != '血精灵' %}
+                        <a class="btn btn-success to-blood-elf" href="javascript:;">丝黛拉苟萨的魔法棱镜</a>
                     {% endif %}
                 {% endif %}
-                <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">变更信息-高级</a>
-            {% endif %}
-        </p>
-    </div>
-    <h1 class="str-inline">
-        {% if current_user == user %}
-            我的公告&ensp;<a href="{{ url_for('main.made_post') }}" class="fa fa-plus {{ faction1 }}"></a>
+                {% if current_user.is_administrator() %}
+                    {% if user != current_user %}
+                        {% if user.role.name == '盲语者' %}
+                            <a class="btn btn-danger gag-toggle" href="javascript:;">解除禁言</a>
+                        {% else %}
+                            <a class="btn btn-success gag-toggle" href="javascript:;">禁言</a>
+                        {% endif %}
+                    {% endif %}
+                    <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">变更信息-高级</a>
+                {% endif %}
+            </p>
         {% else %}
-            {{ user.username }} 的公告
+            {% if current_user.username == "丝黛拉苟萨" %}
+                <a class="btn btn-info listen-kaelthas" href="javascript:;">聆听</a>
+                <a class="btn btn-danger release-kaelthas" href="javascript:;" {% if not current_user.can(Permission.MODERATE_COMMENTS) %}disabled="disabled" {% endif %}>释放</a>
+            {% endif %}
         {% endif %}
-    </h1>
-    {% if posts %}
-        {% include '_posts.html' %}
-        {% if pagination.pages > 1 %}
-            <div class="my-pagination">
-                {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
-                <form method="post" class="form" role="form">
-                    {{ form_jump.hidden_tag() }}
-                    {% set faction2 = current_user.wow_faction_en() %}
-                    <div class="form-group">{{ form_jump.page_num(class="page-num " + faction2) }}{{ form_jump.submit(class="jump " + faction2, disabled='disabled') }}</div>
-                </form>
-            </div>
+    </div>
+    {% if current_user.username == "丝黛拉苟萨" %}
+        <div hidden class="black-screen task"></div>
+        <div hidden class="kaelthas-ghost">
+            <img src="../static/wow/task/kaelthas2.png" alt="">
+            <div hidden class="kaelthas-lines"></div>
+        </div>
+        <audio class="ghost-state" src="../static/wow/sound/task/GhostState.ogg"></audio>
+        <audio class="kaelthas-death" src="../static/wow/sound/task/TEMPEST_Kael_Death02.ogg"></audio>
+    {% endif %}
+    {% if current_user.is_administrator() or user.username != "凯尔萨斯之魂" %}
+        <h1 class="str-inline">
+            {% if current_user == user %}
+                我的公告&ensp;<a href="{{ url_for('main.made_post') }}" class="fa fa-plus {{ faction1 }}"></a>
+            {% else %}
+                {{ user.username }} 的公告
+            {% endif %}
+        </h1>
+        {% if posts %}
+            {% include '_posts.html' %}
+            {% if pagination.pages > 1 %}
+                <div class="my-pagination">
+                    {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
+                    <form method="post" class="form" role="form">
+                        {{ form_jump.hidden_tag() }}
+                        {% set faction2 = current_user.wow_faction_en() %}
+                        <div class="form-group">{{ form_jump.page_num(class="page-num " + faction2) }}{{ form_jump.submit(class="jump " + faction2, disabled='disabled') }}</div>
+                    </form>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="no-pc">{% if user == current_user %}点击上方 + 发布公告。{% else %}尚未发布任何公告。{% endif %}</div>
         {% endif %}
-    {% else %}
-        <div class="no-pc">{% if user == current_user %}点击上方 + 发布公告。{% else %}尚未发布任何公告。{% endif %}</div>
     {% endif %}
 {% endblock %}
 
@@ -85,28 +106,95 @@
     {{ super() }}
     <script type=text/javascript>
         function follow_toggle() {
-            $.getJSON($SCRIPT_ROOT + '/follow-toggle', {
+            $.post($SCRIPT_ROOT + '/follow-toggle', {
                 id: {{ user.id }}
             }, function(data) {
                 $("#followers").text(data.result).attr('href', data.href);
                 $("#is_following").text(data.text);
                 if (data.text === '追随') {
                     $("#follow_icon").show();
-                    document.getElementById('avatar').show();
                 } else {
                     $("#follow_icon").hide();
                 }
             });
         }
         $(function () {
-            $('.gag-toggle').click(function () {
-                $.getJSON($SCRIPT_ROOT + '/gag-toggle', {
+           $('.gag-toggle').click(function () {
+                $.post($SCRIPT_ROOT + '/gag-toggle', {
                     id: {{ user.id }}
                 }, function(data) {
                     $('.gag-toggle').text(data.result).attr('class', data.text);
                 });
             });
-        })
+            $('.listen-kaelthas').click(function () {
+                $.post($SCRIPT_ROOT + '/listen-kaelthas', {
+                    id: {{ current_user.id }}
+                }, function(data) {
+                    if (data.result === 1){
+                        listen_kaelthas();
+                    }
+                });
+            });
+            $('.release-kaelthas').click(function () {
+                $.post($SCRIPT_ROOT + '/release-kaelthas', {
+                    id: {{ current_user.id }}
+                }, function(data) {
+                    if (data.result === 1){
+                        release_kaelthas();
+                    }
+                });
+            });
+            $('.to-blood-elf').click(function () {
+                layer.confirm('这件物品能够还原你的真实面貌。', {
+                    icon: 6,
+                    title: '丝黛拉苟萨的魔法棱镜',
+                    shadeClose: true,
+                    btn: ['使用','取消']
+                }, function (index) {
+                    layer.close(index);
+                    $.post($SCRIPT_ROOT + '/to-blood-elf', function() {
+                        location.href = '/user/丝黛拉苟萨';
+                    });
+                });
+            });
+        });
+        function listen_kaelthas() {
+            $('.kaelthas-lines').text('是你吗，吉安娜？');
+            step1();
+            setTimeout("step2()", 3000);
+            setTimeout("$('.kaelthas-ghost').fadeIn(3000)", 6000);
+            setTimeout("$('.kaelthas-lines').fadeIn(2000)", 8000);
+            setTimeout("$('.black-screen.task').fadeIn(3000)", 12000);
+            setTimeout("$('.kaelthas-ghost').fadeOut(3000)", 12000);
+            setTimeout("location.href = '/task'", 17000);
+        }
+        function release_kaelthas() {
+            $('.kaelthas-lines').text('谢谢你，陌生人。');
+            $('.kaelthas-death')[0].volume = 0.2;
+            step1();
+            setTimeout("step2()", 3000);
+            setTimeout("$('.kaelthas-ghost').fadeIn(3000)", 6000);
+            setTimeout("$('.kaelthas-lines').fadeIn(2000)", 8000);
+            setTimeout("$('.kaelthas-lines').fadeOut(3000)", 12000);
+            setTimeout("$('.kaelthas-ghost img').fadeOut(9000)", 13000);
+            setTimeout("$('.kaelthas-lines').text('为了...奎尔萨拉斯...')", 15000);
+            setTimeout("$('.kaelthas-lines').fadeIn(3000)", 15000);
+            setTimeout("$('.kaelthas-death')[0].play()", 16000);
+            setTimeout("$('.kaelthas-lines').fadeOut(3000)", 19000);
+            setTimeout("$('.black-screen.task').fadeIn(3000)", 22000);
+            setTimeout("location.href = '/task'", 27000);
+        }
+        function step1() {
+            $('.user-profile').fadeOut(3000);
+            $('.nav').fadeOut(3000);
+            $('.footer').hide();
+            $('.black-screen.task').fadeIn(3000);
+        }
+        function step2() {
+            $('.black-screen.task').fadeOut(6000);
+            $(".ghost-state")[0].play();
+            $('body').css({'background-image':"url('../static/wow/task/kaelthas-ghost.jpg')",'background-size':'cover'});
+        }
     </script>
     <script src="{{ url_for('static', filename='text_toggle.js') }}"></script>
     <script id="bg" src="{{ url_for('static', filename='bg.js') }}" arg="{{ current_user.wow_faction_en() }}"></script>

@@ -1,0 +1,279 @@
+body {
+    background-image: url("wow/race/blood-elf_LZH69W0TUN0K1472070088746.jpg");
+    background-size: cover;
+    cursor: url("wow/task/gloveCursor.png"), pointer;
+}
+
+.task-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px 0 200px;
+    height: 600px;
+}
+
+.task-npc {
+    width: 250px;
+    padding-top: 140px;
+    text-align: center;
+    position: relative;
+}
+
+.npc-head-img {
+    width: 56px;
+    position: absolute;
+    top: 50px;
+    left: 101px;
+    animation: up-down 0.5s infinite alternate ease-in-out;
+}
+
+@keyframes up-down {
+    100% {
+        top: 55px;
+    }
+}
+
+.npc-img {
+    width: 100%;
+}
+
+.npc-img.unableQuest-img:hover {
+    cursor: url("wow/task/dialogue.png"), pointer;
+}
+
+.npc-img.quest-img:hover {
+    cursor: url("wow/task/quest.png"), pointer;
+}
+
+.npc-img.questTurnIn-img:hover {
+    cursor: url("wow/task/questTurnIn.png"), pointer;
+}
+
+.npc-img.unableQuestTurnIn-img:hover {
+    cursor: url("wow/task/unableQuestTurnIn.png"), pointer;
+}
+.npc-lines {
+    left: 100%;
+    top: 35%;
+    border-radius: 10px;
+    padding: 15px 15px 15px 27px;
+    font-size: 20px;
+    position: absolute;
+    text-align: left;
+    color: #e6e5e3;
+    background-color: rgba(66, 66, 66, 0.3);
+}
+.npc-lines:before {
+    content:"";
+    border-width:10px 15px;
+    position:absolute;
+    top: 20%;
+    left: -30px;
+    border-style:solid;
+    border-color: transparent rgba(66, 66, 66, 0.3) transparent transparent;
+}
+.task-frame {
+    flex: none;
+    position: relative;
+    width: 382px;
+    height: 511px;
+    margin-top: 78px;
+    padding: 85px 75px 0 35px;
+    font-size: 12px;
+    color: #000000;
+    transform: scale(1.1);
+    background: url("wow/task/task-frame-left-top.png") left top no-repeat, url("wow/task/task-frame-right-top.png") right top no-repeat, url("wow/task/task-frame-left-bottom.png") left bottom no-repeat, url("wow/task/task-frame-right-bottom.png") right bottom no-repeat;
+}
+
+.task-frame > .npc-thumbnail {
+    position: absolute;
+    left: 0;
+    top: -13px;
+    width: 75px;
+    border-radius: 50%;
+}
+
+.task-frame > .task-thumbnail {
+    position: absolute;
+    left: 11px;
+    top: 9px;
+    width: 55px;
+    border-radius: 50%
+}
+
+.task-frame > .npc-name {
+    position: absolute;
+    left: 75px;
+    top: 23px;
+    color: #e6e5e3;
+    width: 250px;
+    text-align: center;
+}
+
+.task-frame > .silver-bar {
+    position: absolute;
+    left: 19px;
+    bottom: 72px;
+    width: 247px;
+    background-image: url("wow/task/bar.png");
+    height: 22px;
+    border-radius: 4px;
+}
+
+.silver-bar.right {
+    left: 100px;
+}
+
+.task-frame > .option {
+    position: absolute;
+    background-color: #680000;
+    color: #FFD700;
+    width: 73px;
+    height: 16px;
+    bottom: 75px;
+    border: none;
+    border-radius: 3px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.task-frame > .option:not(.silver):hover {
+    color: #e6e5e3;
+    background: -webkit-radial-gradient(#d00100, #680000);
+    background: -o-radial-gradient(#d00100, #680000);
+    background: -moz-radial-gradient(#d00100, #680000);
+    background: radial-gradient(#d00100, #680000);
+}
+
+.task-frame > .option.left {
+    left: 22px;
+}
+
+.task-frame > .option.left.silver {
+    background-image: url("wow/task/bar.png");
+    color: #5f5b5b;
+}
+
+.task-frame > .option.right {
+    right: 41px;
+}
+
+.task-content {
+    height: 280px;
+}
+
+.task-content p {
+    margin-top: 10px;
+}
+
+.task-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-pagination > div {
+    width: 35px;
+}
+
+.task-right-nav {
+    flex: none;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #e6e5e3;
+}
+
+.task-right-nav .fa-home {
+    margin: 20px 0 0 90px;
+    color: #c4c4c4;
+}
+
+.task-right-nav .fa-home:active,
+.task-right-nav .fa-home:hover {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.task-right-nav > div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.task-list {
+    position: relative;
+    margin-right: 20px;
+}
+
+.task-list > img {
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+}
+
+.backpack-icon {
+    position: relative;
+}
+
+.backpack-toggle > img {
+    position: absolute;
+    width: 39px;
+    left: 100%;
+    top: 0;
+}
+
+.backpack-frame {
+    position: absolute;
+    bottom: 100%;
+    right: -43px;
+}
+
+.close-frame {
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.close-task-frame {
+    top: 15px;
+    right: 25px;
+}
+
+.reward-title {
+    display: inline-block;
+    width: 118px;
+    line-height: 62px;
+    margin-left: -13px;
+    background: url("wow/task/reward-title.png") no-repeat;
+    padding-left: 22px;
+    color: #e6e5e3;
+}
+
+.letter-icon {
+    width: 41px;
+}
+
+.letter-icon.backpack-item {
+    width: 35px;
+    position: absolute;
+    left: 82px;
+    top: 66px;
+    height: 35px;
+}
+
+.letter-icon.backpack-item > img {
+    position: absolute;
+    width: 35px;
+}
+
+.letter-icon.backpack-item:hover {
+    cursor: url("wow/task/inspect.png"), pointer;
+}
+
+.close-frame > img:hover,
+.prev-page > img:hover,
+.next-page > img:hover,
+.task-list > img:hover,
+.backpack-toggle > img:hover {
+    opacity: 0.7;
+}

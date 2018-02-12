@@ -843,6 +843,21 @@ div.repatriate > div {
     margin-left: -11%;
     padding-left: 20px;
 }
+.promote-finish .sidailagousa .btn {
+    font-size: 17px;
+    width: 300px;
+    height: 68px;
+    margin-left: 0;
+    margin-top: 122px;
+    opacity: 0.3;
+    animation: glitter 0.7s infinite alternate linear;
+    box-shadow: 0 0 1px 1px pink;
+}
+@keyframes glitter {
+    100% {
+        box-shadow: 0 0 3px 3px pink;
+    }
+}
 .promote-finish .give-up {
     margin-left: 28%;
     padding-top: 16px;
@@ -864,6 +879,9 @@ div.repatriate > div {
     left: 10%;
     top: 25%;
     z-index: -1;
+    display: inline-block;
+    text-align: center;
+    width: 240px;
 }
 .promote-finish h4 {
     width: 50%;
@@ -1340,6 +1358,43 @@ ul.top10 span {
     font-size: 20px;
     color: #c4c4c4;
 }
+.black-screen.task{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+}
+.kaelthas-ghost {
+    position: absolute;
+    left: 200px;
+    top: 180px;
+    width: 330px;
+    height: 330px;
+}
+.kaelthas-ghost > img {
+    opacity: 0.6;
+}
+.kaelthas-lines {
+    left: 90%;
+    top: 20%;
+    border-radius: 10px;
+    width: 230px;
+    padding: 15px 15px 15px 27px;
+    font-size: 20px;
+    position: absolute;
+    text-align: left;
+    background-color: rgba(66, 66, 66, 0.71);
+}
+.kaelthas-lines:before {
+    content:"";
+    border-width:10px 15px;
+    position:absolute;
+    top: 20%;
+    left: -30px;
+    border-style:solid;
+    border-color: transparent rgba(66, 66, 66, 0.71) transparent transparent;
+}
 .no-content {
     border-radius: 10px;
     width: 228px;
@@ -1713,7 +1768,7 @@ td.row13 {
     margin-top: 30px;
     padding: 40px;
     border-top: 2px solid #808080;
-    background: url("../static/wow/bg/night_repeat.png");
+    background: url("wow/bg/night_repeat.png");
 }
 .footer div {
     margin-bottom: 10px;
@@ -1733,4 +1788,7 @@ td.row13 {
 }
 .abs-footer {
     height: 100px;
+}
+.layui-layer-content.layui-layer-padding {
+    color: #000000;
 }

@@ -66,7 +66,33 @@ class WowConfig:
         '联盟': ['列兵', '下士', '中士', '军士长', '士官长', '骑士', '骑士中尉', '骑士队长', '护卫骑士', '少校', '司令', '统帅', '元帅', '大元帅'],
         '部落': ['斥候', '步兵', '中士', '高阶军士', '一等军士长', '石头守卫', '血卫士', '军团士兵', '百夫长', '勇士', '中将', '将军', '督军', '高阶督军']
     }
-    server = ['万色星辰', '世界之树', '丹莫德', '主宰之剑', '丽丽（四川）', '亚雷戈斯', '亡语者', '伊兰尼库斯', '伊利丹', '伊森利恩', '伊森德雷', '伊瑟拉', '伊莫塔尔', '伊萨里奥斯', '元素之力', '克尔苏加德', '克洛玛古斯', '克苏恩', '兰娜瑟尔', '军团要塞', '冬寒', '冬拥湖', '冬泉谷', '冰川之拳', '冰霜之刃', '冰风岗', '凤凰之神', '凯尔萨斯', '凯恩血蹄', '刀塔', '利刃之拳', '刺骨利刃', '加兹鲁维', '加基森', '加尔', '加里索斯', '勇士岛', '千针石林', '卡德加', '卡德罗斯', '卡扎克', '卡拉赞', '卡珊德拉', '厄祖玛特', '双子峰', '古加尔', '古尔丹', '古拉巴什', '古达克', '哈兰', '哈卡', '嚎风峡湾', '回音山', '国王之谷', '图拉扬', '圣火神殿', '地狱之石', '地狱咆哮', '埃克索图斯', '埃加洛尔', '埃基尔松', '埃德萨拉', '埃苏雷格', '埃雷达尔', '埃霍恩', '基尔加丹', '基尔罗格', '塔伦米尔', '塔纳利斯', '塞拉摩', '塞拉赞恩', '塞泰克', '塞纳留斯', '壁炉谷', '夏维安', '外域', '大地之怒', '大漩涡', '天空之墙', '天谴之门', '太阳之井', '夺灵者', '奈法利安', '奈萨里奥', '奎尔丹纳斯', '奎尔萨拉斯', '奥妮克希亚', '奥尔加隆', '奥拉基尔', '奥斯里安', '奥杜尔', '奥特兰克', '奥蕾莉亚', '奥达曼', '奥金顿', '守护之剑', '安东尼达斯', '安其拉', '安加萨', '安威玛尔', '安戈洛', '安格博达', '安纳塞隆', '安苏', '密林游侠', '寒冰皇冠', '尘风峡谷', '屠魔山谷', '山丘之王', '巨龙之吼', '巫妖之王', '巴尔古恩', '巴瑟拉斯', '巴纳扎尔', '布兰卡德', '布莱克摩', '布莱恩', '布鲁塔卢斯', '希尔瓦娜斯', '希雷诺斯', '幽暗沼泽', '库尔提拉斯', '库德兰', '弗塞雷迦', '影之哀伤', '影牙要塞', '德拉诺', '恐怖图腾', '恶魔之翼', '恶魔之魂', '戈古纳斯', '戈提克', '战歌', '扎拉赞恩', '托塞德林', '托尔巴拉德', '拉文凯斯', '拉文霍德', '拉格纳罗斯', '拉贾克斯', '提尔之手', '提瑞斯法', '摩摩尔', '斩魔者', '斯克提斯', '斯坦索姆', '无尽之海', '无底海渊', '日落沼泽', '时光之穴', '普瑞斯托', '普罗德摩', '晴日峰（江苏）', '暗影之月', '暗影裂口', '暗影议会', '暗影迷宫', '暮色森林', '暴风祭坛', '月光林地', '月神殿', '末日祷告祭坛', '末日行者', '朵丹尼尔', '杜隆坦', '格瑞姆巴托', '格雷迈恩', '格鲁尔', '桑德兰', '梅尔加尼', '梦境之树', '森金', '死亡之翼', '死亡熔炉', '毁灭之锤', '永夜港', '永恒之井', '沃金', '沙怒', '法拉希姆', '泰兰德', '泰拉尔', '洛丹伦', '洛肯', '洛萨', '海克泰尔', '海加尔', '海达希亚', '深渊之喉', '深渊之巢', '激流之傲', '激流堡', '火喉', '火烟之谷', '火焰之树', '火羽山', '灰谷', '烈焰峰', '烈焰荆棘', '熊猫酒仙', '熔火之心', '熵魔', '燃烧之刃', '燃烧军团', '燃烧平原', '爱斯特纳', '狂热之刃', '狂风峭壁', '玛多兰', '玛法里奥', '玛洛加尔', '玛瑟里顿', '玛诺洛斯', '玛里苟斯', '瑞文戴尔', '瑟莱德丝', '瓦丝琪', '瓦拉斯塔兹', '瓦拉纳', '瓦里安', '瓦里玛萨斯', '甜水绿洲', '生态船', '白银之手', '白骨荒野', '盖斯', '石爪峰', '石锤', '破碎岭', '祖尔金', '祖达克', '祖阿曼', '神圣之歌', '穆戈尔', '符文图腾', '米奈希尔', '索拉丁', '索瑞森', '红云台地', '红龙军团', '红龙女王', '纳克萨玛斯', '纳沙塔尔', '织亡者', '罗宁', '罗曼斯', '羽月', '翡翠梦境', '耐奥祖', '耐普图隆', '耳语海岸', '能源舰', '自由之风', '艾森娜', '艾欧纳尔', '艾维娜', '艾苏恩', '艾莫莉丝', '艾萨拉', '艾露恩', '芬里斯', '苏塔恩', '苏拉玛', '范克里夫', '范达尔鹿盔', '荆棘谷', '莱索恩', '菲拉斯', '菲米丝', '萨尔', '萨格拉斯', '萨洛拉丝', '萨菲隆', '蓝龙军团', '藏宝海湾', '蜘蛛王国', '血吼', '血牙魔王', '血环', '血羽', '血色十字军', '血顶', '试炼之环', '诺兹多姆', '诺森德', '诺莫瑞根', '贫瘠之地', '踏梦者', '轻风之语', '辛达苟萨', '达克萨隆', '达基萨斯', '达尔坎', '达文格尔', '达斯雷玛', '达纳斯', '达隆米尔', '迅捷微风', '远古海滩', '迦拉克隆', '迦玛兰', '迦罗娜', '迦顿', '迪托马斯', '迪瑟洛克', '逐日者', '通灵学院', '遗忘海岸', '金度', '金色平原', '铜龙军团', '银月', '银松森林', '闪电之刃', '阿克蒙德', '阿努巴拉克', '阿卡玛', '阿古斯', '阿尔萨斯', '阿扎达斯', '阿拉希', '阿拉索', '阿斯塔洛', '阿曼尼', '阿格拉玛', '阿比迪斯', '阿纳克洛斯', '阿迦玛甘', '雏龙之翼', '雷克萨', '雷斧堡垒', '雷霆之怒', '雷霆之王', '雷霆号角', '霍格', '霜之哀伤', '霜狼', '风暴之怒', '风暴之眼', '风暴之鳞', '风暴峭壁', '风行者', '鬼雾峰', '鲜血熔炉', '鹰巢山', '麦姆', '麦维影歌', '麦迪文', '黄金之路', '黑手军团', '黑暗之矛', '黑暗之门', '黑暗虚空', '黑暗魅影', '黑石尖塔', '黑翼之巢', '黑铁', '黑锋哨站', '黑龙军团', '龙骨平原']
+    server = ['万色星辰', '世界之树', '丹莫德', '主宰之剑', '丽丽（四川）', '亚雷戈斯', '亡语者', '伊兰尼库斯', '伊利丹', '伊森利恩', '伊森德雷', '伊瑟拉', '伊莫塔尔',
+              '伊萨里奥斯', '元素之力', '克尔苏加德', '克洛玛古斯', '克苏恩', '兰娜瑟尔', '军团要塞', '冬寒', '冬拥湖', '冬泉谷', '冰川之拳', '冰霜之刃', '冰风岗',
+              '凤凰之神', '凯尔萨斯', '凯恩血蹄', '刀塔', '利刃之拳', '刺骨利刃', '加兹鲁维', '加基森', '加尔', '加里索斯', '勇士岛', '千针石林', '卡德加', '卡德罗斯',
+              '卡扎克', '卡拉赞', '卡珊德拉', '厄祖玛特', '双子峰', '古加尔', '古尔丹', '古拉巴什', '古达克', '哈兰', '哈卡', '嚎风峡湾', '回音山', '国王之谷',
+              '图拉扬', '圣火神殿', '地狱之石', '地狱咆哮', '埃克索图斯', '埃加洛尔', '埃基尔松', '埃德萨拉', '埃苏雷格', '埃雷达尔', '埃霍恩', '基尔加丹', '基尔罗格',
+              '塔伦米尔', '塔纳利斯', '塞拉摩', '塞拉赞恩', '塞泰克', '塞纳留斯', '壁炉谷', '夏维安', '外域', '大地之怒', '大漩涡', '天空之墙', '天谴之门', '太阳之井',
+              '夺灵者', '奈法利安', '奈萨里奥', '奎尔丹纳斯', '奎尔萨拉斯', '奥妮克希亚', '奥尔加隆', '奥拉基尔', '奥斯里安', '奥杜尔', '奥特兰克', '奥蕾莉亚', '奥达曼',
+              '奥金顿', '守护之剑', '安东尼达斯', '安其拉', '安加萨', '安威玛尔', '安戈洛', '安格博达', '安纳塞隆', '安苏', '密林游侠', '寒冰皇冠', '尘风峡谷', '屠魔山谷',
+              '山丘之王', '巨龙之吼', '巫妖之王', '巴尔古恩', '巴瑟拉斯', '巴纳扎尔', '布兰卡德', '布莱克摩', '布莱恩', '布鲁塔卢斯', '希尔瓦娜斯', '希雷诺斯', '幽暗沼泽',
+              '库尔提拉斯', '库德兰', '弗塞雷迦', '影之哀伤', '影牙要塞', '德拉诺', '恐怖图腾', '恶魔之翼', '恶魔之魂', '戈古纳斯', '戈提克', '战歌', '扎拉赞恩',
+              '托塞德林', '托尔巴拉德', '拉文凯斯', '拉文霍德', '拉格纳罗斯', '拉贾克斯', '提尔之手', '提瑞斯法', '摩摩尔', '斩魔者', '斯克提斯', '斯坦索姆', '无尽之海',
+              '无底海渊', '日落沼泽', '时光之穴', '普瑞斯托', '普罗德摩', '晴日峰（江苏）', '暗影之月', '暗影裂口', '暗影议会', '暗影迷宫', '暮色森林', '暴风祭坛', '月光林地',
+              '月神殿', '末日祷告祭坛', '末日行者', '朵丹尼尔', '杜隆坦', '格瑞姆巴托', '格雷迈恩', '格鲁尔', '桑德兰', '梅尔加尼', '梦境之树', '森金', '死亡之翼',
+              '死亡熔炉', '毁灭之锤', '永夜港', '永恒之井', '沃金', '沙怒', '法拉希姆', '泰兰德', '泰拉尔', '洛丹伦', '洛肯', '洛萨', '海克泰尔', '海加尔', '海达希亚',
+              '深渊之喉', '深渊之巢', '激流之傲', '激流堡', '火喉', '火烟之谷', '火焰之树', '火羽山', '灰谷', '烈焰峰', '烈焰荆棘', '熊猫酒仙', '熔火之心', '熵魔',
+              '燃烧之刃', '燃烧军团', '燃烧平原', '爱斯特纳', '狂热之刃', '狂风峭壁', '玛多兰', '玛法里奥', '玛洛加尔', '玛瑟里顿', '玛诺洛斯', '玛里苟斯', '瑞文戴尔',
+              '瑟莱德丝', '瓦丝琪', '瓦拉斯塔兹', '瓦拉纳', '瓦里安', '瓦里玛萨斯', '甜水绿洲', '生态船', '白银之手', '白骨荒野', '盖斯', '石爪峰', '石锤', '破碎岭',
+              '祖尔金', '祖达克', '祖阿曼', '神圣之歌', '穆戈尔', '符文图腾', '米奈希尔', '索拉丁', '索瑞森', '红云台地', '红龙军团', '红龙女王', '纳克萨玛斯', '纳沙塔尔',
+              '织亡者', '罗宁', '罗曼斯', '羽月', '翡翠梦境', '耐奥祖', '耐普图隆', '耳语海岸', '能源舰', '自由之风', '艾森娜', '艾欧纳尔', '艾维娜', '艾苏恩',
+              '艾莫莉丝', '艾萨拉', '艾露恩', '芬里斯', '苏塔恩', '苏拉玛', '范克里夫', '范达尔鹿盔', '荆棘谷', '莱索恩', '菲拉斯', '菲米丝', '萨尔', '萨格拉斯',
+              '萨洛拉丝', '萨菲隆', '蓝龙军团', '藏宝海湾', '蜘蛛王国', '血吼', '血牙魔王', '血环', '血羽', '血色十字军', '血顶', '试炼之环', '诺兹多姆', '诺森德',
+              '诺莫瑞根', '贫瘠之地', '踏梦者', '轻风之语', '辛达苟萨', '达克萨隆', '达基萨斯', '达尔坎', '达文格尔', '达斯雷玛', '达纳斯', '达隆米尔', '迅捷微风',
+              '远古海滩', '迦拉克隆', '迦玛兰', '迦罗娜', '迦顿', '迪托马斯', '迪瑟洛克', '逐日者', '通灵学院', '遗忘海岸', '金度', '金色平原', '铜龙军团', '银月',
+              '银松森林', '闪电之刃', '阿克蒙德', '阿努巴拉克', '阿卡玛', '阿古斯', '阿尔萨斯', '阿扎达斯', '阿拉希', '阿拉索', '阿斯塔洛', '阿曼尼', '阿格拉玛',
+              '阿比迪斯', '阿纳克洛斯', '阿迦玛甘', '雏龙之翼', '雷克萨', '雷斧堡垒', '雷霆之怒', '雷霆之王', '雷霆号角', '霍格', '霜之哀伤', '霜狼', '风暴之怒',
+              '风暴之眼', '风暴之鳞', '风暴峭壁', '风行者', '鬼雾峰', '鲜血熔炉', '鹰巢山', '麦姆', '麦维影歌', '麦迪文', '黄金之路', '黑手军团', '黑暗之矛', '黑暗之门',
+              '黑暗虚空', '黑暗魅影', '黑石尖塔', '黑翼之巢', '黑铁', '黑锋哨站', '黑龙军团', '龙骨平原']
 
     def random_player(self):
         wow_class = choice(self.classes)
@@ -102,7 +128,8 @@ class Role(db.Model):
         roles = {
             '盲语者': (Permission.FOLLOW, False),
             '民众': (Permission.FOLLOW | Permission.COMMENT | Permission.WRITE_ARTICLES, True),
-            '官员': (Permission.FOLLOW | Permission.COMMENT | Permission.WRITE_ARTICLES | Permission.MODERATE_COMMENTS, False),
+            '官员': (
+            Permission.FOLLOW | Permission.COMMENT | Permission.WRITE_ARTICLES | Permission.MODERATE_COMMENTS, False),
             '神': (0xff, False)
         }
         for r in roles:
@@ -123,9 +150,13 @@ class Follow(db.Model):
     @staticmethod
     def generate_fake(x=5, y=20):
         for user in User.query.all():
+            if user.username == '凯尔萨斯之魂':
+                continue
             for i in range(randint(x, y)):
                 num = randint(1, User.query.count())
                 u = User.query.get(num)
+                if u.username == '凯尔萨斯之魂':
+                    continue
                 if not user.is_following(u):
                     follow = Follow(follower=user, followed=u)
                     user.followed_count += 1
@@ -144,6 +175,7 @@ class User(db.Model, UserMixin):
     wow_class = db.Column(db.String())
     wow_avatar = db.Column(db.String())
     wow_title = db.Column(db.String())
+    taskStep = db.Column(db.Integer, default=0)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password_hash = db.Column(db.String(128))
@@ -162,7 +194,7 @@ class User(db.Model, UserMixin):
                                lazy='dynamic', cascade='all, delete-orphan')
     followed_count = db.Column(db.Integer, default=0, index=True)
     followers = db.relationship('Follow', foreign_keys=[Follow.followed_id],
-                               backref=db.backref('followed', lazy='joined'),
+                                backref=db.backref('followed', lazy='joined'),
                                 lazy='dynamic', cascade='all, delete-orphan')
     followers_count = db.Column(db.Integer, default=0, index=True)
     comments_like = db.relationship('Comment',
@@ -170,9 +202,9 @@ class User(db.Model, UserMixin):
                                     backref=db.backref('users_like', lazy='dynamic'),
                                     lazy='dynamic')
     posts_collected = db.relationship('Post',
-                                    secondary=users_collect_posts,
-                                    backref=db.backref('users_collect', lazy='dynamic'),
-                                    lazy='dynamic')
+                                      secondary=users_collect_posts,
+                                      backref=db.backref('users_collect', lazy='dynamic'),
+                                      lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -184,6 +216,17 @@ class User(db.Model, UserMixin):
         if self.email and not self.avatar_hash:
             self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
         self.followers.append(Follow(follower=self))
+        if self.username == '丝黛拉苟萨':
+            self.wow_title = '宅女'
+            self.location = '阿苏纳'
+            if not self.wow_faction:
+                self.wow_faction = '部落'
+                self.wow_race = '血精灵'
+                self.wow_class = '牧师'
+            else:
+                self.avatar = '../static/wow/task/sidailagousa.png'
+            if self.wow_race == '血精灵':
+                self.taskStep = 1
         if not self.wow_faction:
             self.wow_faction = '中立'
             self.wow_race = '食人魔'
@@ -193,7 +236,9 @@ class User(db.Model, UserMixin):
             self.wow_title = WowConfig.title[self.wow_faction][0]
         if not self.location:
             self.location = choice(WowConfig.server)
-        self.wow_avatar = '../static/wow/class/' + WowConfig.basic[self.wow_class][1] + '_Q.png'
+        if not self.wow_avatar:
+            self.wow_avatar = '../static/wow/class/' + WowConfig.basic[self.wow_class][1] + '_Q.png'
+
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -361,7 +406,7 @@ class User(db.Model, UserMixin):
 
     @property
     def posts_followed(self):
-        return Post.query.join(Follow, Follow.followed_id == Post.author_id)\
+        return Post.query.join(Follow, Follow.followed_id == Post.author_id) \
             .filter(Follow.follower_id == self.id)
 
     @staticmethod
@@ -407,6 +452,7 @@ class AnonymousUser(AnonymousUserMixin):
     def is_administrator():
         return False
 
+
 login_manager.anonymous_user = AnonymousUser
 
 
@@ -434,6 +480,8 @@ class Post(db.Model):
         user_count = User.query.count()
         for i in range(count):
             u = User.query.offset(randint(0, user_count - 1)).first()
+            if u.username == '凯尔萨斯之魂':
+                continue
             post = Post(body=forgery_py.lorem_ipsum.sentences(randint(5, 30)),
                         author=u)
             db.session.add(post)
@@ -467,6 +515,7 @@ class Post(db.Model):
             raise ValidationError('没有内容')
         return Post(body=body)
 
+
 db.event.listen(Post.body, 'set', Post.on_changed_body)
 
 
@@ -495,8 +544,11 @@ class Comment(db.Model):
         for post in Post.query.all():
             for i in range(randint(x, y)):
                 u = randint(1, User.query.count())
+                author = User.query.get(u)
+                if author.username == '凯尔萨斯之魂':
+                    continue
                 comment = Comment(body=forgery_py.lorem_ipsum.sentence(),
-                                  author=User.query.get(u),
+                                  author=author,
                                   post=post)
                 post.comments_count += 1
                 db.session.add(comment)
@@ -528,5 +580,6 @@ class Comment(db.Model):
         if not body or body == '':
             raise ValidationError('没有内容')
         return Comment(body=body)
+
 
 db.event.listen(Comment.body, 'set', Comment.on_changed_body)

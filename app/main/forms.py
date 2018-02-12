@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, TextAreaField, \
 from wtforms.validators import DataRequired, Length, Regexp, Email
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_pagedown.fields import PageDownField
+from flask_login import current_user
 from ..models import Role, User
 from flask import current_app
 
@@ -19,6 +20,10 @@ class CommentForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     avatar = FileField('更改头像')
+    username = StringField('角色名', validators=[DataRequired(),
+                                              Regexp(r'^[\u4E00-\u9FA5]{2,6}$|^[A-Za-z]{2,12}$', 0,
+                                                     '角色名为2~12位字母或2~6位汉字。')])
+    wow_title = StringField('头衔')
     location = StringField('服务器')
     about_me = TextAreaField('简介')
     submit = SubmitField('提交')
@@ -29,13 +34,18 @@ class EditProfileForm(FlaskForm):
                     not in current_app.config['ALLOWED_EXTENSIONS']:
                 raise ValidationError('确保文件后缀为其中之一：%s' % current_app.config['ALLOWED_EXTENSIONS'])
 
+    def validate_username(self, field):
+        if field.data != current_user.username and User.query.filter_by(username=field.data).first():
+            raise ValidationError('角色名已存在。')
+
 
 class EditProfileAdminForm(FlaskForm):
     confirmed = BooleanField('邮箱验证')
     role = SelectField('角色权限', coerce=int)
     email = StringField('邮箱', validators=[DataRequired(), Length(1, 64), Email()])
     username = StringField('角色名', validators=[DataRequired(),
-                Regexp(r'^[\u4E00-\u9FA5]{2,6}$|^[A-Za-z]{2,12}$', 0, '角色名为2~12位字母或2~6位汉字。')])
+                                              Regexp(r'^[\u4E00-\u9FA5]{2,6}$|^[A-Za-z]{2,12}$', 0,
+                                                     '角色名为2~12位字母或2~6位汉字。')])
     location = StringField('服务器')
     about_me = TextAreaField('简介')
     submit = SubmitField('确定')
@@ -72,3 +82,7 @@ class JumpForm(FlaskForm):
 class SearchForm(FlaskForm):
     keywords = StringField(validators=[DataRequired()])
     submit = SubmitField('查找')
+
+
+class SidailagousaForm(FlaskForm):
+    submit = SubmitField('小仙女才看得见我')

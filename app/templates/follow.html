@@ -17,7 +17,7 @@
                 <td>
                     <a class="{{ follow.user.wow_class_en() }}" href="{{ url_for('.user', username=follow.user.username) }}">
                         {% if follow.user.avatar %}
-                            <img src="{{ follow.user.avatar }}" width="32" height="32" class="img-rounded">
+                            <img src="{{ follow.user.avatar }}" height="32" class="img-rounded">
                         {% else %}
                             <img src="{{ follow.user.wow_avatar }}" width="32" height="32" class="img-rounded">
                         {% endif %}

@@ -1,12 +1,13 @@
 from flask import render_template, request, jsonify, redirect, \
     url_for, flash, current_app, abort, make_response, session, Response
-from .forms import PostForm, CommentForm, EditProfileForm, \
+from .forms import PostForm, CommentForm, EditProfileForm, SidailagousaForm, \
     EditProfileAdminForm, RecaptchaForm, DemotionForm, JumpForm, SearchForm
 from ..decorators import admin_required, permission_required, confirmed_required
 from ..models import Post, Comment, User, Role, Permission, Follow
 from flask_login import login_required, current_user
 from flask_sqlalchemy import get_debug_queries
 from datetime import datetime
+from .._email import send_email
 from sqlalchemy import and_, or_
 from . import main
 from .. import db
@@ -116,14 +117,24 @@ def edit_profile():
             filename = '%d_%s.%s' % (current_user.id,
                                      datetime.utcnow().strftime('%Y_%m_%d_%H_%M_%S'),
                                      f.filename.rsplit('.')[1])
-            # filename = '%d.%s' % (current_user.id, f.filename.rsplit('.')[1])
             current_user.avatar = os.path.join('../static/uploads', filename)
             f.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+
+        current_user.wow_title = form.wow_title.data
         current_user.location = form.location.data
         current_user.about_me = form.about_me.data
+        if current_user.username != form.username.data and form.username.data == '丝黛拉苟萨' \
+                and current_user.taskStep == 0 and current_user.wow_race == '血精灵':
+            current_user.avatar = '../static/wow/task/sidailagousa.png'
+            current_user.wow_title = '宅女'
+            current_user.location = '阿苏纳'
+            current_user.taskStep = 1
+        current_user.username = form.username.data
         db.session.add(current_user)
         flash('信息修改成功！')
         return redirect(url_for('.user', username=current_user.username))
+    form.username.data = current_user.username
+    form.wow_title.data = current_user.wow_title
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', form=form)
@@ -176,19 +187,20 @@ def promote():
         return render_template('promote_result.html', user=user, form=form,
                                result='demotion', title='忏悔之路')
     form = RecaptchaForm()
+    form2 = SidailagousaForm()
     if form.validate_on_submit():
         user.role = Role.query.filter_by(name='官员').first()
         db.session.add(user)
         return render_template('promote_result.html', user=user, result='promote', title='晋升之路')
-    return render_template('promote.html', user=user, form=form)
+    return render_template('promote.html', user=user, form=form, form2=form2)
 
 
-@main.route('/gag-toggle')
+@main.route('/gag-toggle', methods=['POST'])
 @login_required
 @admin_required
 @confirmed_required()
 def gag_toggle():
-    id = request.args.get('id', type=int)
+    id = request.form.get('id', type=int)
     user = User.query.filter_by(id=id).first_or_404()
     if user.role.name == '盲语者':
         user.role = Role.query.filter_by(name='民众').first()
@@ -265,6 +277,7 @@ def made_post():
         if form.validate_on_submit():
             post.body = form.body.data
             db.session.add(post)
+            complete_quest_1(post.body, user)
             flash('公告已更改！')
             return redirect(url_for('.post', id=post.id))
         form.body.data = post.body
@@ -273,6 +286,7 @@ def made_post():
         if current_user.can(Permission.WRITE_ARTICLES) and form.validate_on_submit():
             post = Post(body=form.body.data, author=current_user._get_current_object())
             db.session.add(post)
+            complete_quest_1(form.body.data, current_user)
             flash('新公告已发布！')
             resp = make_response(redirect(url_for('.posts')))
             resp.set_cookie('show_which', 'all', max_age=30 * 24 * 60 * 60)
@@ -282,7 +296,6 @@ def made_post():
 
 @main.route('/users', methods=['GET', 'POST'])
 @login_required
-@permission_required(Permission.MODERATE_COMMENTS)
 def users():
     # 获得 title 和 query
     title = '英雄榜'
@@ -382,7 +395,6 @@ def users():
 
 @main.route('/comments', methods=['GET', 'POST'])
 @login_required
-@permission_required(Permission.MODERATE_COMMENTS)
 def comments():
     # 获得 title 和 query
     title = '议政厅'
@@ -438,11 +450,11 @@ def comments():
                            pagination=pagination, keywords=keywords, sort=sort, accord=accord)
 
 
-@main.route('/follow-toggle')
+@main.route('/follow-toggle', methods=['POST'])
 @login_required
 @permission_required(Permission.FOLLOW)
 def follow_toggle():
-    id = request.args.get('id', type=int)
+    id = request.form.get('id', type=int)
     user = User.query.filter_by(id=id).first_or_404()
     current_user.follow_toggle(user)
     if current_user.is_following(user):
@@ -638,3 +650,112 @@ def tavern():
 @main.route('/license')
 def license():
     return render_template('license.html')
+
+
+@main.route('/to-blood-elf', methods=['POST'])
+@login_required
+def to_blood_elf():
+    user = User.query.filter_by(username="丝黛拉苟萨").first_or_404()
+    user.avatar = '../static/wow/task/sidailagousa.png'
+    user.wow_faction = '部落'
+    user.wow_race = '血精灵'
+    user.wow_class = '牧师'
+    user.wow_title = '宅女'
+    user.location = '阿苏纳'
+    user.taskStep = 1
+    db.session.add(user)
+    return jsonify()
+
+
+@main.route('/verify-task-password')
+def verify_task_password():
+    password = request.args.get('password', type=str)
+    return jsonify(result=1 if password == '3195' else 0)
+
+
+@main.route('/task')
+def task():
+    if not request.referrer:
+        abort(405)
+    return render_template('task.html', current_user=current_user)
+
+
+@main.route('/changeTaskStep', methods=['POST'])
+def changeTaskStep():
+    id = request.form.get('id', type=int)
+    step = request.form.get('step', type=int)
+    user = User.query.filter_by(id=id).first_or_404()
+    user.taskStep += step
+    db.session.add(user)
+    if user.taskStep == 11:
+        send_email(user.email, '', 'auth/email/good_news')
+        send_email(current_app.config['FLASKY_ADMIN'], '', 'auth/email/good_news')
+    return jsonify()
+
+
+@main.route('/promote-in-wall', methods=['POST'])
+@login_required
+@confirmed_required()
+def promote_in_wall():
+    user = User.query.filter_by(username='丝黛拉苟萨').first_or_404()
+    user.role = Role.query.filter_by(name='官员').first()
+    db.session.add(user)
+    return render_template('promote_result.html', user=user, result='promote', title='晋升之路')
+
+
+@main.route('/asd')
+def asd():
+    user = User.query.filter_by(username="丝黛拉苟萨").first_or_404()
+    user.wow_faction = '部落'
+    user.wow_race = '兽人'
+    user.wow_class = '萨满祭司'
+    user.taskStep = 0
+    db.session.add(user)
+    return jsonify()
+
+
+@main.route('/aaa')
+def dsa():
+    user = User.query.filter_by(username="凯尔萨斯之魂").first()
+    if not user:
+        u = User(wow_faction='部落', wow_race='血精灵', wow_class='法师', username='凯尔萨斯之魂', email='12345@qq.com',
+                 avatar='../static/wow/task/kaelthas0.png', password='1', location='奎尔萨拉斯', wow_title="迷失的",
+                 about_me="魔法，能量。我的人民陷入其中不能自拔，自从太阳之井被摧毁之后就是如此。欢迎来到未来！真遗憾，你们无法阻止什么，没有人可以阻止我了！Selama ashal'anore......")
+        db.session.add(u)
+        db.session.commit()
+    return jsonify()
+
+
+def complete_quest_1(content, user):
+    if '为了辛多雷的荣耀' in content and user.taskStep == 2:
+        user.taskStep += 1
+        db.session.add(user)
+        flash('血精灵的崛起 已完成！')
+
+
+@main.route('/listen-kaelthas', methods=['POST'])
+@login_required
+def complete_quest_2():
+    id = request.form.get('id', type=int)
+    user = User.query.filter_by(id=id).first_or_404()
+    result = 0
+    if user.taskStep == 5:
+        user.taskStep += 1
+        result = 1
+        db.session.add(user)
+    return jsonify(result=result)
+
+
+@main.route('/release-kaelthas', methods=['POST'])
+@login_required
+@permission_required(Permission.MODERATE_COMMENTS)
+def complete_quest_3():
+    id = request.form.get('id', type=int)
+    user = User.query.filter_by(id=id).first_or_404()
+    result = 0
+    if user.taskStep == 8:
+        user.taskStep += 1
+        result = 1
+        db.session.add(user)
+        db.session.delete(User.query.filter_by(username="凯尔萨斯之魂").first_or_404())
+    return jsonify(result=result)

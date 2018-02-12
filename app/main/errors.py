@@ -8,7 +8,7 @@ def page_not_found(e):
         response = jsonify({"error": '4030303030303'})
         response.status_code = 403
         return response
-    return render_template('404.html'), 403
+    return render_template('403.html'), 403
 
 
 @main.app_errorhandler(404)

@@ -1,7 +1,9 @@
 import os
+
 CDV = None
 if os.environ.get('FLASK_COVERAGE'):
     import coverage
+
     CDV = coverage.coverage(branch=True, include='app/*')
     CDV.start()
 
@@ -21,6 +23,7 @@ from app.models import User, Role, Post, Comment, Follow
 def make_shell_context():
     return {'app': app, 'db': db, 'User': User, 'Follow': Follow,
             'Role': Role, 'Post': Post, 'Comment': Comment}
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
@@ -56,7 +59,7 @@ def test(coverage=False):
         basedir = os.path.abspath(os.path.dirname(__file__))
         covdir = os.path.join(basedir, 'tmp/coverage')
         CDV.html_report(directory=covdir)
-        print('HTML version: file://%s/index.html' %covdir)
+        print('HTML version: file://%s/index.html' % covdir)
         CDV.erase()
 
 
@@ -89,14 +92,23 @@ def reset():
     print('生成我...')
     u = User(wow_faction='联盟', wow_race='暗夜精灵', wow_class='德鲁伊', username='Yiz', email='562124140@qq.com', password='1',
              confirmed=True, wow_title='野蛮角斗士', location='试炼之环', about_me='非著名猫德')
-    u2 = User(wow_faction='部落', wow_race='兽人', wow_class='萨满祭司', username='萨尔', email='181826029@qq.com', password='1',
-              role=Role.query.filter_by(name='官员').first(), confirmed=True, wow_title='神出鬼没的', location='奥格瑞玛', about_me='部落精神领袖，世界萨')
+    # u2 = User(wow_faction='部落', wow_race='血精灵', wow_title="宅女", wow_class='牧师', username='丝黛拉苟萨',
+    #           email='181826029@qq.com', password='1', confirmed=True, avatar='../static/wow/task/sidailagousa.png')
+    # u2 = User(wow_faction='部落', wow_race='兽人', wow_class='萨满祭司', username='萨尔', email='181826029@qq.com', password='1',
+    #           role=Role.query.filter_by(name='官员').first(), confirmed=True, wow_title='神出鬼没的', location='奥格瑞玛',
+    #           about_me='部落精神领袖，世界萨')
     u3 = User(username='冬泉信使', email='freyizg@gmail.com', password='1',
               role=Role.query.filter_by(name='官员').first(), confirmed=True, location='冬泉谷', about_me='这封信上写的什么？')
-    db.session.add_all((u, u2, u3))
+    db.session.add_all((u, u3))
     db.session.commit()
     print('生成小弟...')
-    User.generate_fake(200)
+    User.generate_fake(100)
+    u = User(wow_faction='部落', wow_race='血精灵', wow_class='法师', username='凯尔萨斯之魂', email='12345@qq.com',
+             avatar='../static/wow/task/kaelthas0.png', password='1', location='奎尔萨拉斯', wow_title="迷失的",
+             about_me="魔法，能量。我的人民陷入其中不能自拔，自从太阳之井被摧毁之后就是如此。欢迎来到未来！真遗憾，你们无法阻止什么，没有人可以阻止我了！Selama ashal'anore......")
+    db.session.add(u)
+    db.session.commit()
+    User.generate_fake(100)
     print('生成文章...')
     Post.generate_fake(200)
     print('生成评论...')
@@ -111,6 +123,8 @@ def reset():
         for i in range(1000):
             u = User.query.get(randint(1, User.query.count()))
             u2 = User.query.get(randint(1, User.query.count()))
+            if u.username == '凯尔萨斯之魂' or u2.username == '凯尔萨斯之魂':
+                continue
             c = Comment.query.get(randint(1, Comment.query.count()))
             p = Post.query.get(randint(1, Post.query.count()))
             if c not in u.comments_like:
@@ -128,6 +142,7 @@ def reset():
     generate_likes_and_collections()
     print('重置数据库完成，谢谢使用!')
     quit()
+
 
 if __name__ == '__main__':
     manager.run()
