@@ -67,7 +67,7 @@ app.controller("task", function ($scope, $http) {
         // 中途改名的情况
         if ( username !== '丝黛拉苟萨' && curr_step !== 0) {
             $('.npc-sound').attr('src', '../static/wow/sound/FX_OGRaid_Siege_WeaponMachine_Warning.ogg');
-            layer.msg('警报！非法入侵者！警报！');
+            layer.msg('警报！警报！非法入侵者！警报！');
             return;
         }
         if (mode === 'letterMode' && curr_step !== 10) {

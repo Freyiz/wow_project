@@ -15,7 +15,6 @@ def send_email(to, subject, template, **kwargs):
     sender = app.config['FLASKY_MAIL_SENDER']
     if template == 'auth/email/good_news':
         subject = '[丝黛拉苟萨的小屋]'
-        sender = '虚空领主 <562124140@qq.com>'
     msg = Message(subject, sender=sender, recipients=[to])
     msg.body = render_template(template + '.txt', **kwargs)
     msg.html = render_template(template + '.html', **kwargs)
