@@ -1,3 +1,5 @@
+* 此项目迁移自smaller_project
+
 2017-04-08 (1a)
 * 利用数据库 SQLAlchemy 建立表 Role, User。
 * 合理化项目结构，添加蓝图。
