@@ -1,4 +1,6 @@
-> 此项目迁移自smaller_project
+基于Python + Flask搭建的个人博客，具备注册、(社交账号)登录、发表文章、评论、点赞、收藏等功能。
+
+此项目迁移自smaller_project。
 
 2017-04-08 (1a)
 * 利用数据库 SQLAlchemy 建立表 Role, User。
