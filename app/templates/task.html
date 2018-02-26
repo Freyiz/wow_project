@@ -1,0 +1,190 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}丝黛拉苟萨的小屋{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='font_awesome/css/font-awesome.min.css') }}">
+    <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font_awesome/css/font-awesome-ie7.min.css') }}">
+    <![endif]-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='wow/logo/wow-inverse.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='task.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="task-body" ng-controller="task" ng-app="myApp">
+        <div class="task-npc" hidden="true">
+            <img class="npc-head-img" alt=""><br>
+            <img ng-click="taskFrameToggle('npcMode')" class="npc-img" src="../static/wow/race/blood-elf.png" alt="">
+            <div hidden class="npc-lines"></div>
+        </div>
+        <div class="task-frame" hidden="true" ng-show="taskFrameOpen">
+            <img ng-if="npcMode" class="npc-thumbnail" src="../static/wow/race/blood-elf_icon.png" alt="">
+            <img ng-if="taskMode" class="task-thumbnail" src="../static/wow/task/task-thumbnail.png" alt="">
+            <img ng-if="letterMode" class="task-thumbnail" src="../static/wow/class/druid_Q.png" alt="">
+            <div ng-bind="taskTitle" class="npc-name"></div>
+            <a class="close-task-frame close-frame">
+                <img ng-click="closeTaskFrame()" src="../static/wow/task/close.png" alt="">
+            </a>
+            <div ng-if="!leftOption" class="left silver-bar"></div>
+            <div ng-if="!rightOption" class="right silver-bar"></div>
+            <div ng-show="leftOption" ng-bind="leftOption" ng-click="leftDisabled||chooseLeftOption()"
+                 class="left option"></div>
+            <div ng-show="rightOption" ng-bind="rightOption" ng-click="closeTaskFrame()" class="right option"></div>
+            <div class="task-content">
+                <div ng-if="taskStep==0||taskStep>9"><p ng-bind="welcome"></p></div>
+                <div ng-if="taskMode&&(taskStep<=1||taskStep==4||taskStep==7||taskStep==10)">
+                    <p>没有进行中的任务。</p>
+                </div>
+                <div ng-if="taskMode&&(taskStep==3||taskStep==6||taskStep==9)">
+                    <p>与女伯爵莉娅德琳交谈完成任务。</p>
+                </div>
+            {% if current_user.taskStep==1 or current_user.taskStep==2  %}
+                <div ng-if="(npcMode && taskStep == 1) || (taskMode && taskStep == 2)">
+                    <div ng-if="currPage==1">
+                        <h4>血精灵的崛起</h4>
+                        <p>数万年前，卡利姆多的黑暗巨魔依靠永恒之井的能量进化为卡多雷，即暗夜精灵。但由于精灵女王艾萨拉及上层精灵对奥术魔法的滥用，导致了燃烧军团的入侵和永恒之井的爆炸。
+                            <br><br>女王及部分上层精灵被大爆炸卷入海底，受到上古之神的祝福变成了娜迦；另一部分以女王首席顾问哈维斯为首的上层精灵加入了燃烧军团，受邪能腐化进化为萨特；还有一部分以达斯雷玛为代表的上层精灵渡过无尽之海抵达东部王国，建立了伟大的奎尔萨拉斯帝国并自称为高等精灵；剩余的下层民众则继承了暗夜精灵的身份。
+                            <br><br>几千年后，邪恶王子阿尔萨斯带领天灾军团发动了
+                        </p>
+                    </div>
+                    <div ng-if="currPage==2">
+                        <p>
+                            对奎尔萨拉斯的入侵，屠杀了大部分高等精灵，包括国王阿纳斯塔里安·逐日者。当皇室血脉的最后继承者凯尔萨斯王子从达拉然赶回家乡后，聚集起最后的幸存者，将种族改名为辛多雷，即血精灵，以纪念在天灾入侵中受难的同胞。
+                            <br><br>现在，血精灵正逐渐恢复往日的辉煌。虽然天灾军团曾攻破我们的城门，联盟曾否决过我们，对于魔法的渴望时刻折磨着我们，甚至连凯尔萨斯王子都陷入了疯狂，但是我们绝不会投降，胜利就在眼前！而你，作为血精灵的一员，需要时刻牢记种族的历史与自身的使命！
+                        </p>
+                        <h4>任务目标</h4>
+                        <p>发表一篇公告，内容：为了辛多雷的荣耀！</p>
+                    </div>
+                </div>
+                <div ng-if="npcMode&&taskStep==2">
+                    <h4>血精灵的崛起</h4>
+                    <p>你发表公告了吗？</p>
+                </div>
+            {% endif %}
+            {% if current_user.taskStep==3 or current_user.taskStep==4 or current_user.taskStep==5 %}
+                <div ng-if="npcMode&&taskStep==3">
+                    <h4>血精灵的崛起</h4>
+                    <p>部落听到了你的声音，血精灵以你为荣!</p>
+                </div>
+                <div ng-if="(npcMode && taskStep == 4) || (taskMode && taskStep == 5)">
+                    <h4>凯尔萨斯之魂</h4>
+                    <p>还记得凯尔萨斯王子吗？
+                        <br><br>在被基尔加丹复活后，迷失的王子企图利用太阳之井的力量召唤基尔加丹，希望为族人带来“新生”。然而他最终因此殒命故土，基尔加丹也被送回了扭曲虚空。
+                        <br><br>现在，虽然王子的肉身已不复存在，但血精灵永远会记得他为族人所作出的牺牲！
+                        <br><br>传闻王子的最后一缕魂魄还残留在奎尔萨拉斯，弄清楚这件事情然后向我汇报。
+                    </p>
+                    <h4>任务目标</h4>
+                    <p>找到用户“凯尔萨斯之魂”并聆听它。</p>
+                </div>
+                <div ng-if="npcMode&&taskStep==5">
+                    <h4>凯尔萨斯之魂</h4>
+                    <p>必须尽快找到凯尔萨斯王子的魂魄！</p>
+                </div>
+            {% endif %}
+            {% if current_user.taskStep==6 or current_user.taskStep==7 or current_user.taskStep==8 %}
+                <div ng-if="npcMode&&taskStep==6">
+                    <h4>凯尔萨斯之魂</h4>
+                    <p>你找到了王子的魂魄，丝黛拉苟萨，真让人欣慰。
+                        <br><br>看来王子仍然难以放下过去发生的一些事情，我们必须做点什么！</p>
+                </div>
+                <div ng-if="(npcMode && taskStep == 7) || (taskMode && taskStep == 8)">
+                    <h4>安息吧，王子</h4>
+                    <p>可怜的王子...是时候它安息了。
+                        <br><br>丝黛拉苟萨，你可以再去找一趟王子的魂魄，并释放掉它吗？
+                        <br><br>不过，在这之前，你需要通过晋升来获得释放凯尔萨斯之魂的能力。
+                    </p>
+                    <h4>任务目标</h4>
+                    <p>完成晋升并释放凯尔萨斯之魂。</p>
+                </div>
+                <div ng-if="npcMode&&taskStep==8">
+                    <h4>安息吧，王子</h4>
+                    <p>别忘了先通过晋升！</p>
+                </div>
+            {% endif %}
+            {% if current_user.taskStep==9 or current_user.taskStep==10 or current_user.taskStep==11 %}
+                <div ng-if="npcMode&&taskStep==9">
+                    <h4>安息吧，王子</h4>
+                    <p>凯尔萨斯吾王，肉体虽灭，精神永存！
+                        <br><br>Selama ashal'anore！
+                        <br><br>对了，有人让我把这封信转交给你，拆开看看吧。
+                    </p>
+                    <h4>奖励</h4>
+                    <p>获得物品：
+                        <br><img class="letter-icon" src="../static/wow/task/letter-icon.png" alt="" title="褶皱的信件">
+                        <span class="reward-title">褶皱的信件</span>
+                    </p>
+                </div>
+                <div ng-if="letterMode&&taskStep==10||taskMode&&taskStep==11">
+                    <div>
+                        <p>(由于年代久远，信中的字迹早已难以辨认...)</p>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+            <div ng-if="pageCount>1" class="task-pagination">
+                <div class="prev-page">
+                    <img ng-if="currPage!=1" ng-click="toPrevPage()" src="../static/wow/task/prev.png" alt="">
+                </div>
+                <div><span ng-bind="currPage"></span>/<span ng-bind="pageCount"></span></div>
+                <div class="next-page">
+                    <img ng-if="currPage!=pageCount" ng-click="toNextPage()" src="../static/wow/task/next.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="task-right-nav" style="display: none">
+            <a class="fa fa-home fa-2x" href="{{ url_for('.index') }}"></a>
+            {% if current_user.is_administrator() %}
+                <div style="color: #b416da">
+                    <button ng-click="asd()">重置小仙女</button>
+                    <button ng-click="dsa()">复活凯尔萨斯</button>
+                </div>
+            {% endif %}
+            <div>
+                <div class="task-list">任务 <br><span ng-bind="taskCount"></span>/1
+                    <img ng-click="taskFrameToggle('taskMode')" src="../static/wow/task/task-icon.png" alt="">
+                </div>
+                <div class="backpack-icon">
+                    <div class="backpack-toggle">行囊 <br><span ng-bind="backpackItemCount"></span>/16
+                        <img ng-click="backpackToggle()" src="../static/wow/task/backpack-icon.png" alt="">
+                    </div>
+                    <div ng-if="backpackOpen" class="backpack-frame">
+                        <a class="close-backpack-frame close-frame">
+                            <img ng-click="backpackToggle()" src="../static/wow/task/close.png" alt="">
+                        </a>
+                        <div ng-if="taskStep>9" ng-click="taskFrameToggle('letterMode')"
+                             class="letter-icon backpack-item" title="褶皱的信件">
+                            <img src="../static/wow/task/letter-icon.png" alt="">
+                            <img ng-if="taskStep==10" src="../static/wow/task/questBang.png" alt="">
+                        </div>
+                        <img src="../static/wow/task/backpack-frame-16.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <audio class="background-music" autoplay></audio>
+        <audio class="npc-sound" autoplay></audio>
+        <audio class="pagination-sound" src="../static/wow/sound/uMiniMapZoom.ogg"></audio>
+        <audio class="questActivate" src="../static/wow/sound/iQuestActivate.ogg"></audio>
+        <audio class="questComplete" src="../static/wow/sound/iQuestComplete.ogg"></audio>
+        <audio class="questFailed" src="../static/wow/sound/igQuestFailed.ogg"></audio>
+        <audio class="error" src="../static/wow/sound/Error.ogg"></audio>
+        <audio ng-if="taskFrameOpen==1" src="../static/wow/sound/iQuestLogOpenA.ogg" autoplay></audio>
+        <audio ng-if="taskFrameOpen==0" src="../static/wow/sound/iQuestLogCloseA.ogg" autoplay></audio>
+        <audio ng-if="backpackOpen==1" src="../static/wow/sound/iEquipmentContainerOpenA.ogg"
+               autoplay></audio>
+        <audio ng-if="backpackOpen==0" src="../static/wow/sound/iEquipmentContainerCloseA.ogg"
+               autoplay></audio>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='layer/layer.js') }}"></script>
+    <script id="task" src="{{ url_for('static', filename='task.js') }}" user_id="{{ current_user.id }}"
+            username="{{ current_user.username }}" wow_race="{{ current_user.wow_race }}"
+            taskStep="{{ current_user.taskStep }}"></script>
+{% endblock %}
